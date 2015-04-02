@@ -1,0 +1,5477 @@
+set sock_flag 0
+set passwd [exec getdbpasswd db2 db2inst1 jxcrm]
+set conn_str "statdb db2inst1 jxstatdb"
+
+###########A05001##########################
+#######  A05001 接口集合 #################################################################################################
+
+############################### 1.  gsmnew_transform  #######################
+set begin_port {19500}
+
+set server_num(gsmnew_transform) 10
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(gsmnew_transform) {61 | {cdr_call_yyyymmdd_1000 cdr_newbusi_ds_1402 cdr_newbusi_ds_1403 cdr_newbusi_ds_1405 cdr_newbusi_ds_1406 cdr_newbusi_ds_1407 cdr_comp_call_ds_1311 cdr_comp_call_ds_1411 cdr_comp_call_ds_1511}}
+
+##########################################################################
+#set destfile(file_name) {field_num     delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_call_yyyymmdd_1000) {69 \t 0 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+ 
+
+set col(cdr_call_yyyymmdd_1000) {
+        {1 NULL 0 0 NULL}
+        {2 51 NULL 0 NULL}
+        {3 2 NULL 0 NULL}
+        {4 3 NULL 0 NULL}
+        {5 4 0 0 call_type_new}
+        {6 6 NULL 0 NULL}
+        {7 7 NULL 6(3) NULL}
+        {8 8 NULL 0 NULL}
+        {9 8 NULL 1 NULL}
+        {10 45 NULL 1000 NULL}
+        {11 26 NULL 17(1000) NULL}
+        {12 27,28 NULL 4(1)|17(1000) NULL}
+        {13 29 NULL 17(1000) NULL}
+        {14 19 NULL 0 NULL}
+        {15 NULL 0 0 NULL}
+        {16 20 NULL 0 NULL}
+        {17 24 0 0 map_call_roamtype_new}
+        {18 5 0 0 cdrbrand_new}
+        {19 47 NULL 0 NULL}
+        {20 50 0 0 callfwtype}
+        {21 17 NULL 0 NULL}
+        {22 18 NULL 0 NULL}
+        {23 25 0 0 cdrtoll_new}
+        {24 21 2 0 map_pub_operator_new}
+        {25 21 NULL 0 NULL}
+        {26 6,22 NULL 2 NULL}
+        {27 22 NULL 0 NULL}
+        {28 23 NULL 0 NULL}
+        {29 26,27,28,29 NULL 4(0) NULL}
+        {30 6,26,27,28,29 NULL 25 prod_id}
+        {31  NULL 0 0 NULL}
+        {32 7 NULL 6(3)|5 NULL}
+        {33 7 NULL 6(3)|42(0) NULL}
+        {34 NULL 0 0 NULL}
+        {35 32 NULL 17(1000) NULL}
+        {36 33,34,35 NULL 4(1)|17(1000) NULL}
+        {37 NULL NULL 0 NULL} 
+        {38 30 0 0 NULL}
+        {39 10 NULL 0 NULL}
+        {40 11 NULL 0 NULL}
+        {41 12 NULL 16(1,4) NULL}
+        {42 15 NULL 0 NULL}
+        {43 16 NULL 0 NULL}
+        {44 1 NULL 0 NULL}
+        {45 13 NULL 1000 NULL}
+        {46 NULL 0 0 NULL}
+        {47 48 NULL 6(3) NULL}
+        {48 NULL 0 0 NULL}
+        {49 NULL 0 0 NULL}
+        {50 38 NULL 17(1000) NULL}
+        {51 39,40 NULL 4(1)|17(1000) NULL}
+        {52 41 NULL 17(1000) NULL}
+        {53 43 NULL 0 NULL}
+        {54 6,22 NULL 201|14(3) map_call_opposite}
+        {55 31 NULL 0 NULL}
+        {56 5 NULL 0 NULL}
+        {57 22 NULL 0 map_area_prov_new}
+        {58 46 NULL 0 NULL}
+        {59 49 NULL 0 NULL}
+        {60 49 0 0 map_vpn_qin_v15}
+        {61 52 NULL 16(1,8) NULL}
+        {62 53 NULL 0 NULL}
+        {63 54 NULL 0 NULL}
+        {64 55 NULL 0 NULL}
+        {65 56 NULL 0 NULL}
+        {66 57 NULL 0 NULL}
+        {67 58 NULL 0 NULL}
+        {68 60 NULL 0 NULL}
+        {69 61 NULL 0 NULL}
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+set filter(0) {
+}
+
+
+##xm# ############################### GSM语音清单A05001 的配置 #######################
+##xm# set begin_port {29100}
+##xm# 
+##xm# set server_num(newbusigsmzzp_transform) 5
+##xm# 
+##xm# 
+##xm# ##########################################################################
+##xm# #Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+##xm# #             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##xm# ##########################################################################
+##xm# 
+##xm# set srcfile(newbusigsmzzp_transform) {51 | {cdr_newbusi_ds_1400}}
+##xm# 
+##xm# ##########################################################################
+##xm# #set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+##xm# #            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##xm# ##########################################################################
+##xm# 
+##xm# set destfile(cdr_newbusi_ds_1400) {31 \t 1400 0 NULL}
+##xm# 
+##xm# ##########################################################################
+##xm# #set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+##xm# #       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+##xm# #}
+##xm# ##########################################################################
+##xm# # 
+##xm# set col(cdr_newbusi_ds_1400) {
+##xm# 	{1 NULL NULL 12 NULL}
+##xm# 	{2 NULL 0 0 NULL}
+##xm# 	{3 51 NULL 0 NULL}
+##xm# 	{4 2 NULL 0 NULL}
+##xm# 	{5 4 0 0 call_type_new}
+##xm# 	{6 8 NULL 0 NULL}
+##xm# 	{7 44 NULL 0 NULL}
+##xm# 	{8 26 NULL 17(1000) NULL}
+##xm# 	{9 27,28 NULL 4(1)|17(1000) NULL}
+##xm# 	{10 29 NULL 17(1000) NULL}
+##xm# 	{11 19 NULL 0 NULL} 
+##xm# 	{12 NULL 0 0 NULL}
+##xm# 	{13 24 0 0 map_call_roamtype_new}
+##xm# 	{14 5 0 0 cdrbrand_new}
+##xm# 	{15 47 NULL 0 NULL}
+##xm# 	{16 46 NULL 0 NULL}
+##xm# 	{17 18 NULL 0 NULL}
+##xm# 	{18 6,22 0 2|14(3) newitem_id}
+##xm# 	{19 25 0 0 cdrtoll_new}
+##xm# 	{20 21 2 0 map_pub_operator_new} 
+##xm# 	{21 21 NULL 0 NULL}
+##xm# 	{22 6,22 NULL 2 NULL} 
+##xm# 	{23 26,27,28,29 NULL 4(0) NULL}
+##xm# 	{24 6,26,27,28,29 NULL 25 prod_id}
+##xm# 	{25 25 NULL 0 NULL}
+##xm# 	{26 7 NULL 6(3)|5 NULL}
+##xm# 	{27 7 NULL 6(3)|42(0) NULL}
+##xm# 	{28 36 NULL 0 NULL}
+##xm# 	{29 32,33 NULL 4(1)|17(1000) NULL}
+##xm# 	{30 34,35 NULL 4(1)|17(1000) NULL}
+##xm# 	{31 1 NULL 0 NULL}
+##xm# }
+##xm# ##########################################################################
+##xm# #set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+##xm# #           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##xm# ##########################################################################
+##xm# 
+##xm# set filter(1400) {
+##xm# 	{& 2|14(3) 6,22 1 0 opp_dn 0}
+##xm# 	{& 0 4 0 0 2,3 1}
+##xm# }
+##xm# 
+
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_newbusi_ds_1402) {33 \t 1402 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+set col(cdr_newbusi_ds_1402) {			
+	{1 NULL NULL 12 NULL}			
+	{2 NULL 0 0 NULL}                       
+	{3 51 NULL 0 NULL}                       
+	{4 2 NULL 0 NULL}                 
+	{5 4 NULL 0 call_type_new}              
+	{6 8 NULL 0 NULL}                 
+	{7 44 NULL 0 NULL}                      
+	{8 26 NULL 17(1000) NULL}               
+	{9 27,28 NULL 4(1)|17(1000) NULL}               
+	{10 29 NULL 17(1000) NULL}      
+	{11 19 NULL 0 NULL}            
+	{12 NULL 0 0 NULL}                     
+	{13 24 0 0 map_call_roamtype_new}                     
+	{14 5 0 0 cdrbrand_new}                      
+	{15 47 NULL 0 NULL}                     
+	{16 46 NULL 0 NULL}                     
+	{17 18 NULL 0 NULL}                     
+	{18 6,22 500021 2|14(3) newitemzzp_id5}      
+	{19 25 0 0 cdrtoll_new}                     
+	{20 21 2 0 map_pub_operator_new}        
+	{21 21 NULL 0 NULL}                     
+	{22 6,22 NULL 2 NULL}                   
+	{23 26,27,28,29 NULL 4(0) NULL}         
+	{24 6,26,27,28,29 NULL 25 prod_id}      
+	{25 25 NULL 0 NULL}               
+	{26 7 NULL 6(3)|5 NULL}                      
+	{27 7 NULL 6(3)|42(0) NULL}                  
+	{28 36 NULL 0 NULL}                     
+	{29 32,33 NULL 4(1)|17(1000) NULL}      
+	{30 34,35 NULL 4(1)|17(1000) NULL}      
+	{31 1 NULL 0 NULL}
+  {32 60 NULL 0 NULL}
+  {33 61 NULL 0 NULL}	                      
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+
+set filter(1402) {
+	{& 2 6,22 1 0 odd_zzpdn 0} 
+}
+
+
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_newbusi_ds_1403) {33 \t 1403 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+# 
+set col(cdr_newbusi_ds_1403) {
+	{1 NULL NULL 12 NULL}				   
+	{2 NULL 0 0 NULL}                                  
+	{3 51 NULL 0 NULL}                                  
+	{4 2 NULL 0 NULL}                            
+	{5 4 0 0 call_type_new}                            
+	{6 8 NULL 0 NULL}                            
+	{7 44 NULL 0 NULL}                                 
+	{8 26 NULL 17(1000) NULL}                          
+	{9 27,28 NULL 4(1)|17(1000) NULL}               
+	{10 29 NULL 17(1000) NULL}               
+	{11 19 NULL 0 NULL}                       
+	{12 NULL 0 0 NULL}                                
+	{13 24 0 0 map_call_roamtype_new}                                
+	{14 5 0 0 cdrbrand_new}                                 
+	{15 47 NULL 0 NULL}                                
+	{16 46 NULL 0 NULL}                                
+	{17 18 NULL 0 NULL}                                
+	{18 6 500021 16(1,5)|14(3) newitem1_idzzp}         
+	{19 25 0 0 cdrtoll_new}                                
+	{20 21 2 0 map_pub_operator_new}                   
+	{21 21 NULL 0 NULL}                                
+	{22 6,22 NULL 2 NULL}                              
+	{23 26,27,28,29 NULL 4(0) NULL}                    
+	{24 6,26,27,28,29 NULL 25 prod_id}                 
+	{25 25 NULL 0 NULL}                          
+	{26 7 NULL 6(3)|5 NULL}                                 
+	{27 7 NULL 6(3)|42(0) NULL}                             
+	{28 36 NULL 0 NULL}                                
+	{29 32,33 NULL 4(1)|17(1000) NULL}                 
+	{30 34,35 NULL 4(1)|17(1000) NULL}                 
+	{31 1 NULL 0 NULL}
+  {32 60 NULL 0 NULL}
+  {33 61 NULL 0 NULL}	                                 
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+
+set filter(1403) {
+	{& 16(1,5) 6 1 0 opp1_dnzzp 0}
+}
+
+
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_newbusi_ds_1405) {33 \t 1405 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+# 
+set col(cdr_newbusi_ds_1405) {
+	{1 NULL NULL 12 NULL}
+	{2 NULL 0 0 NULL}
+	{3 51 NULL 0 NULL}
+	{4 2 NULL 0 NULL}
+	{5 4 0 0 call_type_new}
+	{6 8 NULL 0 NULL}
+	{7 44 NULL 0 NULL}
+	{8 26 NULL 17(1000) NULL}
+	{9 27,28 NULL 4(1)|17(1000) NULL}               
+	{10 29 NULL 17(1000) NULL}
+	{11 19 NULL 0 NULL} 
+	{12 NULL 0 0 NULL}
+	{13 24 0 0 map_call_roamtype_new}
+	{14 5 0 0 cdrbrand_new}
+	{15 47 NULL 0 NULL}
+	{16 46 NULL 0 NULL}
+	{17 18 NULL 0 NULL}
+	{18 4,17,21 NULL 1001 NULL}       
+	{19 25 0 0 cdrtoll_new}
+	{20 21 2 0 map_pub_operator_new}
+	{21 21 NULL 0 NULL}
+	{22 6,22 NULL 2 NULL} 
+	{23 26,27,28,29 NULL 4(0) NULL}
+	{24 6,26,27,28,29 NULL 25 prod_id}   
+	{25 25 NULL 0 NULL}
+	{26 7 NULL 6(3)|5 NULL}
+	{27 7 NULL 6(3)|42(0) NULL}
+	{28 36 NULL 0 NULL}
+	{29 32,33 NULL 4(1)|17(1000) NULL}
+	{30 34,35 NULL 4(1)|17(1000) NULL}
+	{31 1 NULL 0 NULL}
+  {32 60 NULL 0 NULL}
+  {33 61 NULL 0 NULL}	
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+
+set filter(1405) {
+	{| 0 4 0 0 2,3 0}
+	{| 16(1,5) 6 0 0 17266 0}
+	{& 201 6,22 1 0 map_call_xlt 1}
+}
+
+
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_newbusi_ds_1406) {33 \t 1406 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+# 
+set col(cdr_newbusi_ds_1406) {
+	{1 NULL NULL 12 NULL}
+	{2 NULL 0 0 NULL}
+	{3 51 NULL 0 NULL}
+	{4 2 NULL 0 NULL}
+	{5 4 0 0 call_type_new}
+	{6 8 NULL 0 NULL}
+	{7 44 NULL 0 NULL}
+	{8 26 NULL 17(1000) NULL}
+	{9 27,28 NULL 4(1)|17(1000) NULL}               
+	{10 29 NULL 17(1000) NULL}
+	{11 19 NULL 0 NULL} 
+	{12 NULL 0 0 NULL}
+	{13 24 0 0 map_call_roamtype_new}
+	{14 5 0 0 cdrbrand_new}
+	{15 47 NULL 0 NULL}
+	{16 46 NULL 0 NULL}
+	{17 18 NULL 0 NULL}
+	{18 6,22 0 2|16(1,3)|14(3) newitem_id3}
+	{19 25 0 0 cdrtoll_new}
+	{20 21 2 0 map_pub_operator_new}
+	{21 21 NULL 0 NULL}
+	{22 6,22 NULL 2 NULL} 
+	{23 26,27,28,29 NULL 4(0) NULL}
+	{24 6,26,27,28,29 NULL 25 prod_id} 
+	{25 25 NULL 0 NULL}
+	{26 7 NULL 6(3)|5 NULL}
+	{27 7 NULL 6(3)|42(0) NULL}
+	{28 36 NULL 0 NULL}
+	{29 32,33 NULL 4(1)|17(1000) NULL}
+	{30 34,35 NULL 4(1)|17(1000) NULL}
+	{31 1 NULL 0 NULL}
+  {32 60 NULL 0 NULL}
+  {33 61 NULL 0 NULL}	
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+
+set filter(1406) {
+	{& 2|16(1,3) 6,22 1 0 opp_dn3 0}
+	{& 0 4 0 0 2,3 1}
+}
+
+
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_newbusi_ds_1407) {33 \t 1407 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+# 
+set col(cdr_newbusi_ds_1407) {
+	{1 NULL NULL 12 NULL}
+	{2 NULL 0 0 NULL}
+	{3 51 NULL 0 NULL}
+	{4 2 NULL 0 NULL}
+	{5 4 0 0 call_type_new}
+	{6 8 NULL 0 NULL}
+	{7 44 NULL 0 NULL}
+	{8 26 NULL 17(1000) NULL}
+	{9 27,28 NULL 4(1)|17(1000) NULL}               
+	{10 29 NULL 17(1000) NULL}
+	{11 19 NULL 0 NULL} 
+	{12 NULL 0 0 NULL}
+	{13 24 0 0 map_call_roamtype_new}
+	{14 5 0 0 cdrbrand_new}
+	{15 47 NULL 0 NULL}
+	{16 46 NULL 0 NULL}
+	{17 18 NULL 0 NULL}
+	{18 4 NULL 1002 NULL}       
+	{19 25 0 0 cdrtoll_new}
+	{20 21 2 0 map_pub_operator_new}
+	{21 21 NULL 0 NULL}
+	{22 6,22 NULL 2 NULL} 
+	{23 26,27,28,29 NULL 4(0) NULL}
+	{24 6,26,27,28,29 NULL 25 prod_id} 
+	{25 25 NULL 0 NULL}
+	{26 7 NULL 6(3)|5 NULL}
+	{27 7 NULL 6(3)|42(0) NULL}
+	{28 36 NULL 0 NULL}
+	{29 32,33 NULL 4(1)|17(1000) NULL}
+	{30 34,35 NULL 4(1)|17(1000) NULL}
+	{31 1 NULL 0 NULL}
+  {32 60 NULL 0 NULL}
+  {33 61 NULL 0 NULL}	
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+
+set filter(1407) {
+	
+	{& 0 4 0 0 2,3 0}
+	{& 201 6,22 1 0 map_call_xlt 0}
+	
+}
+
+
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_comp_call_ds_1311) {24 \t 1311 0 NULL} 
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+set col(cdr_comp_call_ds_1311) {
+	{1 NULL NULL 12 NULL}
+	{2 NULL 0 13 NULL}
+	{3 6,22 NULL 2|23(#,0) NULL}	
+	{4 2 NULL 0 NULL}
+	{5 22 NULL 0 NULL}
+	{6 19 NULL 0 NULL}
+	{7 NULL 0 0 NULL}
+	{8 11 NULL 0 NULL}
+	{9 12 NULL 16(1,4) NULL}
+	{10 NULL 3 0 NULL}
+	{11 NULL 1 0 NULL} 	
+	{12 4 0 0 call_tranzzp}
+	{13 4  0 0 comp_callzzp}    
+	{14 7 NULL 6(3)|5 NULL}
+	{15 7 NULL 6(3) NULL}
+	{16 8 NULL 0 NULL}
+	{17 44 NULL 0 NULL}
+	{18 26 NULL 17(1000) NULL}
+	{19 27,28 NULL 4(1)|17(1000) NULL}
+	{20 29 NULL 17(1000) NULL} 
+	{21 32,33,34,35 NULL 4(1)|17(1000) NULL}
+	{22 51 NULL 0 NULL}
+  {23 60 NULL 0 NULL}
+  {24 61 NULL 0 NULL}	
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+set filter(1311) {
+	{& 201 6,22 1 0 map_call_xlt 0}
+	{& 0 22 0 0 701,790,791,792,793,794,795,796,797,798,799 0}	
+}
+#########################################################################
+
+
+
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_comp_call_ds_1411) {24 \t 1411 0 NULL} 
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+set col(cdr_comp_call_ds_1411) {
+	{1 NULL NULL 12 NULL}
+	{2 NULL 0 13 NULL}
+	{3 6,22 NULL 2|23(#,0) NULL}	
+	{4 2 NULL 0 NULL}
+	{5 22 NULL 0 NULL}
+	{6 19 NULL 0 NULL}
+	{7 NULL 0 0 NULL}
+	{8 11 NULL 0 NULL}
+	{9 12 NULL 16(1,4) NULL}
+	{10 NULL 4 0 NULL}
+	{11 NULL 4 0 NULL} 	
+	{12 4 0 0 call_tranzzp}
+	{13 4  0 0 comp_callzzp}    
+	{14 7 NULL 6(3)|5 NULL}
+	{15 7 NULL 6(3) NULL}
+	{16 8 NULL 0 NULL}
+	{17 44 NULL 0 NULL}
+	{18 26 NULL 17(1000) NULL}
+	{19 27,28 NULL 4(1)|17(1000) NULL}
+	{20 29 NULL 17(1000) NULL} 
+	{21 32,33,34,35 NULL 4(1)|17(1000) NULL}
+	{22 51 NULL 0 NULL}
+  {23 60 NULL 0 NULL}
+  {24 61 NULL 0 NULL}	
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+set filter(1411) {
+	{& 201 6,22 1 0 map_tt_hd_v15 0}
+	{& 0 22 0 0 701,790,791,792,793,794,795,796,797,798,799 0}	
+}
+
+
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_comp_call_ds_1511) {24 \t 1511 0 NULL} 
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+set col(cdr_comp_call_ds_1511) {
+	{1 NULL NULL 12 NULL}
+	{2 NULL 0 13 NULL}
+	{3 6,22 NULL 2|23(#,0) NULL}	
+	{4 2 NULL 0 NULL}
+	{5 22 NULL 0 NULL}
+	{6 19 NULL 0 NULL}
+	{7 NULL 0 0 NULL}
+	{8 11 NULL 0 NULL}
+	{9 12 NULL 16(1,4) NULL}
+	{10 NULL 6 0 NULL}
+	{11 NULL 7 0 NULL} 	
+	{12 4 0 0 call_tranzzp}
+	{13 4  0 0 comp_callzzp}    
+	{14 7 NULL 6(3)|5 NULL}
+	{15 7 NULL 6(3) NULL}
+	{16 8 NULL 0 NULL}
+	{17 44 NULL 0 NULL}
+	{18 26 NULL 17(1000) NULL}
+	{19 27,28 NULL 4(1)|17(1000) NULL}
+	{20 29 NULL 17(1000) NULL} 
+	{21 32,33,34,35 NULL 4(1)|17(1000) NULL}
+	{22 51 NULL 0 NULL}
+  {23 60 NULL 0 NULL}
+  {24 61 NULL 0 NULL}	
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+set filter(1511) {
+	{& 201 6,22 1 0 map_wt_hd_v15 0}
+	{& 0 22 0 0 701,790,791,792,793,794,795,796,797,798,799 0 }	
+}
+
+
+
+set begin_port {11651}
+
+set server_num(compdmgsmdx_transform) 5
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(compdmgsmdx_transform) {61 | {cdr_comp_call_ds_1611}}
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_comp_call_ds_1611) {24 \t 1611 0 NULL} 
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+set col(cdr_comp_call_ds_1611) {
+	{1 NULL NULL 12 NULL}
+	{2 NULL 0 13 NULL}
+	{3 6,22 NULL 2|23(#,0) NULL}	
+	{4 2 NULL 0 NULL}
+	{5 22 NULL 0 NULL}
+	{6 19 NULL 0 NULL}
+	{7 NULL 0 0 NULL}
+	{8 11 NULL 0 NULL}
+	{9 12 NULL 16(1,4) NULL}
+	{10 NULL 5 0 NULL}
+	{11 NULL 1 0 NULL} 	
+	{12 4 0 0 call_tranzzp}
+	{13 4  0 0 comp_callzzp}    
+	{14 7 NULL 6(3)|5 NULL}
+	{15 7 NULL 6(3) NULL}
+	{16 8 NULL 0 NULL}
+	{17 44 NULL 0 NULL}
+	{18 26 NULL 17(1000) NULL}
+	{19 27,28 NULL 4(1)|17(1000) NULL}
+	{20 29 NULL 17(1000) NULL} 
+	{21 32,33,34,35 NULL 4(1)|17(1000) NULL}
+	{22 51 NULL 0 NULL}
+  {23 60 NULL 0 NULL}
+  {24 61 NULL 0 NULL}	
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+set filter(1611) {
+	{& 0 21 0 0 1 0}
+	{& 2|201|14(3) 6,22 1 0 map_call_xlt 1}
+	{& 2|201|14(3) 6,22 1 0 map_tt_hd_v15 1}
+	{& 2|201|14(3) 6,22 1 0 map_wt_hd_v15 1}
+	{& 0 22 0 0 701,790,791,792,793,794,795,796,797,798,799 {}}	
+}
+
+
+
+########################################################################
+####3.3	竞争对手语音话单表（Cdr_Comp_Call_Ds）
+####3.3.1	*GSM语音话单
+######################################################################
+
+###############################compdmgsmtest_transform的配置#######################
+set begin_port {11611}
+
+set server_num(compdmgsmtest_transform) 5
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(compdmgsmtest_transform) {61 | {cdr_comp_call_ds_1300}}
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_comp_call_ds_1300) {24 \t 1300 0 NULL} 
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+set col(cdr_comp_call_ds_1300) {
+	{1 NULL NULL 12 NULL}
+	{2 NULL 0 13 NULL}
+	{3 6,22 NULL 2|23(#,0) NULL}	
+	{4 2 NULL 0 NULL}
+	{5 22 NULL 0 NULL}
+	{6 19 NULL 0 NULL}
+	{7 NULL 0 0 NULL}
+	{8 11 NULL 0 NULL}
+	{9 12 NULL 16(1,4) NULL}
+	{10 21 NULL 0 brand_type}
+	{11 21 0 0 map_pub_operator_new} 	
+	{12 4 0 0 call_tranzzp}
+	{13 4 0 0 comp_callzzp}    
+	{14 7 NULL 6(3)|5 NULL}
+	{15 7 NULL 6(3) NULL}
+	{16 8 NULL 0 NULL}
+	{17 44 NULL 0 NULL}
+	{18 26 NULL 17(1000) NULL}
+	{19 27,28 NULL 4(1)|17(1000) NULL}
+	{20 29 NULL 17(1000) NULL} 
+	{21 32,33,34,35 NULL 4(1)|17(1000) NULL}
+	{22 51 NULL 0 NULL}
+  {23 60 NULL 0 NULL}
+  {24 61 NULL 0 NULL}	
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+set filter(1300) {
+	{& 0 21 0 0 13,14,17 0}
+	{& 16(1,5) 6 0 0 12593 1}
+	{& 0 22 0 0 701,790,791,792,793,794,795,796,797,798,799 {}}	
+}
+
+
+
+##### add
+
+#### 对端号码以12593开头的记录,将记录的"12593"字样取掉 这样就要加一段转换
+
+set begin_port {12500}
+
+set server_num(compdmgsmxm_transform) 5
+
+set srcfile(compdmgsmxm_transform) {60 | {cdr_comp_call_ds_1399}}
+
+set destfile(cdr_comp_call_ds_1399) {23 \t 1399 0 NULL} 
+
+set col(cdr_comp_call_ds_1399) {
+	{1 NULL NULL 12 NULL}
+	{2 NULL 0 13 NULL}
+	{3 6 NULL 16(6,11) NULL}	
+	{4 2 NULL 0 NULL}
+	{5 22 NULL 0 NULL}
+	{6 19 NULL 0 NULL}
+	{7 NULL 0 0 NULL}
+	{8 11 NULL 0 NULL}
+	{9 12 NULL 0 NULL}
+	{10 21 NULL 0 brand_type}
+	{11 21 0 0 map_pub_operator_new} 	
+	{12 4 0 0 call_tranzzp}
+	{13 4 0 0 comp_callzzp}    
+	{14 7 NULL 6(3)|5 NULL}
+	{15 7 NULL 6(3) NULL}
+	{16 8 NULL 0 NULL}
+	{17 44 NULL 0 NULL}
+	{18 26 NULL 17(1000) NULL}
+	{19 27,28 NULL 4(1)|17(1000) NULL}
+	{20 29 NULL 17(1000) NULL} 
+	{21 32,33,34,35 NULL 4(1)|17(1000) NULL}
+	{22 59 NULL 0 NULL}
+  {23 60 NULL 0 NULL}	
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+set filter(1399) {
+	{& 0 21 0 0 13,14,17 0}
+	{& 16(1,5) 6 0 0 12593 0}
+	{& 0 22 0 0 701,790,791,792,793,794,795,796,797,798,799 {}}	
+}
+
+
+
+####  add
+
+
+
+#######  A05001 接口集合 #############################################################################################################
+
+
+
+################ A05006 #####################################
+
+
+############################### 2. cdrszx_transform的配置  #######################
+set begin_port {19501}
+
+set server_num(cdrszx_transform) 5
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(cdrszx_transform) {33 | {cdr_call_yyyymmdd_1002}}
+
+##########################################################################
+#set destfile(file_name) {field_num     delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_call_yyyymmdd_1002) {60 \t 0 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+
+set col(cdr_call_yyyymmdd_1002) {
+        {1 NULL 0 0 NULL}
+        {2 2 NULL 0 NULL}
+        {3 2 NULL 0 NULL}
+        {4 3 NULL 0 NULL}
+        {5 1 0 0 call_type_new}
+        {6 4 NULL 0 NULL}
+        {7 6 NULL 6(3) NULL}
+        {8 7 NULL 0 NULL}
+        {9 7 NULL 1 NULL}
+        {10 19,7 NULL 19(0) NULL}
+        {11 20 NULL 17(1000) NULL}
+        {12 21 NULL 17(1000) NULL}
+        {13 NULL 0 0 NULL}
+        {14 13 NULL 0 NULL}
+        {15 NULL 0 0 NULL}
+        {16 14 NULL 0 NULL}
+        {17 17 0 0 map_call_roamtype_new}
+        {18 NULL 6 0 NULL} 
+        {19 30 NULL 0 NULL}
+        {20 NULL 0 0 NULL}
+        {21 11 NULL 0 NULL}
+        {22 12 NULL 0 NULL}
+        {23 19 0 0 cdrtoll_new}
+        {24 5 2 0 map_pub_operator_new}
+        {25 5 NULL 0 NULL}
+        {26 4,15 NULL 2 NULL}
+        {27 15 NULL 0 NULL}
+        {28 16 NULL 0 NULL}
+        {29 20,21 NULL 4(0) NULL}
+	{30 4,20,21 NULL 25 prod_id}
+        {31  NULL 0 0 NULL}
+        {32 6 NULL 6(3)|5 NULL}
+        {33 6 NULL 6(3)|42(0) NULL}
+        {34 NULL 0 0 NULL}
+        {35 NULL 0 0 NULL}
+        {36 NULL 0 0 NULL}
+        {37 NULL NULL 0 NULL}
+        {38 NULL 0 0 NULL}
+        {39 10 NULL 0 NULL}
+        {40 28 NULL 0 NULL}
+        {41 29 NULL 0 NULL}
+        {42 NULL 0 0 NULL}
+        {43 NULL 0 0 NULL}
+        {44 NULL 0 0 NULL}
+        {45 NULL 0 0 NULL}
+        {46 NULL 0 0 NULL}
+        {47 25 NULL 6(3) NULL}
+        {48 NULL 0 0 NULL}
+        {49 NULL 0 0 NULL}
+        {50 20 NULL 17(1000) NULL}     
+        {51 21 NULL 17(1000) NULL}   
+        {52 NULL 0 0 NULL}
+        {53 27 NULL 0 NULL}
+        {54 NULL NULL 0 NULL}
+        {55 NULL NULL 0 NULL}
+        {56 NULL NULL 0 NULL}
+        {57 15 NULL 0 map_area_prov_new}
+        {58 26 NULL 0 NULL}
+        {59 NULL 0 0 NULL}
+        {60 NULL 0 0 NULL}
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+set filter(0) {
+	
+}
+
+
+############################### 3. 5009 cdrvpmn_transform的配置  #######################
+set begin_port {19502}
+
+set server_num(cdrvpmn_transform) 5
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(cdrvpmn_transform) {59 | {cdr_call_yyyymmdd_1003}}
+
+##########################################################################
+#set destfile(file_name) {field_num     delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_call_yyyymmdd_1003) {69 \t 0 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+
+set col(cdr_call_yyyymmdd_1003) {
+        {1 NULL 0 0 NULL}                    
+        {2 47 NULL 0 NULL}                    
+        {3 1 NULL 0 NULL}              
+        {4 2 NULL 0 NULL}              
+        {5 3 0 0 call_type_new}       
+        {6 5 NULL 0 NULL}              
+        {7 7 NULL 6(3) NULL}                    
+        {8 8 NULL 0 NULL}                    
+        {9 8 NULL 1 NULL}                   
+        {10 41 NULL 1000 NULL}            
+        {11 25 NULL 17(1000) NULL}           
+        {12 26 NULL 17(1000) NULL}           
+        {13 27 NULL 17(1000) NULL}           
+        {14 15 NULL 0 NULL}                 
+        {15 NULL 0 0 NULL}                   
+        {16 14 NULL 0 NULL}                  
+        {17 22 0 0 map_call_roamtype_new}     
+        {18 23 0 0 cdrbrand_new}                   
+        {19 43 NULL 0 NULL}         
+        {20 48 0 0 callfwtype}                   
+        {21 12 NULL 0 NULL}                     
+        {22 NULL 55001 0 NULL}                     
+        {23 24 0 0 cdrtoll_new}       
+        {24 6 2 0 map_pub_operator_new}            
+        {25 6 NULL 0 NULL}        
+        {26 5,17 NULL 2 NULL}                   
+        {27 17 NULL 0 NULL}               
+        {28 16 NULL 0 NULL} 
+        {29 25,26,27 NULL 4(0) NULL}
+        {30 25,26,27 NULL 25 prod_id}
+        {31  NULL 0 0 NULL}                     
+        {32 7 NULL 6(3)|5 NULL}                      
+        {33 7 NULL 6(3)|42(0) NULL}                  
+        {34 NULL 0 0 NULL}
+        {35 30 0 17(1000) NULL}                 
+        {36 NULL 0 0 NULL} 
+        {37 20 NULL 0 NULL}                     
+        {38 NULL 0 0 NULL}                      
+        {39 10 NULL 0 NULL}               
+        {40 45 NULL 16(1,4) NULL}               
+        {41 46 NULL 16(1,4) NULL}   
+        {42 NULL 0 0 NULL}          
+        {43 NULL 0 0 NULL}          
+        {44 57 NULL 0 NULL}          
+        {45 33 NULL 1000 NULL}          
+        {46 NULL 0 0 NULL}          
+        {47 44 NULL 6(3) NULL}         
+        {48 NULL 0 0 NULL}          
+        {49 NULL 0 0 NULL}          
+        {50 35 NULL 17(1000) NULL}     
+        {51 36 NULL 17(1000) NULL}     
+        {52 37 NULL 17(1000) NULL}     
+        {53 39 NULL 0 NULL}         
+        {54 NULL NULL 0 NULL}       
+        {55 32 NULL 0 NULL}       
+        {56 NULL 0 0 NULL}
+        {57 17 NULL 0 map_area_prov_new}
+        {58 NULL 0 0 NULL}
+        {59 21 NULL 0 NULL}
+        {60 NULL 0 0 NULL}  
+        {61 49 NULL 16(1,8) NULL}
+        {62 50 NULL 0 NULL}
+        {63 51 NULL 0 NULL}
+        {64 52 NULL 0 NULL}
+        {65 53 NULL 0 NULL}
+        {66 54 NULL 0 NULL}
+        {67 55 NULL 0 NULL} 
+        {68 58 NULL 0 NULL}
+        {69 59 NULL 0 NULL}          
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+set filter(0) {
+}
+
+
+
+
+########################## A05014 ###################################################
+
+############################### 3. ipzhitongche_transform的配置  #######################
+set begin_port {19505}
+
+set server_num(ipzhitongche_transform) 5
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(ipzhitongche_transform) {39 | {cdr_call_yyyymmdd_1004}}
+
+##########################################################################
+#set destfile(file_name) {field_num     delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_call_yyyymmdd_1004) {69 \t 0 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+
+set col(cdr_call_yyyymmdd_1004) {
+        {1 NULL 0 0 NULL}
+        {2 34 NULL 0 NULL}
+        {3 2 NULL 0 NULL}
+        {4 3 NULL 0 NULL}
+        {5 NULL 1 0 NULL}
+        {6 4 NULL 0 NULL}
+        {7 5 NULL 6(3) NULL}
+        {8 6 NULL 0 NULL}
+        {9 6 NULL 1 NULL}
+        {10 18,6 NULL 19(0) NULL}
+        {11 19 NULL 17(1000) NULL}
+        {12 20 NULL 17(1000) NULL}
+        {13 NULL 0 0 NULL}
+        {14 13 NULL 0 NULL}
+        {15 NULL 0 0 NULL}
+        {16 12 NULL 0 NULL}
+        {17 16 0 0 map_call_roamtype_new}
+        {18 NULL 7 0 NULL}
+        {19 32 NULL 0 NULL}
+        {20 NULL 0 0 NULL}
+        {21 10 NULL 0 NULL}
+        {22 11 NULL 0 NULL}
+        {23 18 0 0 cdrtoll_new}
+        {24 29 2 0 map_pub_operator_new}
+        {25 29 NULL 0 NULL}
+        {26 4,15 NULL 2 NULL}
+        {27 15 NULL 0 NULL}
+        {28 14 NULL 0 NULL}
+        {29 19,20 NULL 4(0) NULL}
+        {30 4,19,20 NULL 25 prod_id}      
+        {31 NULL 0 0 NULL}
+        {32 5 NULL 6(3)|5 NULL}
+        {33 5 NULL 6(3)|42(0) NULL}
+        {34 27 NULL 0 NULL}
+        {35 24 NULL 17(1000) NULL}
+        {36 25 NULL 17(1000) NULL}
+        {37 NULL NULL 0 NULL} 
+        {38 NULL 0 0 NULL}
+        {39 8 NULL 0 NULL}
+        {40 NULL 0 0 NULL}
+        {41 NULL 0 0 NULL}
+        {42 NULL 0 0 NULL}
+        {43 NULL 0 0 NULL}
+        {44 NULL 0 0 NULL}
+        {45 NULL 0 0 NULL}
+        {46 NULL 0 0 NULL}
+        {47 33 NULL 6(3) NULL}
+        {48 NULL 0 0 NULL}
+        {49 NULL 0 0 NULL}
+        {50 19 0 17(1000) NULL}     
+        {51 20 0 17(1000) NULL} 
+        {52 NULL 0 0 NULL}
+        {53 30 NULL 0 NULL}
+        {54 NULL NULL 0 NULL}
+        {55 17 NULL 0 NULL}
+        {56 NULL NULL 0 NULL}
+        {57 15 NULL 0 map_area_prov_new}
+        {58 NULL 45 0 NULL}
+        {59 NULL 0 0 NULL}
+        {60 NULL 0 0 NULL}
+        {61 35 NULL 16(1,8) NULL}
+        {62 NULL NULL 0 NULL}
+        {63 NULL NULL 0 NULL}
+        {64 36 NULL 0 NULL}
+        {65 NULL NULL 0 NULL}
+        {66 NULL NULL 0 NULL}
+        {67 NULL NULL 0 NULL}
+        {68 38 NULL 0 NULL} 
+        {69 39 NULL 0 NULL}         
+
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+set filter(0) {
+}
+
+
+
+########################################### CDR_NEWBUSI_DS ###################################################################
+
+
+
+
+##############################智能网神州行语音话单 A05006  ###################################################
+set begin_port {29101}
+
+set server_num(newbusiszx1zzp_transform) 5
+
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(newbusiszx1zzp_transform) {35 | {cdr_newbusi_ds_1401}}
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_newbusi_ds_1401) {33 \t 1401 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+set col(cdr_newbusi_ds_1401) {
+	{1 NULL NULL 12 NULL}
+	{2 NULL 0 0 NULL}
+	{3 33 NULL 0 NULL}
+	{4 2 NULL 0 NULL}
+	{5 1 0 0 call_type_new}
+	{6 7 NULL 0 NULL}
+	{7 7 NULL 1 NULL}
+	{8 20 0 17(1000) NULL}
+	{9 21 0 17(1000) NULL}
+	{10 NULL 0 0 NULL}
+	{11 13 NULL 0 NULL} 
+	{12 NULL 0 0 NULL}
+	{13 17 0 0 map_call_roamtype_new}
+	{14 NULL 6 0 NULL}
+	{15 30 NULL 0 NULL}
+	{16 26 NULL 0 NULL}
+	{17 12 NULL 0 NULL}
+	{18 4,15 0 2|14(3) newitemszx_id}
+	{19 19 0 0 cdrtoll_new}
+	{20 5 2 0 map_pub_operator_new}
+	{21 5 NULL 0 NULL}
+	{22 4,15 NULL 2 NULL}
+	{23 20,21 0 4(0) NULL}
+	{24 4,20,21 NULL 25 prod_id}
+	{25 19 NULL 0 NULL}
+	{26 6 NULL 6(3)|5 NULL}
+	{27 6 NULL 6(3)|42(0) NULL}
+	{28 NULL 0 0 NULL}
+	{29 NULL 0 0 NULL}
+	{30 NULL 0 0 NULL}
+	{31 NULL 0 0 NULL}
+  {32 34 NULL 0 NULL} 
+  {33 35 NULL 0 NULL} 	
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+
+set filter(1401) {
+	{& 2|14(3) 4,15 1 0 oppszx_dn 0}
+}
+
+
+
+
+
+
+
+
+
+################################## IP直通车清单A05014 的配置 #######################
+###set begin_port {29113}
+###
+###set server_num(newbusiipzzp_transform) 5
+###
+###
+#############################################################################
+####Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+####             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+#############################################################################
+###
+###set srcfile(newbusiipzzp_transform) {33 | {cdr_newbusi_ds_1410}}
+###
+#############################################################################
+####set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+####            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+#############################################################################
+###
+###set destfile(cdr_newbusi_ds_1410) {31 \t 1410 0 NULL}
+###
+#############################################################################
+####set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+####       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+####}
+#############################################################################
+#### 
+###set col(cdr_newbusi_ds_1410) {
+###	{1 NULL NULL 12 NULL}				   
+###	{2 NULL 0 0 NULL}                                  
+###	{3 NULL 0 0 NULL}                                  
+###	{4 2 NULL 0 NULL}                            
+###	{5 1 0 0 call_type_new}                            
+###	{6 6 NULL 0 NULL}                            
+###	{7 6 NULL 1 NULL}                                
+###	{8 19 NULL 17(1000) NULL}                          
+###	{9 20 NULL 17(1000) NULL}                          
+###	{10 NULL 0 0 NULL}                 
+###	{11 13 NULL 0 NULL}                       
+###	{12 NULL 0 0 NULL}                                
+###	{13 16 NULL 0 NULL}                                
+###	{14 NULL 11 0 NULL}                                 
+###	{15 32 NULL 0 NULL}                                
+###	{16 NULL 0 0 NULL}                                
+###	{17 11 NULL 0 NULL}                                
+###	{18 4 500021 16(1,5)|14(3) newitem1_idzzp}         
+###	{19 18 0 0 cdrtoll_new}}                                
+###	{20 29 2 0 map_pub_operator_new}                   
+###	{21 29 NULL 0 NULL}                                
+###	{22 4,15 NULL 2 NULL}                              
+###	{23 19,20 NULL 4(0) NULL}                    
+###	{24 4,19,20 NULL 25 prod_id}                 
+###	{25 18 NULL 0 NULL}                          
+###	{26 6 NULL 6(3)|5 NULL}                                 
+###	{27 6 NULL 6(3)|42(0) NULL}                             
+###	{28 27 NULL 0 NULL}                                
+###	{29 24 NULL 17(1000) NULL}                 
+###	{30 25 NULL 17(1000) NULL}                 
+###	{31 NULL I 0 NULL}                                 
+###}
+#############################################################################
+####set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+####           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+#############################################################################
+###
+###set filter(1410) {
+###	{& 16(1,5)|14(3) 4 1 0 opp1_dnzzp 0}
+###}
+
+
+
+
+#####################智能网神州行语音话单  05006#######
+set begin_port {29104}
+
+set server_num(newbusiszx2zzp_transform) 5
+
+#3.9.2	*智能网神州行语音话单 
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(newbusiszx2zzp_transform) {33 | {cdr_newbusi_ds_1404}}
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_newbusi_ds_1404) {31 \t 1404 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+set col(cdr_newbusi_ds_1404) {
+	{1 NULL NULL 12 NULL}				
+	{2 NULL 0 0 NULL}                               
+	{3 33 NULL 0 NULL}                               
+	{4 2 NULL 0 NULL}                         
+	{5 1 0 0 call_type_new}                         
+	{6 7 NULL 0 NULL}                         
+	{7 7 NULL 1 NULL}                              
+	{8 20 0 17(1000) NULL}                          
+	{9 21 0 17(1000) NULL}                          
+	{10 NULL 0 0 NULL}                              
+	{11 13 NULL 0 NULL}                    
+	{12 NULL 0 0 NULL}                             
+	{13 17 0 0 map_call_roamtype_new}                             
+	{14 18 6 0 NULL}                                
+	{15 30 NULL 0 NULL}                             
+	{16 26 NULL 0 NULL}                             
+	{17 12 NULL 0 NULL}                             
+	{18 4,15 500021 2|14(3) newitemszx_id}               
+	{19 19 0 0 cdrtoll_new}                             
+	{20 5 2 0 map_pub_operator_new}                 
+	{21 5 NULL 0 NULL}                              
+	{22 4,15 NULL 2 NULL}                           
+	{23 22 0 4(0) NULL}                             
+	{24 4,20,21 NULL 25 prod_id}                    
+	{25 19 NULL 0 NULL}                             
+	{26 6 NULL 6(3)|5 NULL}                              
+	{27 6 NULL 6(3)|42(0) NULL}                          
+	{28 NULL 0 0 NULL}                              
+	{29 NULL 0 0 NULL}                              
+	{30 NULL 0 0 NULL}                              
+	{31 NULL 0 0 NULL}                              
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+
+set filter(1404) {
+	{| 2|14(3) 4,15 1 0 opp1_dn 0}
+	{| 16(1,5) 4 0 0 17951 0}
+}
+
+
+############################################A05009#############
+set begin_port {29909}
+
+set server_num(newbusivpmn2_transform) 5
+
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(newbusivpmn2_transform) {59 | {cdr_newbusi_Ds_4100}}
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_newbusi_Ds_4100) {33 \t 4100 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+set col(cdr_newbusi_Ds_4100) {
+	{1 NULL NULL 12 NULL}
+	{2 NULL 0 0 NULL}
+	{3 47 NULL 0 NULL}
+	{4 1 NULL 0 NULL}
+	{5 3 0 0 call_type_new}
+	{6 8 NULL 0 NULL}
+	{7 40 NULL 0 NULL}
+	{8 25 0 17(1000) NULL}
+	{9 26 0 17(1000) NULL}
+	{10 27 0 17(1000) NULL}
+	{11 15 NULL 0 NULL} 
+	{12 NULL 0 0 NULL}
+	{13 22 0 0 map_call_roamtype_new}
+	{14 23 0 0 cdrbrand_new}
+	{15 43 NULL 0 NULL}
+	{16 NULL 0 0 NULL}
+	{17 NULL 55001 0 NULL}
+	{18 3 NULL 1005 NULL}
+	{19 24 0 0 cdrtoll_new}
+	{20 6 2 0 map_pub_operator_new}
+	{21 6 NULL 0 NULL}
+	{22 5,17 NULL 2 NULL}
+	{23 25,26,27 NULL 4(0) NULL}
+	{24 5,25,26,27 NULL 25 prod_id}
+	{25 24 NULL 0 NULL}
+	{26 7 NULL 6(3)|5 NULL}
+	{27 7 NULL 6(3)|42(0) NULL}
+	{28 34 NULL 0 NULL}
+	{29 30 NULL 17(1000) NULL}
+	{30 NULL 0 0 NULL}
+	{31 NULL V 0 NULL}
+	{32 58 NULL 0 NULL} 
+  {33 59 NULL 0 NULL} 
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+
+set filter(4100) {
+	
+	{| 0 3 0 0 2,3 0}
+	{| 16(1,5) 5 0 0 17266 0}
+	{& 201 5,17 1 0 map_call_xlt 1}
+		
+}
+
+
+
+
+
+
+##########################A05009############################
+
+set begin_port {29800}
+
+set server_num(newbusivpmn_transform) 5
+
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(newbusivpmn_transform) {59 | {cdr_newbusi_ds_1408}}
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_newbusi_ds_1408) {33 \t 1408 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+set col(cdr_newbusi_ds_1408) {
+	{1 NULL NULL 12 NULL}
+	{2 NULL 0 0 NULL}
+	{3 47 NULL 0 NULL}
+	{4 1 NULL 0 NULL}
+	{5 3 0 0 call_type_new}
+	{6 8 NULL 0 NULL}
+	{7 40 NULL 0 NULL}
+	{8 25 0 17(1000) NULL}
+	{9 26 0 17(1000) NULL}
+	{10 27 0 17(1000) NULL}
+	{11 15 NULL 0 NULL} 
+	{12 NULL 0 0 NULL}
+	{13 22 0 0 map_call_roamtype_new}
+	{14 23 0 0 cdrbrand_new}
+	{15 43 NULL 0 NULL}
+	{16 NULL 0 0 NULL}
+	{17 NULL 55001 0 NULL}
+	{18 5,17 NULL 2|14(3) newitemzzp_id5}
+	{19 24 0 0 cdrtoll_new}
+	{20 6 2 0 map_pub_operator_new}
+	{21 6 NULL 0 NULL}
+	{22 5,17 NULL 2 NULL}
+	{23 25,26,27 NULL 4(0) NULL}
+	{24 5,25,26,27 NULL 25 prod_id}
+	{25 24 NULL 0 NULL}
+	{26 7 NULL 6(3)|5 NULL}
+	{27 7 NULL 6(3)|42(0) NULL}
+	{28 34 NULL 0 NULL}
+	{29 30 NULL 17(1000) NULL}
+	{30 NULL 0 0 NULL}
+	{31 NULL V 0 NULL}
+	{32 58 NULL 0 NULL} 
+  {33 59 NULL 0 NULL}	
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+
+set filter(1408) {
+	{& 2 5,17 1 0 odd_zzpdn 0} 
+}
+
+
+##########################A05009############################
+
+set begin_port {29900}
+
+set server_num(newbusivpmn1_transform) 5
+
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(newbusivpmn1_transform) {59 | {cdr_newbusi_Ds_1409}}
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_newbusi_Ds_1409) {33 \t 1409 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+set col(cdr_newbusi_Ds_1409) {
+	{1 NULL NULL 12 NULL}
+	{2 NULL 0 0 NULL}
+	{3 47 NULL 0 NULL}
+	{4 1 NULL 0 NULL}
+	{5 3 0 0 call_type_new}
+	{6 8 NULL 0 NULL}
+	{7 40 NULL 0 NULL}
+	{8 25 0 17(1000) NULL}
+	{9 26 0 17(1000) NULL}
+	{10 27 0 17(1000) NULL}
+	{11 15 NULL 0 NULL} 
+	{12 NULL 0 0 NULL}
+	{13 22 0 0 map_call_roamtype_new}
+	{14 23 0 0 cdrbrand_new}
+	{15 43 NULL 0 NULL}
+	{16 NULL 0 0 NULL}
+	{17 NULL 55001 0 NULL}
+	{18 3 NULL 1006 NULL}
+	{19 24 0 0 cdrtoll_new}
+	{20 6 2 0 map_pub_operator_new}
+	{21 6 NULL 0 NULL}
+	{22 5,17 NULL 2 NULL}
+	{23 25,26,27 NULL 4(0) NULL}
+	{24 5,25,26,27 NULL 25 prod_id}
+	{25 24 NULL 0 NULL}
+	{26 7 NULL 6(3)|5 NULL}
+	{27 7 NULL 6(3)|42(0) NULL}
+	{28 34 NULL 0 NULL}
+	{29 30 NULL 17(1000) NULL}
+	{30 NULL 0 0 NULL}
+	{31 NULL V 0 NULL}
+	{32 58 NULL 0 NULL} 
+  {33 59 NULL 0 NULL}	
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+
+set filter(1409) {
+	{& 0 3 0 0 2,3 0}
+	{& 201 5,17 1 0 map_call_xlt 0}
+}
+
+
+
+
+
+
+
+
+########### A05002 ###########################
+
+
+###############################gprstest_transform的配置#######################
+set begin_port {11511}
+
+set server_num(gprstest_transform) 10
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(gprstest_transform) {66 | {cdr_gprs_yyyymmdd_1207}}
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_gprs_yyyymmdd_1207) {61 \t 0 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+set col(cdr_gprs_yyyymmdd_1207) {
+	{1 NULL NULL 12 NULL}
+	{2 NULL 0 0 NULL}
+	{3 62 NULL 0 NULL}
+	{4 3 NULL 0 NULL}
+	{5 4 NULL 0 NULL}
+	{6 2 NULL 0 NULL}
+	{7 25 NULL 6(3) NULL}
+	{8 {if IsNull(col26) then '0' else col26 } NULL 999 NULL}
+	{9 26 NULL 1 NULL}
+	{10 46 NULL 0 NULL}
+	{11 47 NULL 0 NULL}
+	{12 48 NULL 0 NULL}
+	{13 49 NULL 0 NULL}
+	{14 51 NULL 17(1000) NULL}
+	{15 52 NULL 17(1000) NULL}
+	{16 53 NULL 17(1000) NULL}
+	{17 54 NULL 17(1000) NULL}
+	{18 56 0 17(1000) NULL}
+	{19 57 0 17(1000) NULL}
+	{20 NULL 0 0 NULL}
+	{21 NULL 0 0 NULL}
+	{22 19 NULL 0 NULL}
+	{23 NULL 0 0 NULL}
+	{24 20 NULL 23(HKGHT,0) NULL}
+	{25 23 0 0 map_call_roamtype_new}
+	{26 10 0 0 cdrbrand_new}
+	{27 {substring(col60,1,8)} NULL 999 NULL}
+	{28 NULL 305025 0 NULL}
+	{29 58 30001 0 gprservice_idyjy}
+	{30 12 300000 0 gprsitem_idzzp}
+	{31 NULL 0 0 NULL}
+	{32 51,52,53,54 NULL 4(0) NULL}
+	{33 NULL 0 0 NULL}
+	{34 25 NULL 6(3)|5 NULL}
+	{35 7 NULL 0 NULL}
+	{36 9 NULL 0 NULL}
+	{37 17 NULL 0 NULL}
+	{38 1 NULL 0 NULL}
+	{39 NULL 0 0 NULL}
+	{40 63 NULL 0 NULL}
+	{41 61 NULL 6(3) NULL}
+	{42 NULL 0 0 NULL}
+	{43 NULL 0 0 NULL}
+	{44 NULL 0 0 NULL}
+	{45 NULL 0 0 NULL}
+	{46 NULL 0 0 NULL}
+	{47 NULL 0 0 NULL}
+	{48 59 NULL 0 NULL}
+	{49 12 NULL 0 NULL}
+	{50 50 NULL 0 NULL}
+	{51 28 NULL 0 NULL}
+	{52 29 NULL 0 NULL}
+	{53 32 NULL 0 NULL}
+	{54 33 NULL 0 NULL}
+	{55 {if IsNull(col6) then '0' else col6} NULL 999 NULL}
+	{56 45 NULL 0 NULL}
+	{57 NULL 0 0 NULL}
+	{58 NULL 0 0 NULL}
+	{59 NULL 0 0 NULL}
+	{60 64 NULL 0 NULL}
+	{61 65 NULL 0 NULL}
+	
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+set filter(0) {	
+}
+
+########### A05068 ###########################
+
+
+###############################gprsnet_transform的配置#######################
+set begin_port {11512}
+
+set server_num(gprsnet_transform) 5
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(gprsnet_transform) {68 | {cdr_gprs_net_yyyymmdd_1208}}
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_gprs_net_yyyymmdd_1208) {63 \t 0 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+set col(cdr_gprs_net_yyyymmdd_1208) {
+	{1 NULL NULL 12 NULL}
+	{2 NULL 0 0 NULL}
+	{3 62 NULL 0 NULL}
+	{4 3 NULL 0 NULL}
+	{5 4 NULL 0 NULL}
+	{6 2 NULL 0 NULL}
+	{7 25 NULL 6(3) NULL}
+	{8 26 NULL 1000 NULL}
+	{9 26 NULL 1 NULL}
+	{10 28 NULL 0 NULL}
+	{11 29 NULL 0 NULL}
+	{12 32 NULL 0 NULL}
+	{13 33 NULL 0 NULL}
+	{14 51 NULL 17(1000) NULL}
+	{15 52 NULL 17(1000) NULL}
+	{16 53 NULL 17(1000) NULL}
+	{17 54 NULL 17(1000) NULL}
+	{18 56 0 17(1000) NULL}
+	{19 57 0 17(1000) NULL}
+	{20 NULL 0 0 NULL}
+	{21 NULL 0 0 NULL}
+	{22 19 NULL 0 NULL}
+	{23 NULL 0 0 NULL}
+	{24 20 NULL 23(HKGHT,0) NULL}
+	{25 23 0 0 map_call_roamtype_new}
+	{26 10 0 0 cdrbrand_new}
+	{27 60 NULL 16(1,8) NULL}
+	{28 NULL 305025 0 NULL}
+	{29 58 30001 0 gprservice_idyjy}
+	{30 12 300000 0 gprsitem_idzzp}
+	{31 NULL 0 0 NULL}
+	{32 51,52,53,54 NULL 4(0) NULL}
+	{33 NULL 0 0 NULL}
+	{34 25 NULL 6(3)|5 NULL}
+	{35 7 NULL 0 NULL}
+	{36 9 NULL 0 NULL}
+	{37 17 NULL 0 NULL}
+	{38 1 NULL 0 NULL}
+	{39 NULL 0 0 NULL}
+	{40 63 NULL 0 NULL}
+	{41 61 NULL 6(3) NULL}
+	{42 NULL 0 0 NULL}
+	{43 NULL 0 0 NULL}
+	{44 NULL 0 0 NULL}
+	{45 NULL 0 0 NULL}
+	{46 NULL 0 0 NULL}
+	{47 NULL 0 0 NULL}
+	{48 59 NULL 0 NULL}
+	{49 12 NULL 0 NULL}
+	{50 50 NULL 0 NULL}
+	{51 6 NULL 0 NULL}
+	{52 49 NULL 0 NULL}
+	{53 45 NULL 0 NULL}
+	{54 NULL 0 0 NULL}
+	{55 NULL 0 0 NULL}
+	{56 NULL 0 0 NULL}
+	{57 NULL 0 0 NULL}
+	{58 NULL 0 0 NULL}
+	{59 NULL 0 0 NULL}
+	{60 64 NULL 0 NULL}
+	{61 65 NULL 0 NULL}
+	{62 67 NULL 0 NULL}
+	{63 68 NULL 0 NULL}	
+	
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+set filter(0) {	
+}
+
+
+
+################A05005 3 个#######################
+set begin_port {31500}
+
+set server_num(sms_transform_01) 5
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(sms_transform_01) {35 | {cdr_sms_yyyymmdd_2000}}                   
+
+##########################################################################
+#set destfile(file_name) {field_num     delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_sms_yyyymmdd_2000) {50 \t 2000 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+
+
+set col(cdr_sms_yyyymmdd_2000) {
+         {1 NULL 0 0 NULL}                   
+         {2 31 NULL 0 NULL}                   
+         {3 3 NULL 0 NULL}             
+         {4 5 NULL 0  NULL}            
+         {5 1 0 0 calltype_zzp0}               
+         {6 4 NULL 0 NULL}             
+         {7 10 NULL 6(3) NULL}                  
+         {8 17 0 17(1000) NULL}              
+         {9 18 0 17(1000) NULL}              
+         {10 28 0 17(1000) NULL}             
+         {11 NULL 0 0 NULL}                  
+         {12 19 NULL 0 NULL}           
+         {13 NULL 0 0 NULL}                  
+         {14 20 NULL 0 NULL}                 
+         {15 21 0 0 map_call_roamtype_new}                 
+         {16 6 0 0 cdrbrand_new} 
+         {17 25 NULL 0 NULL}   
+         {18 NULL 0 0 NULL}             
+         {19 NULL 21111 0 NULL}     
+         {20 NULL 200111 0 NULL}                                                   
+         {21 NULL 2 0 NULL}                                                 
+         {22 8 NULL 0 NULL}                                                  
+         {23 4 NULL 0 NULL}                                           
+         {24 17,18,28 NULL 4(0) NULL}                                            
+         {25 27 NULL 0 NULL}                                               
+         {26 24 NULL 0 NULL}                                                        
+         {27 22 0 17(1000) NULL}                                                        
+         {28 23 0 17(1000) NULL}                                                        
+         {29 13 NULL 0 NULL}                                               
+         {30 6 NULL 0 NULL}                                                      
+         {31 NULL 0 0 NULL}   
+         {32 NULL NULL 0 NULL}                                                   
+         {33 NULL NULL 0 NULL}                                                      
+         {34 1 NULL 0 NULL}                                                      
+         {35 NULL 0 0 NULL}                                                      
+         {36 NULL 0 0 NULL}                                                      
+         {37 26 NULL 6(3) NULL}                                                     
+         {38 NULL 0 0 NULL}                                                      
+         {39 NULL 0 0 NULL}                                                      
+         {40 NULL 0 0 NULL}                                                      
+         {41 NULL 0 0 NULL}                                                      
+         {42 NULL 0 0 NULL}                                                      
+         {43 NULL 0 0 NULL}                                                      
+         {44 NULL 0 0 NULL}                                                      
+         {45 7 NULL 0 NULL}                                                      
+         {46 NULL 0 0 NULL}                                                      
+         {47 NULL 0 0 NULL}
+         {48 32 NULL 0 NULL} 
+         {49 34 NULL 0 NULL} 
+         {50 35 NULL 0 NULL}                                                      
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+########################################################################## 
+set filter(2000) {   
+        
+        {& 0 4 1 0 huzhuan_id 1}
+        {& 16(1,3) 4 0 0 160,168,171,221,222,125 1}
+}
+
+
+set begin_port {31501}
+
+set server_num(smshuzhuan_transform_01) 5
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(smshuzhuan_transform_01) {35 | {cdr_sms_yyyymmdd_2010}}                   
+
+##########################################################################
+#set destfile(file_name) {field_num     delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_sms_yyyymmdd_2010) {50 \t 2010 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+
+
+set col(cdr_sms_yyyymmdd_2010) {
+         {1 NULL 0 0 NULL}                   
+         {2 31 NULL 0 NULL}                       
+         {3 3 NULL 0 NULL}             
+         {4 5 NULL 0  NULL}            
+         {5 1 0 0 calltype_zzp0}               
+         {6 4 NULL 0 NULL}             
+         {7 10 NULL 6(3) NULL}                  
+         {8 17 0 17(1000) NULL}              
+         {9 18 0 17(1000) NULL}              
+         {10 28 0 17(1000) NULL}             
+         {11 NULL 0 0 NULL}                  
+         {12 19 NULL 0 NULL}           
+         {13 NULL 0 0 NULL}                  
+         {14 20 NULL 0 NULL}                 
+         {15 21 0 0 map_call_roamtype_new}                 
+         {16 6 0 0 cdrbrand_new} 
+         {17 25 NULL 0 NULL}   
+         {18 NULL 0 0 NULL}             
+         {19 NULL 21111 0 NULL}     
+         {20 NULL 201080 0 NULL}                                                   
+         {21 NULL 2 0 NULL}                                                  
+         {22 8 NULL 0 NULL}                                                  
+         {23 4 NULL 0 NULL}                                           
+         {24 17,18,28 NULL 4(0) NULL}                                            
+         {25 27 NULL 0 NULL}                                               
+         {26 24 NULL 0 NULL}                                                        
+         {27 22 0 17(1000) NULL}                                                        
+         {28 23 0 17(1000) NULL}                                                        
+         {29 13 NULL 0 NULL}                                               
+         {30 6 NULL 0 NULL}                                                      
+         {31 NULL 0 0 NULL}   
+         {32 NULL NULL 0 NULL}                                                   
+         {33 NULL NULL 0 NULL}                                                      
+         {34 1 NULL 0 NULL}                                                      
+         {35 NULL 0 0 NULL}                                                      
+         {36 NULL 0 0 NULL}                                                      
+         {37 26 NULL 6(3) NULL}                                                     
+         {38 NULL 0 0 NULL}                                                      
+         {39 NULL 0 0 NULL}                                                      
+         {40 NULL 0 0 NULL}                                                      
+         {41 NULL 0 0 NULL}                                                      
+         {42 NULL 0 0 NULL}                                                      
+         {43 NULL 0 0 NULL}                                                      
+         {44 NULL 0 0 NULL}                                                      
+         {45 7 NULL 0 NULL}                                                      
+         {46 NULL 0 0 NULL}                                                      
+         {47 NULL 0 0 NULL}
+         {48 32 NULL 0 NULL}  
+         {49 34 NULL 0 NULL} 
+         {50 35 NULL 0 NULL}                                                               
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+########################################################################## 
+set filter(2010) {              
+        {& 0 4 1 0 huzhuan_id 0}
+        {& 16(1,3) 4 0 0 160,168,171,221,222,125 1}
+}
+
+set begin_port {31520}
+
+set server_num(sms_yidongyih_transform_20) 5
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(sms_yidongyih_transform_20) {35 | {cdr_sms_yyyymmdd_2200}}                   
+
+##########################################################################
+#set destfile(file_name) {field_num     delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_sms_yyyymmdd_2200) {50 \t 2200 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+
+
+set col(cdr_sms_yyyymmdd_2200) {
+         {1 NULL 0 0 NULL}                   
+         {2 31 NULL 0 NULL}                       
+         {3 3 NULL 0 NULL}             
+         {4 5 NULL 0  NULL}            
+         {5 1 0 0 calltype_zzp0}               
+         {6 4 NULL 0 NULL}             
+         {7 10 NULL 6(3) NULL}                  
+         {8 17 0 17(1000) NULL}              
+         {9 18 0 17(1000) NULL}              
+         {10 28 0 17(1000) NULL}             
+         {11 NULL 0 0 NULL}                  
+         {12 19 NULL 0 NULL}           
+         {13 NULL 0 0 NULL}                  
+         {14 20 NULL 0 NULL}                 
+         {15 21 0 0 map_call_roamtype_new}                 
+         {16 6 0 0 cdrbrand_new} 
+         {17 25 NULL 0 NULL}   
+         {18 NULL 0 0 NULL}             
+         {19 NULL 21111 0 NULL}     
+         {20 4 201180 16(1,3)|14(0) svcitem_id}                                              
+         {21 NULL 2 0 NULL}                                                  
+         {22 8 NULL 0 NULL}                                                  
+         {23 4 NULL 0 NULL}                                           
+         {24 17,18,28 NULL 4(0) NULL}                                            
+         {25 27 NULL 0 NULL}                                               
+         {26 24 NULL 0 NULL}                                                        
+         {27 22 0 17(1000) NULL}                                                        
+         {28 23 0 17(1000) NULL}                                                        
+         {29 13 NULL 0 NULL}                                               
+         {30 6 NULL 0 NULL}                                                      
+         {31 NULL 0 0 NULL}   
+         {32 NULL NULL 0 NULL}                                                   
+         {33 NULL NULL 0 NULL}                                                      
+         {34 1 NULL 0 NULL}                                                      
+         {35 NULL 0 0 NULL}                                                      
+         {36 NULL 0 0 NULL}                                                      
+         {37 26 NULL 6(3) NULL}                                                     
+         {38 NULL 0 0 NULL}                                                      
+         {39 NULL 0 0 NULL}                                                      
+         {40 NULL 0 0 NULL}                                                      
+         {41 NULL 0 0 NULL}                                                      
+         {42 NULL 0 0 NULL}                                                      
+         {43 NULL 0 0 NULL}                                                      
+         {44 NULL 0 0 NULL}                                                      
+         {45 7 NULL 0 NULL}                                                      
+         {46 NULL 0 0 NULL}                                                      
+         {47 NULL 0 0 NULL}
+         {48 32 NULL 0 NULL}
+         {49 34 NULL 0 NULL} 
+         {50 35 NULL 0 NULL}                                                               
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+########################################################################## 
+set filter(2200) {              
+        
+        {& 16(1,3) 4 0 0 160,168,171,221,222,125 0}
+}
+
+
+
+############################### A05016 1 个#######################
+set begin_port {31507}
+
+set server_num(smshl_transform_07) 5
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(smshl_transform_07) {32 | {cdr_sms_yyyymmdd_2070}}
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_sms_yyyymmdd_2070) {50 \t 0 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+set col(cdr_sms_yyyymmdd_2070) {
+	{1 NULL 0 0 NULL}
+	{2 27 NULL 0 NULL}
+	{3 3 NULL 0 NULL}
+	{4 26 NULL 0 NULL}
+	{5 2 0 0 calltype_zzp4}
+	{6 4 NULL 0 NULL}
+	{7 14 NULL 6(3) NULL}
+	{8 17 0 17(1000) NULL}
+	{9 NULL 0 0 NULL}
+	{10 20 0 17(1000) NULL}
+	{11 NULL 0 0 NULL}
+	{12 16 NULL 0 NULL}
+	{13 NULL 0 0 NULL}
+	{14 22 NULL 0 NULL}
+	{15 23 0 0 map_call_roamtype_new}
+	{16 5 0 0 cdrbrand_new}
+	{17 24 NULL 0 NULL}
+	{18 NULL 0 0 NULL}
+	{19 NULL 21200 0 NULL} 
+	{20 6 200116 0 smsitem_idzzp}
+	{21 6 2 0 map_pub_operator_new}
+	{22 6 NULL 0 NULL}
+	{23 4 NULL 0 NULL}
+	{24 17,20 NULL 4(0) NULL}
+	{25 25 NULL 0 NULL}
+	{26 19 NULL 0 NULL}
+	{27 18 NULL 0 NULL}
+	{28 NULL 0 0 NULL}
+	{29 9 NULL 0 NULL}
+	{30 5 NULL 0 NULL}
+	{31 NULL 0 0 NULL}
+	{32 NULL NULL 0 NULL}
+	{33 NULL NULL 0 NULL}
+	{34 2 NULL 0 NULL}
+	{35 NULL 0 0 NULL}
+	{36 NULL 0 0 NULL}
+	{37 15 NULL 6(3) NULL}
+	{38 NULL 0 0 NULL}
+	{39 NULL 0 0 NULL}
+	{40 NULL 0 0 NULL}
+	{41 NULL 0 0 NULL}
+	{42 NULL 0 0 NULL}
+	{43 NULL 0 0 NULL}
+	{44 NULL 0 0 NULL}
+	{45 30 NULL 0 NULL}
+	{46 NULL 0 0 NULL}
+	{47 NULL 0 0 NULL}
+	{48 28 NULL 0 NULL}
+  {49 31 NULL 0 NULL} 
+  {50 32 NULL 0 NULL} 	
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+
+set filter(0) {
+	
+}
+
+
+
+
+
+
+
+
+################################ A05019 1 个###############################################
+set begin_port {31509}
+
+set server_num(smsgj_transform_09) 5
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(smsgj_transform_09) {31 | {cdr_sms_yyyymmdd_2090}}
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_sms_yyyymmdd_2090) {50 \t 0 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+set col(cdr_sms_yyyymmdd_2090) {
+	{1 NULL 0 0 NULL}
+	{2 26 NULL 0 NULL}
+	{3 3 NULL 0 NULL}
+	{4 25 NULL 0 NULL}
+	{5 2 0 0 calltype_zzp6}
+	{6 4 NULL 0 NULL}
+	{7 15 NULL 6(3) NULL}
+	{8 18 0 17(1000) NULL}
+	{9 NULL 0 0 NULL}
+	{10 NULL 0 0 NULL}
+	{11 NULL 0 0 NULL}
+	{12 17 NULL 0 NULL}
+	{13 NULL 0 0 NULL}
+	{14 21 NULL 0 NULL}
+	{15 22 0 0 map_call_roamtype_new}
+	{16 6 0 0 cdrbrand_new}
+	{17 23 NULL 0 NULL}
+	{18 NULL 0 0 NULL}
+	{19 NULL 21511 0 NULL} 
+	{20 NULL 201210 0 NULL}
+	{21 NULL 0 0 NULL}
+	{22 NULL 0 0 NULL}
+	{23 4 NULL 0 NULL}
+	{24 18 NULL 4(0) NULL}
+	{25 24 NULL 0 NULL}
+	{26 20 NULL 0 NULL}
+	{27 19 0 17(1000) NULL}
+	{28 NULL 0 0 NULL}
+	{29 10 NULL 0 NULL}
+	{30 NULL 0 0 NULL}
+	{31 NULL 0 0 NULL}
+	{32 NULL NULL 0 NULL}
+	{33 NULL NULL 0 NULL}
+	{34 2 NULL 0 NULL}
+	{35 NULL 0 0 NULL}
+	{36 NULL 0 0 NULL}
+	{37 16 NULL 6(3) NULL}
+	{38 NULL 0 0 NULL}
+	{39 NULL 0 0 NULL}
+	{40 NULL 0 0 NULL}
+	{41 NULL 0 0 NULL}
+	{42 NULL 0 0 NULL}
+	{43 NULL 0 0 NULL}
+	{44 NULL 0 0 NULL}
+	{45 29 NULL 0 NULL}
+	{46 NULL 0 0 NULL}
+	{47 NULL 0 0 NULL}
+	{48 27 NULL 0 NULL}
+  {49 30 NULL 0 NULL} 
+  {50 31 NULL 0 NULL}	
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+
+set filter(0) {
+}
+
+
+
+
+
+
+
+
+
+#########A05007################
+
+set begin_port {31512}
+
+set server_num(smsszxp_transform) 5
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(smsszxp_transform) {32 | {cdr_sms_yyyymmdd_2120}}
+
+##########################################################################
+#set destfile(file_name) {field_num     delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_sms_yyyymmdd_2120) {48 \t 0 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+set col(cdr_sms_yyyymmdd_2120) {
+        {1 NULL 0 0 NULL}
+        {2 3 NULL 0 NULL}
+        {3 3 NULL 0 NULL}
+        {4 5 NULL 0 NULL}
+        {5 1 0 0 calltype_zzp0}
+        {6 4 NULL 0 NULL}
+        {7 10 NULL 6(3) NULL}
+        {8 17 NULL 17(1000) NULL}
+        {9 18 NULL 17(1000) NULL}
+        {10 28 NULL 17(1000) NULL}
+        {11 NULL 0 0 NULL}
+        {12 19 NULL 0 NULL}
+        {13 NULL 0 0 NULL}
+        {14 20 NULL 0 NULL}
+        {15 21 0 0 map_call_roamtype_new}
+        {16 NULL 6 0 NULL}
+        {17 25 NULL 0 NULL}
+        {18 NULL 0 0 NULL}
+        {19 NULL 21111 0 NULL}
+        {20 NULL 200111 0 NULL}
+        {21 NULL 2 0 NULL}
+        {22 8 NULL 0 NULL}
+        {23 4 NULL 0 NULL}
+        {24 17,18 NULL 4(0) NULL}
+        {25 27 NULL 0 NULL}
+        {26 24 NULL 0 NULL}
+        {27 22 0 17(1000) NULL}
+        {28 23 0 17(1000) NULL}
+        {29 13 NULL 0 NULL}
+        {30 NULL 0 0 NULL}
+        {31 NULL 0 0 NULL}
+        {32 NULL NULL 0 NULL}
+        {33 NULL NULL 0 NULL}
+        {34 1 NULL 0 NULL}
+        {35 NULL 0 0 NULL}
+        {36 NULL 0 0 NULL}
+        {37 26 NULL 6(3) NULL}
+        {38 NULL 6 0 NULL}
+        {39 NULL 0 0 NULL}
+        {40 NULL 0 0 NULL}
+        {41 NULL 0 0 NULL}
+        {42 NULL 0 0 NULL}
+        {43 NULL 0 0 NULL}
+        {44 NULL 0 0 NULL}
+        {45 NULL 0 0 NULL}
+        {46 NULL 0 0 NULL}
+        {47 NULL 0 0 NULL}
+        {48 32 NULL 0 NULL}
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+set filter(0) {
+       
+}
+ 
+ 
+################ A05011 ####################################
+ 
+set begin_port {31513}
+
+set server_num(smshl_transform_13) 5
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(smshl_transform_13) {25 | {cdr_sms_yyyymmdd_2130}}
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_sms_yyyymmdd_2130) {48 \t 0 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+set col(cdr_sms_yyyymmdd_2130) {
+	{1 NULL 0 0 NULL}
+	{2 3 NULL 0 NULL}
+	{3 3 NULL 0 NULL}
+	{4 23 NULL 0 NULL}
+	{5 2 0 0 calltype_zzp4}
+	{6 4 NULL 0 NULL}
+	{7 14 NULL 6(3) NULL}
+	{8 17 0 17(1000) NULL}
+	{9 NULL 0 0 NULL}
+	{10 NULL 0 0 NULL}
+	{11 NULL 0 0 NULL}
+	{12 16 NULL 0 NULL}
+	{13 NULL 0 0 NULL}
+	{14 19 NULL 0 NULL}
+	{15 20 0 0 map_call_roamtype_new}
+	{16 NULL 6 0 NULL}
+	{17 21 NULL 0 NULL}
+	{18 NULL 0 0 NULL}
+	{19 NULL 21200 0 NULL}
+	{20 6 200116 0 smsitem_idzzp}
+	{21 6 2 0 map_pub_operator_new}
+	{22 6 NULL 0 NULL}
+	{23 4 NULL 0 NULL}
+	{24 17 NULL 4(0) NULL}
+	{25 22 NULL 0 NULL}
+	{26 NULL 0 0 NULL}
+	{27 NULL 0 0 NULL}
+	{28 NULL 0 0 NULL}
+	{29 9 NULL 0 NULL}
+	{30 NULL 0 0 NULL}
+	{31 NULL 0 0 NULL}
+	{32 NULL NULL 0 NULL}
+	{33 NULL NULL 0 NULL}
+	{34 2 NULL 0 NULL}
+	{35 NULL 0 0 NULL}
+	{36 NULL 0 0 NULL}
+	{37 14 NULL 6(3) NULL}
+	{38 NULL 6 0 NULL}
+	{39 NULL 0 0 NULL}
+	{40 NULL 0 0 NULL}
+	{41 NULL 0 0 NULL}
+	{42 NULL 0 0 NULL}
+	{43 NULL 0 0 NULL}
+	{44 NULL 0 0 NULL}
+	{45 NULL 0 0 NULL}
+	{46 NULL 0 0 NULL}
+	{47 NULL 0 0 NULL}
+	{48 25 NULL 0 NULL}
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+
+set filter(0) {
+	
+}
+
+
+###############################05003梦网短信 1 个 ################################################################
+###set begin_port {31502}
+###
+###set server_num(smsmwdx_transform) 5
+###
+#############################################################################
+####Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+####             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+#############################################################################
+###
+###set srcfile(smsmwdx_transform) {31 | {cdr_sms_yyyymmdd_2020}}
+###
+#############################################################################
+####set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+####            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+#############################################################################
+###
+###set destfile(cdr_sms_yyyymmdd_2020) {47 \t 0 0 NULL}
+###
+#############################################################################
+####set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+####       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+####}
+#############################################################################
+###
+###set col(cdr_sms_yyyymmdd_2020) {
+###	{1 NULL 0 0 NULL}
+###	{2 31 NULL 0 NULL}
+###	{3 4 NULL 0 NULL}
+###	{4 5 NULL 0 NULL}
+###	{5 2 0 0 calltype_zzp1}
+###	{6 7 NULL 0 NULL}
+###	{7 20 NULL 6(3) NULL}
+###	{8 11 NULL 17(1000) NULL}
+###	{9 NULL 0 0 NULL}
+###	{10 12 NULL 17(1000) NULL}
+###	{11 NULL 0 0 NULL}
+###	{12 16 NULL 0 NULL}
+###	{13 NULL 0 0 NULL}
+###	{14 28 NULL 0 NULL}
+###	{15 29 0 0 map_call_roamtype_new}
+###	{16 3 0 0 cdrbrand_new}
+###	{17 26 NULL 0 NULL}
+###	{18 6 NULL 0 NULL}
+###	{19 NULL 21311 0 NULL} 
+###	{20 27 210010 0 mwtype_zzp}
+###	{21 NULL 0 0 NULL}
+###	{22 NULL 0 0 NULL}
+###	{23 7 NULL 0 NULL}
+###	{24 25 NULL 0 NULL}
+###	{25 10 NULL 0 NULL}
+###	{26 24 NULL 0 NULL}
+###	{27 23 0 17(1000) NULL}
+###	{28 22 0 17(1000) NULL}
+###	{29 15 NULL 0 NULL}
+###	{30 NULL 0 0 NULL}
+###	{31 NULL 0 0 NULL}
+###	{32 NULL NULL 0 NULL}
+###	{33 NULL NULL 0 NULL}
+###	{34 2 NULL 0 NULL}
+###	{35 NULL 0 0 NULL}
+###	{36 NULL 0 0 NULL}
+###	{37 21 NULL 6(3) NULL}
+###	{38 NULL 0 0 NULL}
+###	{39 NULL 0 0 NULL}
+###	{40 NULL 0 0 NULL}
+###	{41 NULL 0 0 NULL}
+###	{42 NULL 0 0 NULL}
+###	{43 NULL 0 0 NULL}
+###	{44 NULL 0 0 NULL}
+###	{45 NULL 0 0 NULL}
+###	{46 9 NULL 0 NULL}
+###	{47 8 NULL 0 NULL}		
+###}
+#############################################################################
+####set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+####           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+#############################################################################
+###
+###set filter(0) {
+###}
+
+set begin_port {31502}
+
+set server_num(smsmwdx_transform) 5
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(smsmwdx_transform) {36 | {cdr_sms_yyyymmdd_2020}}
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_sms_yyyymmdd_2020) {50 \t 0 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+set col(cdr_sms_yyyymmdd_2020) {
+	{1 NULL 0 0 NULL}
+	{2 31 NULL 0 NULL}
+	{3 4 NULL 0 NULL}
+	{4 5 NULL 0 NULL}
+	{5 2 0 0 calltype_zzp1}
+	{6 7 NULL 0 NULL}
+	{7 20 NULL 6(3) NULL}
+	{8 11 NULL 17(1000) NULL}
+	{9 32 NULL 17(1000) NULL}
+	{10 12 NULL 17(1000) NULL}
+	{11 NULL 0 0 NULL}
+	{12 16 NULL 0 NULL}
+	{13 NULL 0 0 NULL}
+	{14 28 NULL 0 NULL}
+	{15 29 0 0 map_call_roamtype_new}
+	{16 3 0 0 cdrbrand_new}
+	{17 26 NULL 0 NULL}
+	{18 6 NULL 0 NULL}
+	{19 NULL 21311 0 NULL} 
+	{20 27 210010 0 mwtype_zzp}
+	{21 NULL 0 0 NULL}
+	{22 NULL 0 0 NULL}
+	{23 7 NULL 0 NULL}
+	{24 25 NULL 0 NULL}
+	{25 10 NULL 0 NULL}
+	{26 24 NULL 0 NULL}
+	{27 23 0 17(1000) NULL}
+	{28 22 0 17(1000) NULL}
+	{29 15 NULL 0 NULL}
+	{30 3 NULL 0 NULL}
+	{31 NULL 0 0 NULL}
+	{32 NULL NULL 0 NULL}
+	{33 NULL NULL 0 NULL}
+	{34 2 NULL 0 NULL}
+	{35 NULL 0 0 NULL}
+	{36 NULL 0 0 NULL}
+	{37 21 NULL 6(3) NULL}
+	{38 NULL 0 0 NULL}
+	{39 NULL 0 0 NULL}
+	{40 NULL 0 0 NULL}
+	{41 NULL 0 0 NULL}
+	{42 NULL 0 0 NULL}
+	{43 NULL 0 0 NULL}
+	{44 NULL 0 0 NULL}
+	{45 27 NULL 0 NULL}
+	{46 9 NULL 0 NULL}
+	{47 8 NULL 0 NULL}
+	{48 33 NULL 0 NULL}
+	{49 35 NULL 0 NULL} 
+  {50 36 NULL 0 NULL}		
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+
+set filter(0) {
+}
+
+
+
+############################### 5004梦网wap的配置 1 个 #######################
+set begin_port {31506}
+
+set server_num(smswap_transform_04) 5
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(smswap_transform_04) {35 | {cdr_sms_yyyymmdd_2060}}
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_sms_yyyymmdd_2060) {50 \t 1309 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+set col(cdr_sms_yyyymmdd_2060) {
+	{1 NULL 0 0 NULL}
+	{2 31 NULL 0 NULL}
+	{3 6 NULL 0 NULL}
+	{4 7 NULL 0 NULL}
+	{5 NULL 1 0 NULL}
+	{6 NULL 0 0 NULL}
+	{7 13 NULL 6(3) NULL}
+	{8 19 NULL 17(1000) NULL}
+	{9 21 NULL 17(1000) NULL}
+	{10 20 NULL 17(1000) NULL}
+	{11 NULL 0 0 NULL}
+	{12 17 NULL 0 NULL}
+	{13 NULL 0 0 NULL}
+	{14 28 NULL 0 NULL}
+	{15 27 0 0 map_call_roamtype_new}
+	{16 10 0 0 cdrbrand_new}
+	{17 25 NULL 0 NULL}
+	{18 8 NULL 0 NULL}
+	{19 NULL 22010 0 NULL} 
+	{20 {if int(col29)=104 then 201901 else if int(col29)=105 then 201911 else if int(col29)=304 then 201906 else 201901} NULL 999 NULL} 
+	{21 NULL 0 0 NULL}
+	{22 NULL 0 0 NULL}
+	{23 NULL 0 0 NULL}
+	{24 19,20 NULL 4(0) NULL}
+	{25 18 NULL 0 NULL}
+	{26 24 NULL 0 NULL}
+	{27 23 0 17(1000) NULL}
+	{28 22 0 17(1000) NULL}
+	{29 16 NULL 0 NULL}
+	{30 NULL 0 0 NULL}
+	{31 NULL 0 0 NULL}
+	{32 NULL NULL 0 NULL}
+	{33 NULL NULL 0 NULL}
+	{34 2 NULL 0 NULL}
+	{35 NULL 0 0 NULL}
+	{36 NULL 0 0 NULL}
+	{37 14 NULL 6(3) NULL}
+	{38 NULL 0 0 NULL}
+	{39 NULL 0 0 NULL}
+	{40 NULL 0 0 NULL}	
+	{41 NULL 0 0 NULL}	
+	{42 NULL 0 0 NULL}	
+	{43 5 NULL 0 NULL}	
+	{44 12 NULL 0 NULL}     
+	{45 8 NULL 0 NULL}      
+	{46 9 NULL 0 NULL}      
+	{47 29 NULL 0 NULL}
+	{48 32 NULL 0 NULL}
+	{49 34 NULL 0 NULL} 
+  {50 35 NULL 0 NULL} 
+	     
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+
+set filter(1309) {
+  {& 0 29 0 0 090509 1}
+  {& 0 29 0 0 90509 1}
+}
+
+
+###############################05018 彩信 的配置#######################
+set begin_port {31511}
+
+set server_num(smsmms_transform_08) 5
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(smsmms_transform_08) {43 | {cdr_sms_yyyymmdd_2110}}
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_sms_yyyymmdd_2110) {50 \t 0 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+set col(cdr_sms_yyyymmdd_2110) {
+	{1 NULL 0 0 NULL}
+	{2 39 NULL 0 NULL}
+	{3 5 NULL 0 NULL}
+	{4 6 NULL 0 NULL}
+	{5 2 0 0 calltype_zzp5}
+	{6 9 NULL 0 NULL}
+	{7 12 NULL 6(3) NULL}
+	{8 17,19 NULL 1004(1,0) NULL}
+	{9 18 0 17(1000) NULL}
+	{10 17,19 NULL 1004(2,3) NULL}
+	{11 NULL 0 0 NULL}
+	{12 33 NULL 0 NULL}
+	{13 NULL 0 0 NULL}
+	{14 7 NULL 0 NULL}
+	{15 3 0 0 map_call_roamtype_new}
+	{16 4 0 0 cdrbrand_new}
+	{17 37 NULL 0 NULL}
+	{18 25 NULL 0 NULL}
+	{19 38 21611 0 mmtype_zzp}
+	{20 15 201031 0 mms_zzp}
+	{21 NULL 0 0 NULL}
+	{22 NULL 0 0 NULL}
+	{23 9 NULL 0 NULL}
+	{24 18,19 NULL 4(0) NULL}
+	{25 17 NULL 0 NULL}
+	{26 36 NULL 0 NULL}
+	{27 34 NULL 0 NULL}
+	{28 35 NULL 0 NULL}
+	{29 20 NULL 0 NULL}
+	{30 NULL 0 0 NULL}
+	{31 22 NULL 0 NULL}
+	{32 NULL NULL 0 NULL}
+	{33 15 NULL 0 NULL}
+	{34 2 NULL 0 NULL}
+	{35 NULL 0 0 NULL}
+	{36 NULL 0 0 NULL}
+	{37 11 NULL 6(3) NULL}
+	{38 NULL 0 0 NULL}
+	{39 NULL 0 0 NULL}
+	{40 38 NULL 0 NULL} 
+	{41 NULL 0 0 NULL} 
+	{42 NULL 0 0 NULL} 
+	{43 21 NULL 0 NULL} 
+	{44 28 NULL 0 NULL}
+	{45 38 NULL 0 NULL}
+	{46 27 NULL 0 NULL}
+	{47 26 NULL 0 NULL}
+	{48 40 NULL 0 NULL} 
+	{49 42 NULL 0 NULL} 
+  {50 43 NULL 0 NULL}  
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+
+set filter(0) {
+	
+}
+
+##########################05010智能网梦网短信 ########################################
+
+set begin_port {31514}
+
+set server_num(sms_transform_14) 5
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(sms_transform_14) {26 | {cdr_sms_yyyymmdd_2140}}
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_sms_yyyymmdd_2140) {48 \t 0 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+set col(cdr_sms_yyyymmdd_2140) {
+	{1 NULL 0 0 NULL}
+	{2 4 NULL 0 NULL}
+	{3 4 NULL 0 NULL}
+	{4 NULL 0 0 NULL}
+	{5 2 NULL 0 calltype_zzp3}
+	{6 6 NULL 0 NULL}
+	{7 19 NULL 6(3) NULL}
+	{8 10 0 17(1000) NULL}
+	{9 NULL 0 0 NULL}
+	{10 11 0 17(1000) NULL}
+	{11 NULL 0 0 NULL}
+	{12 15 NULL 0 NULL}
+	{13 NULL 0 0 NULL}
+	{14 22 NULL 0 NULL}
+	{15 23 0 0 map_call_roamtype_new}
+	{16 NULL 6 0 NULL}
+	{17 24 NULL 0 NULL}
+	{18 5 NULL 0 NULL}
+	{19 NULL 21311 0 NULL}
+	{20 6 201900 16(1,3)|14(0) szxitem_id}
+	{21 NULL 0 0 NULL}
+	{22 NULL 0 0 NULL}
+	{23 6 NULL 0 NULL}
+	{24 21 NULL 0 NULL}
+	{25 9 NULL 0 NULL}
+	{26 NULL 0 0 NULL}
+	{27 NULL 0 0 NULL}
+	{28 NULL 0 0 NULL}
+	{29 14 NULL 0 NULL}
+	{30 NULL 0 0 NULL}
+	{31 NULL 0 0 NULL}
+	{32 NULL NULL 0 NULL}
+	{33 NULL NULL 0 NULL}
+	{34 2 NULL 0 NULL}
+	{35 NULL 0 0 NULL}
+	{36 NULL 0 0 NULL}
+	{37 20 NULL 6(3) NULL}
+	{38 NULL 6 0 NULL}
+	{39 NULL 0 0 NULL}
+	{40 NULL 0 0 NULL}
+	{41 NULL 0 0 NULL}
+	{42 NULL 0 0 NULL}
+	{43 NULL 0 0 NULL}
+	{44 NULL 0 0 NULL}
+	{45 NULL 0 0 NULL}
+	{46 8 NULL 0 NULL}
+	{47 7 NULL 0 NULL}
+	{48 26 NULL 0 NULL}
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+
+set filter(0) {
+	
+}
+
+
+##########################05034百宝箱 ########################################
+
+set begin_port {31515}
+
+set server_num(sms_transform_15) 5
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(sms_transform_15) {35 | {cdr_sms_yyyymmdd_2150}}
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_sms_yyyymmdd_2150) {50 \t 0 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+set col(cdr_sms_yyyymmdd_2150) {
+	{1 NULL 0 0 NULL}
+	{2 29 NULL 0 NULL}
+	{3 3 NULL 0 NULL}
+	{4 30 NULL 0 NULL}
+	{5 NULL 2 0 NULL}
+	{6 10 NULL 0 NULL}
+	{7 12 NULL 6(3) NULL}
+	{8 19 0 17(1000) NULL}
+	{9 NULL 0 0 NULL}
+	{10 NULL 0 0 NULL}
+	{11 NULL 0 0 NULL}
+	{12 31 NULL 0 NULL}
+	{13 NULL 0 0 NULL}
+	{14 11 0 0 NULL}
+	{15 24 0 0 map_call_roamtype_new}
+	{16 4 NULL 0 cdrbrand_new}
+	{17 26 NULL 0 NULL}
+	{18 8 NULL 0 NULL}
+	{19 25 NULL 0 NULL}
+	{20 NULL 201902 0 NULL}
+	{21 NULL 0 0 NULL}
+	{22 NULL 0 0 NULL}
+	{23 NULL 0 0 NULL}
+	{24 19 NULL 4(0) NULL}
+	{25 NULL 0 0 NULL}
+	{26 NULL 0 0 NULL}
+	{27 NULL 0 0 NULL}
+	{28 NULL 0 0 NULL}
+	{29 NULL 0 0 NULL}
+	{30 NULL 0 0 NULL}
+	{31 NULL 0 0 NULL}
+	{32 18 NULL 0 NULL}
+	{33 NULL NULL 0 NULL}
+	{34 6 NULL 0 NULL}
+	{35 NULL 0 0 NULL}
+	{36 1 NULL 0 NULL}
+	{37 13 NULL 6(3) NULL}
+	{38 NULL 0 0 NULL}
+	{39 NULL 0 0 NULL}
+	{40 17 NULL 0 NULL}	
+	{41 5 NULL 0 NULL}	
+	{42 21 NULL 0 NULL}	
+	{43 20 NULL 0 NULL}	
+	{44 14 NULL 0 NULL}     
+	{45 15 NULL 0 NULL}     
+	{46 6 NULL 0 NULL}      
+	{47 9 NULL 0 NULL}
+	{48 32 NULL 0 NULL}
+	{49 34 NULL 0 NULL} 
+  {50 35 NULL 0 NULL}	
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+
+set filter(0) {
+	
+}
+
+############################5065企信通短信清单#######################################
+set begin_port {31529}
+
+set server_num(sms_transformqxt_01) 5
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(sms_transformqxt_01) {33 | {cdr_sms_yyyymmdd_2160}}                   
+
+##########################################################################
+#set destfile(file_name) {field_num     delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_sms_yyyymmdd_2160) {48 \t 0 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+
+
+set col(cdr_sms_yyyymmdd_2160) {
+         {1 NULL 0 0 NULL}                   
+         {2 31 NULL 0 NULL}                   
+         {3 3 NULL 0 NULL}             
+         {4 5 NULL 0  NULL}            
+         {5 1 0 0 calltype_zzp0}               
+         {6 4 NULL 0 NULL}             
+         {7 10 NULL 6(3) NULL}                  
+         {8 17 0 17(1000) NULL}              
+         {9 18 0 17(1000) NULL}              
+         {10 28 0 17(1000) NULL}             
+         {11 NULL 0 0 NULL}                  
+         {12 19 NULL 0 NULL}           
+         {13 NULL 0 0 NULL}                  
+         {14 20 NULL 0 NULL}                 
+         {15 21 0 0 map_call_roamtype_new}                 
+         {16 6 0 0 cdrbrand_new} 
+         {17 25 NULL 0 NULL}   
+         {18 NULL 0 0 NULL}             
+         {19 NULL 21000 0 NULL}     
+         {20 NULL 201903 0 NULL}                                                   
+         {21 8 2 0 adv_zzp}                                                 
+         {22 8 NULL 0 NULL}                                                  
+         {23 4 NULL 0 NULL}                                           
+         {24 17,18,28 NULL 4(0) NULL}                                            
+         {25 NULL 0 0 NULL}                                               
+         {26 24 NULL 0 NULL}                                                        
+         {27 22 0 17(1000) NULL}                                                        
+         {28 23 0 17(1000) NULL}                                                        
+         {29 13 NULL 0 NULL}                                               
+         {30 NULL 0 0 NULL}                                                      
+         {31 NULL 0 0 NULL}   
+         {32 NULL NULL 0 NULL}                                                   
+         {33 NULL NULL 0 NULL}                                                      
+         {34 1 NULL 0 NULL}                                                      
+         {35 NULL 0 0 NULL}                                                      
+         {36 NULL 0 0 NULL}                                                      
+         {37 26 NULL 6(3) NULL}                                                     
+         {38 NULL 0 0 NULL}                                                      
+         {39 NULL 0 0 NULL}                                                      
+         {40 NULL 0 0 NULL}                                                      
+         {41 NULL 0 0 NULL}                                                      
+         {42 NULL 0 0 NULL}                                                      
+         {43 NULL 0 0 NULL}                                                      
+         {44 NULL 0 0 NULL}                                                      
+         {45 NULL 0 0 NULL}                                                      
+         {46 NULL 0 0 NULL}                                                      
+         {47 NULL 0 0 NULL}
+         {48 32 NULL 0 NULL}                                                      
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+########################################################################## 
+set filter(0) {   
+        
+}
+
+
+############################A05067行业网关上行的短信#######################################
+set begin_port {31567}
+
+set server_num(sms_transformwg_01) 5
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(sms_transformwg_01) {33 | {cdr_hywg_sms_yyyymmdd_2170}}                   
+
+##########################################################################
+#set destfile(file_name) {field_num     delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_hywg_sms_yyyymmdd_2170) {47 \t 0 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+
+
+set col(cdr_hywg_sms_yyyymmdd_2170) {
+         {1 NULL 0 0 NULL}                   
+         {2 31 NULL 0 NULL}                   
+         {3 3 NULL 0 NULL}             
+         {4 5 NULL 0  NULL}            
+         {5 1 0 0 calltype_zzp0}               
+         {6 4 NULL 0 NULL}             
+         {7 10 NULL 6(3) NULL}                  
+         {8 17 0 17(1000) NULL}              
+         {9 18 0 17(1000) NULL}              
+         {10 28 0 17(1000) NULL}             
+         {11 NULL 0 0 NULL}                  
+         {12 19 NULL 0 NULL}           
+         {13 NULL 0 0 NULL}                  
+         {14 20 NULL 0 NULL}                 
+         {15 21 0 0 map_call_roamtype_new}                 
+         {16 6 0 0 cdrbrand_new} 
+         {17 25 NULL 0 NULL}   
+         {18 NULL 0 0 NULL}             
+         {19 NULL 20000 0 NULL}     
+         {20 NULL 201904 0 NULL}                                                   
+         {21 8 2 0 adv_zzp}                                                 
+         {22 8 NULL 0 NULL}                                                  
+         {23 4 NULL 0 NULL}                                           
+         {24 17,18 NULL 4(0) NULL}                                            
+         {25 NULL 0 0 NULL}                                               
+         {26 24 NULL 0 NULL}                                                        
+         {27 22 0 17(1000) NULL}                                                        
+         {28 23 0 17(1000) NULL}                                                        
+         {29 13 NULL 0 NULL}                                               
+         {30 NULL 0 0 NULL}                                                      
+         {31 NULL 0 0 NULL}   
+         {32 NULL NULL 0 NULL}                                                   
+         {33 NULL NULL 0 NULL}                                                      
+         {34 1 NULL 0 NULL}                                                      
+         {35 NULL 0 0 NULL}                                                      
+         {36 NULL 0 0 NULL}                                                      
+         {37 26 NULL 6(3) NULL}                                                     
+         {38 NULL 0 0 NULL}                                                      
+         {39 NULL 0 0 NULL}                                                      
+         {40 NULL 0 0 NULL}                                                      
+         {41 NULL 0 0 NULL}                                                      
+         {42 NULL 0 0 NULL}                                                      
+         {43 NULL 0 0 NULL}                                                      
+         {44 NULL 0 0 NULL}                                                      
+         {45 33 NULL 0 NULL}                                                      
+         {46 NULL 0 0 NULL}                                                      
+         {47 NULL 0 0 NULL}                                                       
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+########################################################################## 
+set filter(0) {   
+        
+}
+
+
+
+
+
+
+
+
+###########################################################
+###3.3	竞争对手语音话单表（Cdr_Comp_Call_Ds）
+###3.4.2	*智能网神州行普通短信详单
+##########################################################
+
+
+
+###############################compcdrszxtest_transform的配置#######################
+set begin_port {11711}
+
+set server_num(compcdrszxtest_transform) 5
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(compcdrszxtest_transform) {33 | {cdr_comp_call_ds_1301}}
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_comp_call_ds_1301) {21 \t 1301 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+set col(cdr_comp_call_ds_1301) {
+	{1 NULL NULL 12 NULL}
+	{2 NULL 0 13 NULL}
+	{3 4,15 NULL 2|23(#,0) NULL}
+	{4 2 NULL 0 NULL}
+	{5 15 NULL 0 NULL}
+	{6 13 NULL 0 NULL}
+	{7 NULL 0 0 NULL}
+	{8 NULL 0  0 NULL}
+	{9 NULL 0  0 NULL}
+	{10 5 NULL 0 brand_type}
+	{11 5 0 0 map_pub_operator_new}
+	{12 NULL 0 0 NULL}
+	{13 1  0 0 comp_callzzp}  
+	{14 6 NULL 6(3)|5 NULL}
+	{15 6 NULL 6(3) NULL}
+	{16 7 NULL 0 NULL}
+	{17 7 NULL 1 NULL}
+	{18 20 NULL 17(1000) NULL}
+	{19 21 NULL 17(1000) NULL}
+	{20 NULL 0 0 NULL}
+	{21 NULL 0 0 NULL}
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+set filter(1301) {
+	{& 0 5 0 0 13,14 0}
+	{& 0 15 0 0 701,790,791,792,793,794,795,796,797,798,799 {}}	
+}
+
+
+
+###############################compcdrszxtestxlt_transform的配置#######################
+set begin_port {11721}
+
+set server_num(compcdrszxtestxlt_transform) 5
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(compcdrszxtestxlt_transform) {33 | {cdr_comp_call_ds_1310}}
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_comp_call_ds_1310) {21 \t 1310 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+set col(cdr_comp_call_ds_1310) {
+	{1 NULL NULL 12 NULL}
+	{2 NULL 0 13 NULL}
+	{3 4,15 NULL 2|23(#,0) NULL}
+	{4 2 NULL 0 NULL}
+	{5 15 NULL 0 NULL}
+	{6 13 NULL 0 NULL}
+	{7 NULL 0 0 NULL}
+	{8 NULL 0  0 NULL}
+	{9 NULL 0  0 NULL}
+	{10 NULL 3 0 NULL}
+	{11 NULL 1 0 NULL}
+	{12 NULL 0 0 NULL}
+	{13 1  0 0 comp_callzzp}  
+	{14 6 NULL 6(3)|5 NULL}
+	{15 6 NULL 6(3) NULL}
+	{16 7 NULL 0 NULL}
+	{17 7 NULL 1 NULL}
+	{18 20 NULL 17(1000) NULL}
+	{19 21 NULL 17(1000) NULL}
+	{20 NULL 0 0 NULL}
+	{21 NULL 0 0 NULL}
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+set filter(1310) {
+	{& 2|201|14(3) 4,15 1 0 map_call_xlt 0}
+	{& 0 15 0 0 701,790,791,792,793,794,795,796,797,798,799 {}}	
+}
+
+
+
+
+############## xm    add ################################
+
+###############################compcdrszxwt_transform的配置#######################
+set begin_port {11731}
+
+set server_num(compcdrszxwt_transform) 5
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(compcdrszxwt_transform) {33 | {cdr_comp_call_ds_1357}}
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_comp_call_ds_1357) {21 \t 1357 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+set col(cdr_comp_call_ds_1357) {
+	{1 NULL NULL 12 NULL}
+	{2 NULL 0 13 NULL}
+	{3 4,15 NULL 2|23(#,0) NULL}
+	{4 2 NULL 0 NULL}
+	{5 15 NULL 0 NULL}
+	{6 13 NULL 0 NULL}
+	{7 NULL 0 0 NULL}
+	{8 NULL 0  0 NULL}
+	{9 NULL 0  0 NULL}
+	{10 NULL 6 0 NULL}
+	{11 NULL 7 0 NULL}
+	{12 NULL 0 0 NULL}
+	{13 1  0 0 comp_callzzp}  
+	{14 6 NULL 6(3)|5 NULL}
+	{15 6 NULL 6(3) NULL}
+	{16 7 NULL 0 NULL}
+	{17 7 NULL 1 NULL}
+	{18 20 NULL 17(1000) NULL}
+	{19 21 NULL 17(1000) NULL}
+	{20 NULL 0 0 NULL}
+	{21 NULL 0 0 NULL}
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+set filter(1357) {
+	{& 2|201|14(3) 4,15 1 0 map_wt_hd_v15 0}
+	{& 0 15 0 0 701,790,791,792,793,794,795,796,797,798,799 {}}	
+}
+
+
+
+
+
+
+
+
+###############################compcdrszxtie_transform的配置#######################
+set begin_port {11741}
+
+set server_num(compcdrszxtie_transform) 5
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(compcdrszxtie_transform) {33 | {cdr_comp_call_ds_1358}}
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_comp_call_ds_1358) {21 \t 1358 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+set col(cdr_comp_call_ds_1358) {
+	{1 NULL NULL 12 NULL}
+	{2 NULL 0 13 NULL}
+	{3 4,15 NULL 2|23(#,0) NULL}
+	{4 2 NULL 0 NULL}
+	{5 15 NULL 0 NULL}
+	{6 13 NULL 0 NULL}
+	{7 NULL 0 0 NULL}
+	{8 NULL 0  0 NULL}
+	{9 NULL 0  0 NULL}
+	{10 NULL 4 0 NULL}
+	{11 NULL 4 0 NULL}
+	{12 NULL 0 0 NULL}
+	{13 1  0 0 comp_callzzp}  
+	{14 6 NULL 6(3)|5 NULL}
+	{15 6 NULL 6(3) NULL}
+	{16 7 NULL 0 NULL}
+	{17 7 NULL 1 NULL}
+	{18 20 NULL 17(1000) NULL}
+	{19 21 NULL 17(1000) NULL}
+	{20 NULL 0 0 NULL}
+	{21 NULL 0 0 NULL}
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+set filter(1358) {
+	{& 2|201|14(3) 4,15 1 0 map_tt_hd_v15 0}
+	{& 0 15 0 0 701,790,791,792,793,794,795,796,797,798,799 {}}	
+}
+
+
+
+###############################compcdrszxdx_transform的配置#######################
+set begin_port {11751}
+
+set server_num(compcdrszxdx_transform) 5
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(compcdrszxdx_transform) {33 | {cdr_comp_call_ds_1359}}
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_comp_call_ds_1359) {21 \t 1359 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+set col(cdr_comp_call_ds_1359) {
+	{1 NULL NULL 12 NULL}
+	{2 NULL 0 13 NULL}
+	{3 4,15 NULL 2|23(#,0) NULL}
+	{4 2 NULL 0 NULL}
+	{5 15 NULL 0 NULL}
+	{6 13 NULL 0 NULL}
+	{7 NULL 0 0 NULL}
+	{8 NULL 0  0 NULL}
+	{9 NULL 0  0 NULL}
+	{10 NULL 5 0 NULL}
+	{11 NULL 1 0 NULL}
+	{12 NULL 0 0 NULL}
+	{13 1  0 0 comp_callzzp}  
+	{14 6 NULL 6(3)|5 NULL}
+	{15 6 NULL 6(3) NULL}
+	{16 7 NULL 0 NULL}
+	{17 7 NULL 1 NULL}
+	{18 20 NULL 17(1000) NULL}
+	{19 21 NULL 17(1000) NULL}
+	{20 NULL 0 0 NULL}
+	{21 NULL 0 0 NULL}
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+set filter(1359) {
+	{& 0 5 0 0 1 0}
+	{& 2|201|14(3) 4,15 1 0 map_call_xlt 1}
+	{& 0 15 0 0 701,790,791,792,793,794,795,796,797,798,799 {}}	
+}
+
+
+############## xm    add ################################
+
+
+
+###############################compvpmntest_transform的配置#######################
+set begin_port {11811}
+
+set server_num(compvpmntest_transform) 5
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(compvpmntest_transform) {57 | {cdr_comp_call_ds_1302}}
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_comp_call_ds_1302) {22 \t 1302 0 NULL} 
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+set col(cdr_comp_call_ds_1302) {
+	{1 NULL NULL 12 NULL}
+	{2 NULL 0 13 NULL}
+	{3 5,17 NULL 2|23(#,0) NULL}	
+	{4 1 NULL 0 NULL}
+	{5 17 NULL 0 NULL}
+	{6 15 NULL 0 NULL}
+	{7 NULL 0 0 NULL}
+	{8 46 NULL 16(1,4) NULL}
+	{9 45 NULL 16(1,4) NULL}
+	{10 6 NULL 0 brand_type}
+	{11 6 0 0 map_pub_operator_new} 	
+	{12 3 0 0 call_tranzzp}
+	{13 3  0 0 comp_callzzp}  
+	{14 7 NULL 6(3)|5 NULL}
+	{15 7 NULL 6(3) NULL}
+	{16 8 NULL 0 NULL}
+	{17 40 NULL 0 NULL}
+	{18 25 NULL 17(1000) NULL}
+	{19 26 NULL 17(1000) NULL}
+	{20 27 NULL 17(1000) NULL} 
+	{21 NULL 0 0 NULL}
+	{22 47 NULL 0 NULL}
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+set filter(1302) {
+	{& 0 6 0 0 4,13,14,17 0}
+	{& 0 17 0 0 701,790,791,792,793,794,795,796,797,798,799 0}
+}
+
+###############################compvpmntest_transform的配置#######################
+set begin_port {11821}
+
+set server_num(compvpmntestxlt_transform) 5
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(compvpmntestxlt_transform) {57 | {cdr_comp_call_ds_1312}}
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_comp_call_ds_1312) {22 \t 1312 0 NULL} 
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+set col(cdr_comp_call_ds_1312) {
+	{1 NULL NULL 12 NULL}
+	{2 NULL 0 13 NULL}
+	{3 5,17 NULL 2|23(#,0) NULL}	
+	{4 1 NULL 0 NULL}
+	{5 17 NULL 0 NULL}
+	{6 15 NULL 0 NULL}
+	{7 NULL 0 0 NULL}
+	{8 46 NULL 0 NULL}
+	{9 45 NULL 16(1,4) NULL}
+	{10 NULL 3 0 NULL}
+	{11 NULL 1 0 NULL} 	
+	{12 3 0 0 call_tranzzp}
+	{13 3  0 0 comp_callzzp}  
+	{14 7 NULL 6(3)|5 NULL}
+	{15 7 NULL 6(3) NULL}
+	{16 8 NULL 0 NULL}
+	{17 40 NULL 0 NULL}
+	{18 25 NULL 17(1000) NULL}
+	{19 26 NULL 17(1000) NULL}
+	{20 27 NULL 17(1000) NULL} 
+	{21 NULL 0 0 NULL}
+	{22 47 NULL 0 NULL}
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+set filter(1312) {
+	
+	{& 201 5,17 1 0 map_call_xlt 0}
+	{& 0 17 0 0 701,790,791,792,793,794,795,796,797,798,799 0}
+}
+
+
+###############################compiztc_transform的配置#######################
+set begin_port {11921}
+
+set server_num(compiztcxlt_transform) 5
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(compiztcxlt_transform) {39 | {cdr_comp_call_ds_1313}}
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_comp_call_ds_1313) {24 \t 1313 0 NULL} 
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+set col(cdr_comp_call_ds_1313) {
+	{1 NULL NULL 12 NULL}
+	{2 NULL 0 13 NULL}
+	{3 4,15 NULL 2|23(#,0) NULL}	
+	{4 2 NULL 0 NULL}
+	{5 15 NULL 0 NULL}
+	{6 13 NULL 0 NULL}
+	{7 NULL 0 0 NULL}
+	{8 NULL NULL 0 NULL}
+	{9 NULL NULL 0 NULL}
+	{10 NULL 3 0 NULL}
+	{11 NULL 1 0 NULL} 	
+	{12 NULL 0 0 NULL}
+	{13 NULL 2 0 NULL}  
+	{14 5 NULL 6(3)|5 NULL}
+	{15 5 NULL 6(3) NULL}
+	{16 6 NULL 0 NULL}
+	{17 6 0 1 NULL}
+	{18 19 NULL 17(1000) NULL}
+	{19 20 NULL 17(1000) NULL}
+	{20 NULL 0 0 NULL} 
+	{21 24,25 NULL 4(1)|17(1000) NULL}
+	{22 34 NULL 0 NULL} 
+	{23 38 NULL 0 NULL}
+	{24 39 NULL 0 NULL}
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+set filter(1313) {
+	
+	{& 201 4,15 1 0 map_call_xlt 0}
+	{& 0 15 0 0 701,790,791,792,793,794,795,796,797,798,799 0}
+}
+###############################compiztc_transform的配置#######################
+set begin_port {11911}
+
+set server_num(compiztc_transform) 5
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(compiztc_transform) {39 | {cdr_comp_call_ds_1303}}
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_comp_call_ds_1303) {24 \t 1303 0 NULL} 
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+set col(cdr_comp_call_ds_1303) {
+	{1 NULL NULL 12 NULL}
+	{2 NULL 0 13 NULL}
+	{3 4,15 NULL 2|23(#,0) NULL}	
+	{4 2 NULL 0 NULL}
+	{5 15 NULL 0 NULL}
+	{6 13 NULL 0 NULL}
+	{7 NULL 0 0 NULL}
+	{8 NULL NULL 0 NULL}
+	{9 NULL NULL 0 NULL}
+	{10 29 NULL 0 brand_type}
+	{11 29 0 0 map_pub_operator_new} 	
+	{12 NULL 0 0 NULL}
+	{13 NULL 2 0 NULL}  
+	{14 5 NULL 6(3)|5 NULL}
+	{15 5 NULL 6(3) NULL}
+	{16 6 NULL 0 NULL}
+	{17 6 0 1 NULL}
+	{18 19 NULL 17(1000) NULL}
+	{19 20 NULL 17(1000) NULL}
+	{20 NULL 0 0 NULL} 
+	{21 24,25 NULL 4(1)|17(1000) NULL}
+	{22 34 NULL 0 NULL}
+	{23 38 NULL 0 NULL}
+	{24 39 NULL 0 NULL}
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+set filter(1303) {
+	{& 0 29 0 0 13,14,17 0}
+	{& 0 15 0 0 701,790,791,792,793,794,795,796,797,798,799 0}
+}
+
+########################################################
+###3.4	竞争对手短信详表（Cdr_Comp_Sms_Ds）
+###3.4.1	*互联互通短信清单
+#########################################################
+
+
+###############################compsmstest_transform的配置#######################
+set begin_port {12111}
+
+set server_num(compsmstest_transform) 5
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(compsmstest_transform) {32 | {cdr_comp_sms_ds_1304}}
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_comp_sms_ds_1304) {18 \t 0 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+set col(cdr_comp_sms_ds_1304) {
+	{1 NULL NULL 12 NULL}
+	{2 NULL NULL 13 NULL}
+	{3 4,21 NULL 2|23(#,0) NULL}
+	{4 3 NULL 0 NULL}
+	{5 21 0 0 NULL}
+	{6 16 NULL 0 NULL}
+	{7 NULL 0 0 NULL}
+	{8 6 0 0 compsms_brand}
+	{9 6 0 0 adv_compsms}
+	{10 2 NULL 0 calltype_zcom}
+	{11 14 NULL 6(3)|5 NULL}
+	{12 14 NULL 6(3) NULL}
+	{13 15 NULL 6(3) NULL}
+	{14 9 NULL 0 NULL}
+	{15 17 0 17(1000) NULL}
+	{16 18 0 17(1000) NULL}
+  {17 31 NULL 0 NULL}
+	{18 32 NULL 0 NULL}
+	
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+set filter(0) {
+	
+}
+
+
+##################################################################
+###3.4	竞争对手短信详表（Cdr_Comp_Sms_Ds）
+###3.4.2	智能网神州行互联短信清单
+####################################################################
+
+#################################compsmsszxtest_transform的配置#######################
+##set begin_port {12112}
+##
+##set server_num(compsmsszxtest_transform) 5
+##
+############################################################################
+###Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+###             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+############################################################################
+##
+##set srcfile(compsmsszxtest_transform) {24 | {cdr_comp_sms_ds_1305}}  
+##
+############################################################################
+###set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+###            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+############################################################################
+##
+##set destfile(cdr_comp_sms_ds_1305) {16 \t 0 0 NULL}
+##
+############################################################################
+###set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+###       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+###}
+############################################################################
+##
+##set col(cdr_comp_sms_ds_1305) {
+##	{1 NULL NULL 12 NULL}
+##	{2 NULL NULL 13 NULL}
+##	{3 4,18 NULL 2|23(#,0) NULL}
+##	{4 3 NULL 0 NULL}
+##	{5 18 0 0 NULL}
+##	{6 16 NULL 0 NULL}
+##	{7 NULL 0 0 NULL}
+##	{8 6 0 0 compsms_brand}
+##	{9 6 0 0 compsms_opp}
+##	{10 2 NULL 0 NULL}
+##	{11 14 NULL 6(3)|5 NULL}
+##	{12 14 NULL 6(3) NULL}
+##	{13 15 NULL 6(3) NULL}
+##	{14 9 NULL 0 NULL}
+##	{15 17 NULL 17(1000) NULL}
+##	{16 NULL 0 0 NULL}
+##}
+############################################################################
+###set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+###           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+############################################################################
+##set filter(0) {
+##		
+##}
+
+
+
+
+
+############################### A05012 6. guhua17950_transform的配置 #######################
+set begin_port {19501}
+
+set server_num(guhua17950_transformzzp) 5
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+                                    
+set srcfile(guhua17950_transformzzp) {20 | {cdr_ipcard_dm_1104}}
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_ipcard_dm_1104) {42 \t 1104 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+set col(cdr_ipcard_dm_1104) {
+	{1 NULL NULL 12 NULL}
+	{2 NULL 0 0 NULL}
+	{3 NULL 0 0 NULL}
+	{4 7 NULL 0 NULL}
+	{5 NULL 0 0 NULL}
+	{6 8 NULL 0 NULL}
+	{7 3 NULL 0 NULL}
+	{8 2 50001 0 NULL}
+	{9 3 500044 0 item_id1} 
+	{10 5 NULL 6(3) NULL}
+	{11 4 NULL 0 NULL} 
+	{12 9 NULL 0 NULL}
+	{13 9 NULL 1 NULL}
+	{14 14 NULL 17(1000) NULL}
+	{15 NULL 0 0 NULL}
+	{16 NULL 0 0 NULL}
+	{17 NULL 0 0 NULL}
+	{18 NULL 0 0 NULL}
+	{19 NULL 0 0 NULL}
+	{20 NULL 0 0 NULL}
+	{21 NULL 0 0 NULL}
+	{22 10 NULL 0 NULL}
+	{23 NULL 0 0 NULL}
+	{24 11 NULL 0 NULL}
+	{25 15 0 0 map_call_roamtype_new}
+	{26 13 NULL 0 NULL}
+	{27 NULL 0 0 NULL}
+	{28 16 NULL 0 NULL}
+	{29 NULL 0 0 NULL}
+	{30 14 NULL 4(0) NULL}
+	{31 13 NULL 0 NULL}
+	{32 5 NULL 6(3)|5 NULL}
+	{33 NULL 0 0 NULL}
+	{34 NULL 0 0 NULL}
+	{35 18 NULL 6(3) NULL}
+	{36 NULL NULL 0 NULL}
+	{37 NULL NULL 0 NULL}
+	{38 NULL NULL 0 NULL}
+	{39 NULL NULL 0 NULL}
+	{40 NULL NULL 0 NULL}
+	{41 NULL NULL 0 NULL}
+	{42 NULL NULL 0 NULL}
+				
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+set filter(1104) {
+	{& 0 2 0 0 00 0}
+	{& 2|16(1,2) 7,10 0 0 13 1}
+	{& 2|16(1,3) 7,10 0 0 159 1}
+	{& 2|16(1,3) 7,10 0 0 158 1}
+	{& 2|16(1,3) 7,10 0 0 150 1}
+}
+
+
+
+############################### 6. yidong17950_transform的配置 #######################
+set begin_port {19502}
+
+set server_num(yidong17950_transformzzp) 5
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+                                    
+set srcfile(yidong17950_transformzzp) {20 | {cdr_ipcard_dm_1105}}
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_ipcard_dm_1105) {42 \t 1105 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+set col(cdr_ipcard_dm_1105) {
+	{1 NULL NULL 12 NULL}
+	{2 NULL 0 0 NULL}
+	{3 NULL 0 0 NULL}
+	{4 7 NULL 0 NULL}
+	{5 NULL 0 0 NULL}
+	{6 8 NULL 0 NULL}
+	{7 3 NULL 0 NULL}
+	{8 2 50001 0 NULL}
+	{9 3 500023 0 item_id2} 
+	{10 5 NULL 6(3) NULL}
+	{11 4 NULL 0 NULL}
+	{12 9 NULL 0 NULL}
+	{13 9 NULL 1 NULL}
+	{14 14 NULL 17(1000) NULL}
+	{15 NULL 0 0 NULL}
+	{16 NULL 0 0 NULL}
+	{17 NULL 0 0 NULL}
+	{18 NULL 0 0 NULL}
+	{19 NULL 0 0 NULL}
+	{20 NULL 0 0 NULL}
+	{21 NULL 0 0 NULL}
+	{22 10 NULL 0 NULL}
+	{23 NULL 0 0 NULL}
+	{24 11 NULL 0 NULL}
+	{25 15 0 0 map_call_roamtype_new}
+	{26 13 NULL 0 NULL}
+	{27 NULL 0 0 NULL}
+	{28 16 NULL 0 NULL}
+	{29 NULL 0 0 NULL}
+	{30 14 NULL 4(0) NULL}
+	{31 13 NULL 0 NULL}
+	{32 5 NULL 6(3)|5 NULL}
+	{33 NULL 0 0 NULL}
+	{34 NULL 0 0 NULL}
+	{35 18 NULL 6(3) NULL}
+	{36 NULL NULL 0 NULL}
+	{37 NULL NULL 0 NULL}
+	{38 NULL NULL 0 NULL}
+	{39 NULL NULL 0 NULL}
+	{40 NULL NULL 0 NULL}
+	{41 NULL NULL 0 NULL}
+	{42 NULL NULL 0 NULL}
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+set filter(1105) {
+	{& 0 2 0 0 00 0}
+	{& 2|16(1,2) 7,10 0 0 13 0}
+	{| 2|16(1,3) 7,10 0 0 159 0}
+	{| 2|16(1,3) 7,10 0 0 158 0}
+	{| 2|16(1,3) 7,10 0 0 150 0}
+}
+
+
+############################### 6. ipinternet_transform的配置 #######################
+set begin_port {19503}
+
+set server_num(ipinternet_transformzzp) 5
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+                                    
+set srcfile(ipinternet_transformzzp) {20 | {cdr_ipcard_dm_1106}}
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_ipcard_dm_1106) {42 \t 1106 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+set col(cdr_ipcard_dm_1106) {
+	{1 NULL NULL 12 NULL}
+	{2 NULL 0 0 NULL}
+	{3 NULL 0 0 NULL}
+	{4 7 NULL 0 NULL}
+	{5 NULL 0 0 NULL}
+	{6 8 NULL 0 NULL}
+	{7 3 NULL 0 NULL}
+	{8 2 50002 0 NULL}
+	{9 3 0 0 item_id} 
+	{10 5 NULL 6(3) NULL}
+	{11 4 NULL 0 NULL}
+	{12 9 NULL 0 NULL}
+	{13 9 NULL 1 NULL}
+	{14 14 NULL 17(1000) NULL}
+	{15 NULL 0 0 NULL}
+	{16 NULL 0 0 NULL}
+	{17 NULL 0 0 NULL}
+	{18 NULL 0 0 NULL}
+	{19 NULL 0 0 NULL}
+	{20 NULL 0 0 NULL}
+	{21 NULL 0 0 NULL}
+	{22 10 NULL 0 NULL}
+	{23 NULL 0 0 NULL}
+	{24 11 NULL 0 NULL}
+	{25 15 0 0 map_call_roamtype_new}
+	{26 13 NULL 0 NULL}
+	{27 NULL 0 0 NULL}
+	{28 16 NULL 0 NULL}
+	{29 NULL 0 0 NULL}
+	{30 14 NULL 4(0) NULL}
+	{31 13 NULL 0 NULL}
+	{32 5 NULL 6(3)|5 NULL}
+	{33 NULL 0 0 NULL}
+	{34 NULL 0 0 NULL}
+	{35 18 NULL 6(3) NULL}
+	{36 NULL NULL 0 NULL}
+	{37 NULL NULL 0 NULL}
+	{38 NULL NULL 0 NULL}
+	{39 NULL NULL 0 NULL}
+	{40 NULL NULL 0 NULL}
+	{41 NULL NULL 0 NULL}
+	{42 NULL NULL 0 NULL}
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+set filter(1106) {
+	{& 0 2 0 0 01 0}
+}
+
+
+#########################################################################################################################
+
+########################## 从06010 来访的 2006-2-24 暂1.5不传数据这部分数据怎办?1.0是否会继续传 ###############################################
+set begin_port {19507}
+
+set server_num(guhua17950laifang_transformzzp) 5
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+                                    
+set srcfile(guhua17950laifang_transformzzp) {16 | {cdr_ipcard_dm_1107}}
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_ipcard_dm_1107) {42 \t 1107 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+set col(cdr_ipcard_dm_1107) {
+	{1 NULL NULL 12 NULL}
+	{2 NULL 0 0 NULL}
+	{3 NULL 0 0 NULL}
+	{4 7 NULL 0 NULL}
+	{5 NULL 0 0 NULL}
+	{6 8 NULL 0 NULL}
+	{7 3 NULL 0 NULL}
+	{8 2 50001 0 NULL}
+	{9 3 500044 0 item_id1} 
+	{10 5 NULL 6(3) NULL}
+	{11 NULL 0 0 NULL} 
+	{12 9 NULL 0 NULL}
+	{13 9 NULL 1 NULL}
+	{14 14 NULL 17(1000) NULL}
+	{15 NULL 0 0 NULL}
+	{16 NULL 0 0 NULL}
+	{17 NULL 0 0 NULL}
+	{18 NULL 0 0 NULL}
+	{19 NULL 0 0 NULL}
+	{20 NULL 0 0 NULL}
+	{21 NULL 0 0 NULL}
+	{22 10 NULL 0 NULL}
+	{23 NULL 0 0 NULL}
+	{24 11 NULL 0 NULL}
+	{25 15 0 0 map_call_roamtype_new}
+	{26 13 NULL 0 NULL}
+	{27 NULL 0 0 NULL}
+	{28 16 NULL 0 NULL}
+	{29 NULL 0 0 NULL}
+	{30 14 NULL 4(0) NULL}
+	{31 13 NULL 0 NULL}
+	{32 5 NULL 6(3)|5 NULL}
+	{33 NULL 0 0 NULL}
+	{34 NULL 0 0 NULL}
+	{35 NULL NULL 0 NULL}
+	{36 NULL NULL 0 NULL}
+	{37 NULL NULL 0 NULL}
+	{38 NULL NULL 0 NULL}
+	{39 NULL NULL 0 NULL}
+	{40 NULL NULL 0 NULL}
+	{41 NULL NULL 0 NULL}
+	{42 NULL NULL 0 NULL}
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+set filter(1107) {
+	{& 0 2 0 0 00 0}
+	{& 2|16(1,2) 7,10 0 0 13 1}
+	{& 2|16(1,3) 7,10 0 0 159 1}
+	{& 2|16(1,3) 7,10 0 0 158 1}
+	{& 2|16(1,3) 7,10 0 0 150 1}
+	
+}
+
+############################### 6. yidong17950_transform的配置 #######################
+set begin_port {19502}
+
+set server_num(yidong17950lai_transformzzp) 5
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+                                    
+set srcfile(yidong17950lai_transformzzp) {19 | {cdr_ipcard_dm_1108}}
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_ipcard_dm_1108) {42 \t 1108 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+set col(cdr_ipcard_dm_1108) {
+	{1 NULL NULL 12 NULL}
+	{2 NULL 0 0 NULL}
+	{3 NULL 0 0 NULL}
+	{4 7 NULL 0 NULL}
+	{5 NULL 0 0 NULL}
+	{6 8 NULL 0 NULL}
+	{7 3 NULL 0 NULL}
+	{8 2 50001 0 NULL}
+	{9 3 500023 0 item_id2} 
+	{10 5 NULL 6(3) NULL}
+	{11 NULL 0 0 NULL}
+	{12 9 NULL 0 NULL}
+	{13 9 NULL 1 NULL}
+	{14 14 NULL 17(1000) NULL}
+	{15 NULL 0 0 NULL}
+	{16 NULL 0 0 NULL}
+	{17 NULL 0 0 NULL}
+	{18 NULL 0 0 NULL}
+	{19 NULL 0 0 NULL}
+	{20 NULL 0 0 NULL}
+	{21 NULL 0 0 NULL}
+	{22 10 NULL 0 NULL}
+	{23 NULL 0 0 NULL}
+	{24 11 NULL 0 NULL}
+	{25 15 0 0 map_call_roamtype_new}
+	{26 13 NULL 0 NULL}
+	{27 NULL 0 0 NULL}
+	{28 16 NULL 0 NULL}
+	{29 NULL 0 0 NULL}
+	{30 14 NULL 4(0) NULL}
+	{31 13 NULL 0 NULL}
+	{32 5 NULL 6(3)|5 NULL}
+	{33 NULL 0 0 NULL}
+	{34 NULL 0 0 NULL}
+	{35 NULL NULL 0 NULL}
+	{36 NULL NULL 0 NULL}
+	{37 NULL NULL 0 NULL}
+	{38 NULL NULL 0 NULL}
+	{39 NULL NULL 0 NULL}
+	{40 NULL NULL 0 NULL}
+	{41 NULL NULL 0 NULL}
+	{42 NULL NULL 0 NULL}
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+set filter(1108) {
+	{& 0 2 0 0 00 0}
+	{& 2|16(1,2) 7,10 0 0 13 0}
+	{| 2|16(1,3) 7,10 0 0 159 0}
+	{| 2|16(1,3) 7,10 0 0 158 0}
+	{| 2|16(1,3) 7,10 0 0 150 0}
+}
+
+
+############################### 6. ipinternet_transform的配置 #######################
+set begin_port {19503}
+
+set server_num(ipinternetlai_transformzzp) 5
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+                                    
+set srcfile(ipinternetlai_transformzzp) {19 | {cdr_ipcard_dm_1109}}
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_ipcard_dm_1109) {42 \t 1109 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+set col(cdr_ipcard_dm_1109) {
+	{1 NULL NULL 12 NULL}
+	{2 NULL 0 0 NULL}
+	{3 NULL 0 0 NULL}
+	{4 7 NULL 0 NULL}
+	{5 NULL 0 0 NULL}
+	{6 8 NULL 0 NULL}
+	{7 3 NULL 0 NULL}
+	{8 2 50002 0 NULL}
+	{9 3 0 0 item_id} 
+	{10 5 NULL 6(3) NULL}
+	{11 NULL 0 0 NULL}
+	{12 9 NULL 0 NULL}
+	{13 9 NULL 1 NULL}
+	{14 14 NULL 17(1000) NULL}
+	{15 NULL 0 0 NULL}
+	{16 NULL 0 0 NULL}
+	{17 NULL 0 0 NULL}
+	{18 NULL 0 0 NULL}
+	{19 NULL 0 0 NULL}
+	{20 NULL 0 0 NULL}
+	{21 NULL 0 0 NULL}
+	{22 10 NULL 0 NULL}
+	{23 NULL 0 0 NULL}
+	{24 11 NULL 0 NULL}
+	{25 15 0 0 map_call_roamtype_new}
+	{26 13 NULL 0 NULL}
+	{27 NULL 0 0 NULL}
+	{28 16 NULL 0 NULL}
+	{29 NULL 0 0 NULL}
+	{30 14 NULL 4(0) NULL}
+	{31 13 NULL 0 NULL}
+	{32 5 NULL 6(3)|5 NULL}
+	{33 NULL 0 0 NULL}
+	{34 NULL 0 0 NULL}
+	{35 NULL NULL 0 NULL}
+	{36 NULL NULL 0 NULL}
+	{37 NULL NULL 0 NULL}
+	{38 NULL NULL 0 NULL}
+	{39 NULL NULL 0 NULL}
+	{40 NULL NULL 0 NULL}
+	{41 NULL NULL 0 NULL}
+	{42 NULL NULL 0 NULL}
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+set filter(1109) {
+	{& 0 2 0 0 01 0}
+}
+
+
+############################################################################################################################
+
+
+############################### 9. gsmno_transform的配置 #######################
+set begin_port {19509}
+
+set server_num(gsmno_transformzzp) 5
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(gsmno_transformzzp) {37 | {CDR_NO_CALL_DM_1101}}
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(CDR_NO_CALL_DM_1101) {60 \t 0 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+# 改后的 {9 7 NULL 1 NULL}  {10 24,7 NULL 19 NULL}
+#
+
+set col(CDR_NO_CALL_DM_1101) {
+	{1 NULL 0 0 NULL}
+	{2 NULL 0 0 NULL}
+	{3 2 NULL 0 NULL}
+	{4 3 NULL 0 NULL}
+	{5 4 NULL 0 NULL}
+	{6 5 NULL 0 NULL}
+	{7 6 NULL 6(3) NULL}
+	{8 7 NULL 0 NULL}
+	{9 7 NULL 1 NULL}
+	{10 24,7 NULL 19(0) NULL}
+	{11 25 NULL 17(1000) NULL}
+	{12 26 NULL 17(1000) NULL}
+	{13 27,28 NULL 4(1)|17(1000) NULL}
+	{14 18 NULL 0 NULL}
+	{15 NULL 0 0 NULL}
+	{16 19 NULL 0 NULL}
+	{17 23 0 0 map_call_roamtype_new}
+	{18 NULL 100 0 NULL}
+	{19 NULL 0 0 NULL}
+	{20 36 0 0 callfwtype}
+	{21 16 NULL 0 NULL}
+	{22 17 NULL 0 NULL}
+	{23 24 0 0 cdrtoll_new}
+	{24 20 2 0 map_pub_operator_new}
+	{25 20 NULL 0 NULL}
+	{26 5,21 NULL 2 NULL}
+	{27 21 NULL 0 NULL}
+	{28 22 NULL 0 NULL}
+	{29 24,25,26,27,28 NULL 4(0) NULL}
+	{30 20 0 0 map_prod_id_new}
+	{31 NULL 0 0 NULL}
+	{32 6 NULL 6(3)|5 NULL}
+	{33 6 NULL 6(3)|42(0) NULL}
+	{34 NULL 0 0 NULL}
+	{35 NULL 0 0 NULL}
+	{36 NULL 0 0 NULL}
+	{37 NULL 0 0 NULL}
+	{38 NULL 0 0 NULL}
+	{39 9 NULL 0 NULL}
+	{40 10 NULL 0 NULL}
+	{41 11 NULL 0 NULL}
+	{42 14 NULL 0 NULL}
+	{43 15 NULL 0 NULL}
+	{44 1 NULL 0 NULL}
+	{45 NULL NULL 0 NULL}
+	{46 NULL NULL 0 NULL}
+	{47 35 NULL 6(3)|16(1,10) NULL}
+	{48 NULL 0 0 NULL}
+	{49 NULL 0 0 NULL}
+	{50 NULL NULL 0 NULL}
+	{51 NULL NULL 0 NULL}
+	{52 NULL NULL 0 NULL}
+	{53 31 NULL 0 NULL}
+	{54 NULL NULL 0 NULL}
+	{55 NULL NULL 0 NULL}
+	{56 NULL NULL 0 NULL}
+	{57 NULL NULL 0 NULL}
+	{58 NULL NULL 0 NULL}
+	{59 NULL NULL 0 NULL}
+	{60 NULL NULL 0 NULL}
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+set filter(0) {
+}
+
+###############################ipguhua17951_transform的配置#######################
+set begin_port {11700}
+
+set server_num(ipguhua17951_transformzzp) 5
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(ipguhua17951_transformzzp) {39 | {cdr_ipcard17951_dm_1117}}
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_ipcard17951_dm_1117) {30 \t 0 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+set col(cdr_ipcard17951_dm_1117) {
+	{1 NULL NULL 12 NULL}
+	{2 2 NULL 0 NULL}
+	{3 NULL 1 0 NULL}
+	{4 4 NULL 0 NULL}
+	{5 5 NULL 6(3) NULL}
+	{6 6 NULL 0 NULL}
+	{7 6 NULL 1 NULL}
+	{8 19 0 17(1000) NULL}
+	{9 20 0 17(1000) NULL}
+	{10 NULL 0 0 NULL}
+	{11 13 NULL 0 NULL}
+	{12 NULL 0 0 NULL}
+	{13 29 NULL 0 NULL}
+	{14 NULL 50001 0 NULL}
+	{15 NULL 100020 0 NULL}
+	{16 18 0 0 cdrtoll_new}
+	{17 5 NULL 6(3)|5 NULL}
+	{18 19,20,21 NULL 4(0) NULL}
+	{19 NULL 0 0 NULL}
+	{20 NULL 0 0 NULL}
+	{21 NULL 0 0 NULL}
+	{22 33 NULL 6(3) NULL}
+	{23 NULL 0 0 NULL}
+	{24 NULL 0 13 NULL}
+	{25 12 NULL 0 NULL}
+	{26 32 NULL 0 NULL}
+	{27 16 0 0 map_call_roamtype_new}
+	{28 36 NULL 0 NULL} 
+	{29 38 NULL 0 NULL}
+	{30 39 NULL 0 NULL}
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+set filter(0) {
+	
+}
+
+
+set begin_port {29510}
+
+set server_num(wlan_transform) 5
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(wlan_transform) {48 | {cdr_wlan_dm_1000}}
+
+##########################################################################
+#set destfile(file_name) {field_num     delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_wlan_dm_1000) {60 \t 0 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+ 
+
+set col(cdr_wlan_dm_1000) {
+        {1 3 NULL 0 NULL}
+        {2 4 NULL 0 NULL}
+        {3 9 NULL 6(3) NULL}
+        {4 11 NULL 0 NULL}
+        {5 11 NULL 1 NULL}
+        {6 12 NULL 0 NULL}
+        {7 13 NULL 0 NULL}
+        {8 19 NULL 17(1000) NULL}
+        {9 20 NULL 17(1000) NULL}
+        {10 NULL 0 0 NULL}
+        {11 NULL 0 0 NULL}
+        {12 23 NULL 0 NULL}
+        {13 NULL 0 0 NULL}
+        {14 29 NULL 0 NULL}
+        {15 28 0 0 map_call_roamtype_new}
+        {16 5 0 0 cdrbrand_new}
+        {17 30 NULL 0 NULL}
+        {18 NULL 0 0 NULL}
+        {19 NULL 0 0 NULL}
+        {20 NULL 0 0 NULL}
+        {21 21 300004 0 wlansvcitem}
+        {22 NULL 0 0 NULL}
+        {23 17 NULL 0 NULL}
+        {24 18 NULL 0 NULL}
+        {25 19,20 NULL 4(0) NULL}
+        {26 9 NULL 6(3)|5 NULL}
+        {27 9 NULL 6(3)|42(0) NULL}
+        {28 26 NULL 0 NULL}
+        {29 24,25 NULL 4(0)|17(1000) NULL}
+        {30 NULL 0 0 NULL}
+        {31 NULL 0 0 NULL}
+        {32 NULL 0 0 NULL}
+        {33 14 NULL 0 NULL}
+        {34 15 NULL 0 NULL}
+        {35 16 NULL 0 NULL}
+        {36 NULL NULL 0 NULL}
+        {37 21 NULL 0 NULL} 
+        {38 10 NULL 0 NULL} 
+        {39 33 NULL 0 NULL} 
+        {40 31 NULL 0 NULL} 
+        {41 NULL NULL 0 NULL} 
+        {42 NULL NULL 0 NULL} 
+        {43 NULL NULL 0 NULL} 
+        {44 8 NULL 0 NULL} 
+        {45 NULL NULL 12 NULL} 
+        {46 34 NULL 0 NULL} 
+        {47 35 NULL 0 NULL} 
+        {48 36 NULL 0 NULL} 
+        {49 37 NULL 0 NULL} 
+        {50 38 NULL 0 NULL} 
+        {51 39 NULL 0 NULL} 
+        {52 40 NULL 0 NULL}
+        {53 41 NULL 0 NULL}  
+        {54 42 NULL 0 NULL} 
+        {55 43 NULL 0 NULL} 
+        {56 44 NULL 0 NULL} 
+        {57 45 NULL 0 NULL} 
+        {58 46 NULL 0 NULL}  
+        {59 47 NULL 0 NULL} 
+        {60 48 NULL 0 NULL}        
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+set filter(0) {
+}
+
+
+############################### 8. gsmij_transform的配置 #######################
+set begin_port {19607}
+
+set server_num(gsmij_transform) 5
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+                              
+set srcfile(gsmij_transform) {38 | {CDR_IJ_CALL_DM_5060}}
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(CDR_IJ_CALL_DM_5060) {61 \t 0 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+set col(CDR_IJ_CALL_DM_5060) {
+	{1 NULL 0 0 NULL}
+	{2 36 NULL 0 NULL}
+	{3 2 NULL 0 NULL}
+	{4 3 NULL 0 NULL}
+	{5 NULL 1 0 NULL}
+	{6 4 NULL 0 NULL}
+	{7 5 NULL 6(3) NULL}
+	{8 6 NULL 0 NULL}
+	{9 6 NULL 1 NULL}
+	{10 18,6 NULL 19 NULL}
+	{11 19 NULL 17(1000) NULL}
+	{12 20 NULL 17(1000) NULL}
+	{13 NULL 0 0 NULL}
+	{14 13 NULL 0 NULL}
+	{15 NULL 0 0 NULL}
+	{16 12 NULL 0 NULL}
+	{17 16 0 0 map_call_roamtype_new}
+	{18 NULL 0 0 NULL}
+	{19 34 NULL 0 NULL}
+	{20 NULL 0 0 NULL} 
+	{21 10 NULL 0 NULL}
+	{22 11 NULL 0 NULL}
+	{23 18 0 0 cdrtoll_new}
+	{24 29 2 0 map_pub_operator_new}
+	{25 29 NULL 0 NULL}
+	{26 4,15 NULL 2 NULL}
+	{27 15 NULL 0 NULL}
+	{28 14 NULL 0 NULL}
+	{29 19,20 NULL 4(0) NULL}
+	{30 4,19,20 NULL 25 prod_id}
+	{31 NULL NULL 0 NULL}
+	{32 5 NULL 6(3)|5 NULL}
+	{33 5 NULL 6(3)|42(0) NULL}
+	{34 27 NULL 0 NULL}
+	{35 24 NULL 17(1000) NULL}
+	{36 25 NULL 17(1000) NULL}
+	{37 NULL 0 0 NULL}
+	{38 NULL 0 0 NULL}
+	{39 8 NULL 0 NULL}
+	{40 NULL 0 0 NULL}
+	{41 NULL 0 0 NULL}
+	{42 NULL NULL 0 NULL}
+	{43 NULL NULL 0 NULL}
+	{44 NULL NULL 0 NULL}
+	{45 NULL NULL 0 NULL}
+	{46 NULL NULL 0 NULL}
+	{47 35 NULL 6(3) NULL}
+	{48 NULL NULL 0 NULL}
+	{49 NULL NULL 0 NULL}
+	{50 9 NULL 0 NULL}
+	{51 17 NULL 0 NULL}
+	{52 NULL NULL 0 NULL}
+	{53 NULL NULL 0 NULL}
+	{54 NULL NULL 0 NULL}
+	{55 NULL NULL 0 NULL}
+	{56 NULL NULL 0 NULL}
+	{57 NULL NULL 0 NULL}
+	{58 NULL NULL 0 NULL}
+	{59 NULL NULL 0 NULL}
+	{60 NULL NULL 0 NULL}
+	{61 37 NULL 0 NULL}
+	
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+set filter(0) {
+}
+
+
+
+
+
+
+
+
+set begin_port {19504}
+
+set server_num(test_transform) 5
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+                                    
+set srcfile(test_transform) {2 | {zzp_dm}}
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(zzp_dm) {1 \t 0 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+set col(zzp_dm) {
+	{1 1 NULL 0 NULL}
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+set filter(0) {
+	
+}
+
+
+
+
+###############################06005 全球通语音主被叫国内漫游结算清单 的配置 #######################
+set begin_port {19511}
+
+set server_num(gsmgn_transformzzp) 5
+
+#
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(gsmgn_transformzzp) {37 | {CDR_IN_CALL_DM_5101}}
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(CDR_IN_CALL_DM_5101) {66 \t 0 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+
+set col(CDR_IN_CALL_DM_5101) {
+	{1 NULL 0 0 NULL}
+	{2 NULL 0 0 NULL}
+	{3 2 NULL 0 NULL}
+	{4 3 NULL 0 NULL}
+	{5 1 0 0 call_type_new}
+	{6 4 NULL 0 NULL}
+	{7 5 NULL 6(3) NULL}
+	{8 6 NULL 0 NULL}
+	{9 6 NULL 1 NULL}
+	{10 20,6 NULL 19 NULL}
+	{11 21 NULL 17(1000) NULL}
+	{12 22 NULL 17(1000) NULL}
+	{13 23 NULL 17(1000) NULL}
+	{14 13 NULL 0 NULL}
+	{15 NULL 0 0 NULL}
+	{16 14 NULL 0 NULL}
+	{17 19 0 0 map_call_roamtype_new}
+	{18 18 0 0 cdrbrand_new}
+	{19 NULL 0 0 NULL}
+	{20 NULL 0 0 NULL}
+	{21 11 NULL 0 NULL}
+	{22 12 NULL 0 NULL}
+	{23 20 0 0 cdrtoll_new}
+	{24 15 2 0 map_pub_operator_new}
+	{25 15 NULL 0 NULL}
+	{26 4,16 NULL 2 NULL}
+	{27 16 NULL 0 NULL}
+	{28 17 NULL 0 NULL}
+	{29 21,22,23 NULL 4(0) NULL}
+	{30 4,21,22,23 NULL 25 prod_id}
+	{31 NULL 0 0 NULL}
+	{32 5 NULL 6(3)|5 NULL}
+	{33 5 NULL 6(3)|42(0) NULL}
+	{34 NULL 0 0 NULL}
+	{35 28 NULL 17(1000) NULL}
+	{36 29 NULL 17(1000) NULL}
+	{37 NULL NULL 0 NULL}
+	{38 NULL 0 0 NULL}
+	{39 8 NULL 0 NULL}
+	{40 25 NULL 0 NULL}
+	{41 26 NULL 0 NULL}
+	{42 9 NULL 0 NULL}
+	{43 10 NULL 0 NULL}
+	{44 NULL NULL 0 NULL}
+	{45 NULL 0 0 NULL}
+	{46 NULL 0 0 NULL}
+	{47 27 NULL 6(3)|16(1,10) NULL}
+	{48 NULL 0 0 NULL}
+	{49 NULL 0 0 NULL}
+	{50 NULL NULL 0 NULL}
+	{51 NULL NULL 0 NULL}
+	{52 NULL NULL 0 NULL}
+	{53 NULL NULL 0 NULL}
+	{54 NULL NULL 0 NULL}
+	{55 NULL NULL 0 NULL}
+	{56 NULL NULL 0 NULL}
+	{57 NULL NULL 0 NULL}
+	{58 NULL NULL 0 NULL}
+	{59 37 NULL 0 NULL}
+	{60 NULL NULL 0 NULL}
+	{61 31 NULL 0 NULL}
+	{62 32 NULL 0 NULL}
+	{63 33 NULL 0 NULL}
+	{64 34 NULL 0 NULL}
+	{65 35 NULL 0 NULL}
+	{66 36 NULL 0 NULL}
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+set filter(0) {
+}
+
+
+
+
+############################### 06006 全球通语音呼转国内漫游结算清单的配置 #######################
+set begin_port {19512}
+
+set server_num(gsmgn1_transform) 5
+
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(gsmgn1_transform) {41 | {CDR_IN_CALL_DM_1502}}
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(CDR_IN_CALL_DM_1502) {66 \t 0 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+
+set col(CDR_IN_CALL_DM_1502) {
+	{1 NULL 0 0 NULL}
+	{2 NULL 0 0 NULL}
+	{3 2 NULL 0 NULL}
+	{4 3 NULL 0 NULL}
+	{5 1 0 0 call_type_new}
+	{6 5 NULL 0 NULL}
+	{7 6 NULL 6(3) NULL}
+	{8 7 NULL 0 NULL}
+	{9 7 NULL 1 NULL}
+	{10 25,7 NULL 19 NULL}
+	{11 26 NULL 17(1000) NULL}
+	{12 27,28 NULL 4(1)|17(1000) NULL}
+	{13 29 NULL 17(1000) NULL}
+	{14 18 NULL 0 NULL}
+	{15 NULL 0 0 NULL}
+	{16 19 NULL 0 NULL}
+	{17 24 0 0 map_call_roamtype_new}
+	{18 20 0 0 cdrbrand_new}
+	{19 NULL 0 0 NULL}
+	{20 NULL 3 0 NULL}
+	{21 16 NULL 0 NULL}
+	{22 17 NULL 0 NULL}
+	{23 25 0 0 cdrtoll_new}
+	{24 21 2 0 map_pub_operator_new}
+	{25 21 NULL 0 NULL}
+	{26 5,22 NULL 2 NULL}
+	{27 22 NULL 0 NULL}
+	{28 23 NULL 0 NULL}
+	{29 26,27,28,29 NULL 4(0) NULL}
+	{30 5,26,27,28,29 NULL 25 prod_id}
+	{31 NULL 0 0 NULL}
+	{32 6 NULL 6(3)|5 NULL}
+	{33 6 NULL 6(3)|42(0) NULL}
+	{34 NULL 0 0 NULL}
+	{35 31 NULL 17(1000) NULL}
+	{36 32,33,34 NULL 4(1)|17(1000) NULL}
+	{37 NULL NULL 0 NULL}
+	{38 NULL 0 0 NULL}
+	{39 9 NULL 0 NULL}
+	{40 10 NULL 0 NULL}
+	{41 11 NULL 0 NULL}
+	{42 14 NULL 0 NULL}
+	{43 15 NULL 0 NULL}
+	{44 NULL NULL 0 NULL}
+	{45 NULL 0 0 NULL}
+	{46 NULL 0 0 NULL}
+	{47 30 NULL 6(3)|16(1,10) NULL}
+	{48 NULL 0 0 NULL}
+	{49 NULL 0 0 NULL}
+	{50 NULL NULL 0 NULL}
+	{51 NULL NULL 0 NULL}
+	{52 NULL NULL 0 NULL}
+	{53 NULL NULL 0 NULL}
+	{54 NULL NULL 0 NULL}
+	{55 NULL NULL 0 NULL}
+	{56 NULL NULL 0 NULL}
+	{57 NULL NULL 0 NULL}
+	{58 NULL NULL 0 NULL}
+	{59 41 NULL 0 NULL}
+	{60 12 0 0 callfwtype}
+	{61 35 0 0 callfwtype}
+	{62 36 0 0 callfwtype}
+	{63 37 0 0 callfwtype}
+	{64 38 0 0 callfwtype}
+	{65 39 0 0 callfwtype}
+	{66 40 0 0 callfwtype}
+	
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+set filter(0) {
+}
+
+############################### 06008 智能网神州行语音国内漫游结算清单的配置 #######################
+set begin_port {19518}
+
+set server_num(cdrszxin_transform) 5
+
+	
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(cdrszxin_transform) {39 | {cdr_in_call_dm_6010}}
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_in_call_dm_6010) {66 \t 0 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+#
+#
+
+set col(cdr_in_call_dm_6010) {
+	{1 NULL 0 0 NULL}
+	{2 NULL 0 0 NULL}
+	{3 2 NULL 0 NULL}
+	{4 3 NULL 0 NULL}
+	{5 1 0 0 call_type_new}
+	{6 4 NULL 0 NULL}
+	{7 6 NULL 6(3) NULL}
+	{8 7 NULL 0 NULL}
+	{9 7 NULL 1 NULL}
+	{10 21,7 NULL 19 NULL}
+	{11 22 NULL 17(1000) NULL}
+	{12 23 NULL 17(1000) NULL}
+	{13 31 NULL 17(1000) NULL}
+	{14 15 NULL 0 NULL}
+	{15 NULL 0 0 NULL}
+	{16 16 NULL 0 NULL}
+	{17 19 0 0 map_call_roamtype_new}
+	{18 NULL 6 0 NULL}
+	{19 NULL 0 0 NULL}
+	{20 NULL 0 0 NULL}
+	{21 13 NULL 0 NULL}
+	{22 14 NULL 0 NULL}
+	{23 21 0 0 cdrtoll_new}
+	{24 5 2 0 map_pub_operator_new}
+	{25 5 NULL 0 NULL}
+	{26 4,17 NULL 2 NULL}
+	{27 17 NULL 0 NULL}
+	{28 18 NULL 0 NULL}
+	{29 22,23 NULL 4(0) NULL}
+	{30 4,22,23 NULL 25 prod_id}
+	{31 NULL 0 0 NULL}
+	{32 6 NULL 6(3)|5 NULL}
+	{33 6 NULL 6(3)|42(0) NULL}
+	{34 NULL 0 0 NULL}
+	{35 29 NULL 17(1000) NULL}
+	{36 30,32 NULL 4(1)|17(1000) NULL}
+	{37 NULL NULL 0 NULL}
+	{38 NULL 0 0 NULL}
+	{39 9 NULL 0 NULL}
+	{40 NULL NULL 0 NULL}
+	{41 NULL NULL 0 NULL}
+	{42 11 NULL 0 NULL}
+	{43 12 NULL 0 NULL}
+	{44 NULL NULL 0 NULL}
+	{45 NULL 0 0 NULL}
+	{46 NULL 0 0 NULL}
+	{47 28 NULL 6(3)|16(1,10) NULL}
+	{48 NULL 0 0 NULL}
+	{49 NULL 0 0 NULL}
+	{50 10 NULL 0 NULL}
+	{51 NULL NULL 0 NULL}
+	{52 NULL NULL 0 NULL}
+	{53 NULL NULL 0 NULL}
+	{54 NULL NULL 0 NULL}
+	{55 NULL NULL 0 NULL}
+	{56 NULL NULL 0 NULL}
+	{57 NULL NULL 0 NULL}
+	{58 NULL NULL 0 NULL}
+	{59 39 NULL 0 NULL}
+	{60 NULL NULL 0 NULL}
+	{61 33 NULL 0 NULL}
+	{62 34 NULL 0 NULL}
+	{63 35 NULL 0 NULL}
+	{64 36 NULL 0 NULL}
+	{65 37 NULL 0 NULL}
+	{66 38 NULL 0 NULL}
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+set filter(0) {
+}
+
+
+############################### 06009 智能网VPMN国内漫游结算清单的配置 #######################
+set begin_port {19519}
+
+set server_num(cdrvpmnin_transform) 5
+
+	
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(cdrvpmnin_transform) {43 | {cdr_in_call_dm_1701}}
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_in_call_dm_1701) {66 \t 0 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+#
+#
+
+set col(cdr_in_call_dm_1701) {
+	{1 NULL 0 0 NULL}
+	{2 NULL 0 0 NULL}
+	{3 1 NULL 0 NULL}
+	{4 2 NULL 0 NULL}
+	{5 3 0 0 call_type_new}
+	{6 5 NULL 0 NULL}
+	{7 7 NULL 6(3) NULL}
+	{8 8 NULL 0 NULL}
+	{9 8 NULL 1 NULL}
+	{10 24,8 NULL 19 NULL}
+	{11 25 0 17(1000) NULL}
+	{12 26 0 17(1000) NULL}
+	{13 27 0 17(1000) NULL}
+	{14 15 NULL 0 NULL}
+	{15 NULL 0 0 NULL}
+	{16 14 NULL 0 NULL}
+	{17 22 0 0 map_call_roamtype_new}
+	{18 23 0 0 cdrbrand_new}
+	{19 NULL 0 0 NULL}
+	{20 NULL 0 0 NULL}
+	{21 12 NULL 0 NULL}
+	{22 13 NULL 0 NULL}
+	{23 24 0 0 cdrtoll_new}
+	{24 6 2 0 map_pub_operator_new}
+	{25 6 NULL 0 NULL}
+	{26 5,17 NULL 2 NULL}
+	{27 17 NULL 0 NULL}
+	{28 16 NULL 0 NULL}
+	{29 25,26,27 NULL 4(0) NULL}
+  {30 25,26,27 NULL 25 prod_id}
+  {31 NULL 0 0 NULL}
+	{32 7 NULL 6(3)|5 NULL}
+	{33 7 NULL 6(3)|42(0) NULL}
+	{34 NULL 0 0 NULL}
+	{35 32 NULL 17(1000) NULL}
+	{36 33,34 0 4(1)|17(1000) NULL}
+	{37 20 NULL 0 NULL}
+	{38 NULL 0 0 NULL}
+	{39 10 NULL 0 NULL}
+	{40 42 NULL 0 NULL}
+	{41 43 NULL 16(1,4) NULL}
+	{42 NULL NULL 0 NULL}
+	{43 NULL NULL 0 NULL}
+	{44 NULL NULL 0 NULL}
+	{45 NULL 0 0 NULL}
+	{46 NULL 0 0 NULL}
+	{47 31 NULL 6(3)|16(1,10) NULL}
+	{48 NULL 0 0 NULL}
+	{49 NULL 0 0 NULL}
+	{50 11 NULL 0 NULL}
+	{51 4 NULL 0 NULL}
+	{52 NULL NULL 0 NULL}
+	{53 30 NULL 0 NULL}
+	{54 NULL NULL 0 NULL}
+	{55 NULL NULL 0 NULL}
+	{56 NULL NULL 0 NULL}
+	{57 NULL NULL 0 NULL}
+	{58 NULL NULL 0 NULL}
+	{59 41 NULL 0 NULL}
+	{60 NULL NULL 0 NULL}
+	{61 35 NULL 0 NULL}
+	{62 36 NULL 0 NULL}
+	{63 37 NULL 0 NULL}
+	{64 38 NULL 0 NULL}
+	{65 39 NULL 0 NULL}
+	{66 40 NULL 0 NULL}	
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+set filter(0) {
+}
+
+
+
+############################### 06003 gsmgi_transform的配置 #######################
+set begin_port {19522}
+
+set server_num(gsmgi_transform) 5
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(gsmgi_transform) {31 | {CDR_GI_CALL_DM_5050}}
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(CDR_GI_CALL_DM_5050) {60 \t 0 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+set col(CDR_GI_CALL_DM_5050) {
+	{1 NULL 0 0 NULL}
+	{2 NULL 0 0 NULL}
+	{3 2 NULL 0 NULL}
+	{4 3 NULL 0 NULL}
+	{5 4 0 0 call_type_new}
+	{6 5 NULL 0 NULL}
+	{7 6 NULL 6(3) NULL}
+	{8 7 NULL 0 NULL}
+	{9 7 NULL 1 NULL}
+	{10 22,7 NULL 19 NULL}
+	{11 23 NULL 17(1000) NULL}
+	{12 24 NULL 17(1000) NULL}
+	{13 25 NULL 17(1000) NULL}
+	{14 16 NULL 0 NULL}
+	{15 NULL 0 0 NULL}
+	{16 17 NULL 0 NULL}
+	{17 21 0 0 map_call_roamtype_new}
+	{18 19 0 0 cdrbrand_new}
+	{19 NULL 0 0 NULL}
+	{20 NULL 0 0 NULL}
+	{21 14 NULL 0 NULL}
+	{22 15 NULL 0 NULL}
+	{23 22 0 0 cdrtoll_new}
+	{24 20 2 0 map_pub_operator_new}
+	{25 20 NULL 0 NULL}
+	{26 5,18 NULL 2 NULL}
+	{27 18 NULL 0 NULL}
+	{28 17 NULL 0 NULL}
+	{29 23,24,25 NULL 4(0) NULL}
+	{30 5,23,24,25 NULL 25 prod_id}
+	{31 22 NULL 0 NULL}
+	{32 6 NULL 6(3)|5 NULL}
+	{33 6 NULL 6(3)|42(0) NULL}
+	{34 NULL 0 0 NULL}
+	{35 28 NULL 17(1000) NULL}
+	{36 29,30 NULL 4(1)|17(1000) NULL}
+	{37 NULL NULL 0 NULL}
+	{38 NULL 0 0 NULL}
+	{39 9 NULL 0 NULL}
+	{40 10 NULL 0 NULL}
+	{41 11 NULL 0 NULL}
+	{42 12 NULL 0 NULL}
+	{43 13 NULL 0 NULL}
+	{44 NULL NULL 0 NULL}
+	{45 NULL 0 0 NULL}
+	{46 NULL 0 0 NULL}
+	{47 27 NULL 6(3)|16(1,10) NULL}
+	{48 NULL 0 0 NULL}
+	{49 NULL 0 0 NULL}
+	{50 NULL NULL 0 NULL}
+	{51 NULL NULL 0 NULL}
+	{52 NULL NULL 0 NULL}
+	{53 NULL NULL 0 NULL}
+	{54 NULL NULL 0 NULL}
+	{55 NULL NULL 0 NULL}
+	{56 NULL NULL 0 NULL}
+	{57 NULL NULL 0 NULL}
+	{58 NULL NULL 0 NULL}
+	{59 NULL NULL 0 NULL}
+	{60 NULL NULL 0 NULL}
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+set filter(0) {
+}
+
+
+###############################06007 gprsnnew_transform的配置#######################
+set begin_port {13600}
+
+set server_num(gprsnnew_transform) 5
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(gprsnnew_transform) {55 | {cdr_in_gprs_dm_1902}}
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_in_gprs_dm_1902) {59 \t 0 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+set col(cdr_in_gprs_dm_1902) {
+	{1 NULL NULL 12 NULL}
+	{2 NULL 0 0 NULL}
+	{3 NULL 0 0 NULL}
+	{4 3 NULL 0 NULL}
+	{5 4 NULL 0 NULL}
+	{6 2 NULL 0 NULL}
+	{7 25 NULL 6(3) NULL}
+	{8 26 NULL 1000 NULL}
+	{9 26 NULL 1 NULL}
+	{10 28 NULL 0 NULL}
+	{11 29 NULL 0 NULL}
+	{12 32 NULL 0 NULL}
+	{13 33 NULL 0 NULL}
+	{14 51 NULL 17(1000) NULL}
+	{15 52 NULL 17(1000) NULL}
+	{16 NULL 0 0 NULL}
+	{17 NULL 0 0 NULL}
+	{18 NULL 0 0 NULL}
+	{19 NULL 0 0 NULL}
+	{20 NULL 0 0 NULL}
+	{21 NULL 0 0 NULL}
+	{22 19 NULL 0 NULL}
+	{23 NULL 0 0 NULL}
+	{24 20 NULL 0 NULL}
+	{25 23 0 0 map_call_roamtype_new}
+	{26 NULL 0 0 NULL}
+	{27 NULL 0 0 NULL}
+	{28 NULL 305025 0 NULL}
+	{29 NULL 30001 0 NULL}
+	{30 12 300000 0 gprsitem_idzzp}
+	{31 NULL NULL 0 NULL}
+	{32 51,52 NULL 4(0) NULL}
+	{33 NULL 0 0 NULL}
+	{34 25 NULL 6(3)|5 NULL}
+	{35 7 NULL 0 NULL}
+	{36 9 NULL 0 NULL}
+	{37 NULL 0 0 NULL}
+	{38 1 NULL 0 NULL}
+	{39 NULL 0 0 NULL}
+	{40 53 NULL 0 NULL}
+	{41 25 NULL 6(3) NULL}
+	{42 NULL NULL 0 NULL}
+	{43 NULL NULL 13 NULL}
+	{44 NULL NULL 0 NULL}
+	{45 NULL NULL 0 NULL}
+	{46 NULL NULL 0 NULL}
+	{47 NULL NULL 0 NULL}
+	{48 NULL NULL 0 NULL}
+	{49 12 NULL 0 NULL}
+	{50 NULL NULL 0 NULL}
+	{51 NULL NULL 0 NULL}
+	{52 NULL NULL 0 NULL}
+	{53 NULL NULL 0 NULL}
+	{54 NULL NULL 0 NULL}
+	{55 NULL NULL 0 NULL}
+	{56 NULL NULL 0 NULL}
+	{57 NULL NULL 0 NULL}
+	{58 NULL NULL 0 NULL}
+	{59 55 NULL 16(1,10) NULL}
+	
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+set filter(0) {
+	
+}
+
+
+
+
+###############################wjjs_transform的配置#######################
+set begin_port {13300}
+
+set server_num(wjjs_transform) 5
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(wjjs_transform) {49 | {CDR_WJ_yyyymmdd_9000}}
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(CDR_WJ_yyyymmdd_9000) {60 \t 9000 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+set col(CDR_WJ_yyyymmdd_9000) {
+	{1 NULL 0 0 NULL}
+	{2 NULL 0 0 NULL}
+	{3 1,5,4 NULL 28|16(1,12) NULL}
+	{4 3 0 0 NULL}
+	{5 1 NULL 0 map_settle_calltype}
+	{6 1,4,5 NULL 28|16(1,12) NULL}
+	{7 7 NULL 6(3) NULL}
+	{8 8 NULL 0 NULL}
+	{9 8 NULL 1 NULL}
+	{10 32,8 NULL 19(0) NULL}
+	{11 25 NULL 17(1000) NULL}
+	{12 26 NULL 17(1000) NULL}
+	{13 27,28 NULL 4(1)|17(1000) NULL}
+	{14 21 NULL 0 NULL}
+	{15 19 NULL 0 NULL}
+	{16 22 NULL 0 NULL}
+	{17 30 NULL 0 map_call_roamtype}
+	{18 NULL 0 0 NULL}
+	{19 NULL 0 0 NULL}
+	{20 34 NULL 0 NULL}
+	{21 NULL 00001 0 NULL}
+	{22 29 0 0 settleitem_id}
+	{23 32 NULL 0 map_call_tolltype1}
+	{24 33 NULL 0 map_settle_operator}
+	{25 36 NULL 0 map_settleoper_id}
+	{26 5,23 NULL 2 NULL}
+	{27 23 NULL 0 NULL}
+	{28 24 NULL 0 NULL}
+	{29 25,26,27,28 NULL 4(0) NULL}
+	{30 NULL 0 {} NULL}
+	{31 32 NULL 0 map_call_tolltype1}
+	{32 7 NULL 6(3)|5 NULL}
+	{33 7 NULL 6(3)|42(0) NULL}
+	{34 NULL NULL 26 NULL}
+	{35 NULL 0 {} NULL}
+	{36 NULL 0 {} NULL}
+	{37 NULL 0 0 NULL}
+	{38 NULL 0 0 NULL}
+	{39 10 NULL 0 NULL}
+	{40 12 NULL 0 NULL}
+	{41 11 NULL 0 NULL}
+	{42 15 NULL 0 NULL}
+	{43 16 NULL 0 NULL}
+	{44 NULL 0 0 NULL}
+	{45 NULL NULL 0 NULL}
+	{46 NULL NULL 0 NULL}
+	{47 46 NULL {6(3)|27( 00:00:00)} NULL}
+	{48 NULL NULL 0 NULL}
+	{49 NULL NULL 13 NULL}
+	{50 NULL NULL 0 NULL}
+	{51 NULL NULL 0 NULL}
+	{52 NULL NULL 0 NULL}
+	{53 20 NULL 0 map_settle_ator}
+	{54 35 NULL 0 map_settle_operator}
+	{55 NULL NULL 0 NULL}
+	{56 NULL NULL 0 NULL}
+	{57 NULL NULL 0 NULL}
+	{58 NULL NULL 0 NULL}
+	{59 NULL NULL 0 NULL}
+	{60 NULL NULL 0 NULL}
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+set filter(9000) {
+	{& 16(1,1) 41 0 0 V 1}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###############################wjsms_transform的配置#######################
+set begin_port {13400}
+
+set server_num(wjsms_transform) 5
+
+##########################################################################
+#Set srcfile(file_name)  {field_num    delimiter  {dfile1   dfile2 ...}}#
+#             源文件名  文件字段个数  分隔符    目标文件1   目标文件2...#
+##########################################################################
+
+set srcfile(wjsms_transform) {33 | {cdr_wjsms_yyyymmdd_9010}}
+
+##########################################################################
+#set destfile(file_name) {field_num  	delimiter  filter_id  separate        day}#
+#            目标文件名   文件字段个数   分隔符      过滤ID   日分割标志  日拆分#
+##########################################################################
+
+set destfile(cdr_wjsms_yyyymmdd_9010) {47 \t 9010 0 NULL}
+
+##########################################################################
+#set col(destfile) {{dest_col_id  src_colu_id  default   method   mapname}#
+#       目标文件名 目标文件字段ID  源文件字段ID 默认值 映射方法ID  名字#
+#}
+##########################################################################
+
+set col(cdr_wjsms_yyyymmdd_9010) {
+	{1 NULL 0 0 NULL}
+	{2 NULL 0 0 NULL}
+	{3 7 NULL 0 NULL}
+	{4 NULL 0 0 NULL}
+	{5 4 NULL 0 settle_calltype}
+	{6 8 NULL 0 NULL}
+	{7 26 NULL 6(3) NULL}
+	{8 NULL 0 0 NULL}
+	{9 NULL 0 0 NULL}
+	{10 NULL 0 0 NULL}
+	{11 NULL 0 0 NULL}
+	{12 13 NULL 0 NULL}
+	{13 15 NULL 0 NULL}
+	{14 NULL 0 0 NULL}
+	{15 NULL 0 0 NULL}
+	{16 5 NULL 0 NULL}
+	{17 NULL 0 0 NULL}
+	{18 NULL 0 0 NULL}
+	{19 NULL 20001 0 NULL}
+	{20 17 NULL 0 settlesms_id}
+	{21 10 NULL 0 NULL}
+	{22 12 NULL 0 NULL}
+	{23 8,15 NULL 2|23(#,0) NULL}
+	{24 NULL 0 {} NULL}
+	{25 NULL 0 0 NULL}
+	{26 NULL 0 0 NULL}
+	{27 NULL 0 0 NULL}
+	{28 NULL 0 0 NULL}
+	{29 20 NULL 0 NULL}
+	{30 NULL NULL 0 NULL}
+	{31 NULL NULL 0 NULL}
+	{32 NULL NULL 0 NULL}
+	{33 NULL NULL 0 NULL}
+	{34 4 NULL 0 NULL}
+	{35 NULL NULL 0 NULL}
+	{36 NULL NULL 0 NULL}
+	{37 31 NULL {6(3)|27( 00:00:00)} NULL}
+	{38 NULL NULL 0 NULL}
+	{39 NULL NULL 13 NULL}
+	{40 NULL NULL 0 NULL}
+	{41 NULL NULL 0 NULL}
+	{42 NULL NULL 0 NULL}
+	{43 14 NULL 0 NULL}
+	{44 16 NULL 0 NULL}
+	{45 NULL NULL 0 NULL}
+	{46 NULL NULL 0 NULL}
+	{47 NULL NULL 0 NULL}
+}
+##########################################################################
+#set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
+#           过滤id      运算逻辑 处理标识 源字段ID 匹配标识   匹配参数   匹配值   逻辑正负标志#
+##########################################################################
+
+set filter(9010) {
+	{& 16(1,4) 7 0 0 9999 1}
+}
+
