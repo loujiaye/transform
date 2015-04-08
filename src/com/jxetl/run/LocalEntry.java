@@ -28,6 +28,8 @@ public class LocalEntry {
 	BufferedReader br = null;
 	BufferedReader br2 = null;
 	BufferedWriter bw = null;
+	BufferedWriter bw2= null;
+	
 
 	MyTask task = null;
 	
@@ -79,6 +81,7 @@ public class LocalEntry {
 		String srcName = "";
 		String resultName = "";
 		String destName = "";
+		String errorName = "";
 		
 		if(files == null){
 			System.exit(1);
@@ -88,14 +91,22 @@ public class LocalEntry {
 			resultName = file.getName();
 			srcName = resultName.split("\\.")[1] + ".AVL";
 			destName = "dest_" +resultName  ;
+			errorName = "errot_" + resultName  ;
 			
 			
-			br = new BufferedReader(new FileReader(path + srcName ));
+			
+			br = new BufferedReader(new FileReader(path.replace("result", "src")  + srcName ));
 			bw = new BufferedWriter(new FileWriter(path.replace("result", "dest")  + destName));
 			br2 = new BufferedReader(new FileReader( path+ resultName));
 			
-			debug();
-			
+			if(!debug()){;
+				br.close();
+				br = null;
+				br = new BufferedReader(new FileReader(path.replace("result", "src")  + srcName ));
+				bw2 = new BufferedWriter(new FileWriter(path.replace("result", "dest")  + errorName));			
+				deal();
+				bw2.close();
+			}
 			close();
 			
 		}
@@ -132,19 +143,19 @@ public class LocalEntry {
 			tmp = task.convert(tmp);	
 			if (tmp != null) {
 				line++;
-				bw.write(tmp);
-				bw.newLine();
+				bw2.write(tmp);
+				bw2.newLine();
 			}
 			//log.debug("-------------------------");
 		}
-		System.out.println(line);
+		//System.out.println(line);
 	}
 
 	/**
 	 * 验证源文件与结果文件不同，放入dest.txt中
 	 * @throws IOException
 	 */
-	public void debug() throws IOException {
+	public boolean debug() throws IOException {
 		Verify ver = new Verify1402(task.getDestfile().getFieldNum());
 		String src = null;
 		String dest = null;
@@ -162,17 +173,28 @@ public class LocalEntry {
 			if(dest == null){
 				continue;
 			}
-		
-			line++;				
+//System.out.println("dest" + dest);		
+			line++;			
+			
 			//目标数组赋值
 			destArr = task.getDestfile().fields;
 			Arrays.fill(resultArr, "");
 			int i = 0;
 			result = br2.readLine();	
+//System.out.println("result" + result);
+			if(result == null){
+				bw.write("line is not suit");
+				bw.newLine();
+				bw.write("the result:FAILD");
+				bw.newLine();
+				bw.close();
+				return false;
+			}
 			for (String tmp : result.split(task.getDestfile().getDelimiter())) {
 				resultArr[i] = tmp;
 				i++;			
 			}		
+			
 			if (!ver.check(destArr, resultArr , bw)) {
 				error = true;
 				
@@ -188,11 +210,14 @@ public class LocalEntry {
 				bw.newLine();
 				bw.flush();
 			}
+			
 		}
 		
-		/*if(error){		
+		if(!error){		
 			bw.write("the result:SUCCESSED");
-		}*/
+		}
+		
+		return true;
 	}
 
 	/**

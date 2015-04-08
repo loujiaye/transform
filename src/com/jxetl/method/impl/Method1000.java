@@ -20,6 +20,7 @@ public class Method1000 implements DealMethod {
 	@Override
 	public String invoke(String str, String defaultValue, String param,
 			String mapName) throws MethodDealException {
+		//System.out.println("in 1000 method" + str);
 		if(str.equals("")){
 			return "0";
 		} else {

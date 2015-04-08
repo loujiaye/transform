@@ -1,0 +1,75 @@
+515c515
+< 	{17 8 NULL 1 NULL}
+---
+> 	{17 44 NULL 0 NULL}
+567c567
+< 	{17 8 NULL 1 NULL}
+---
+> 	{17 44 NULL 0 NULL}
+617c617
+< 	{17 8 NULL 1 NULL}
+---
+> 	{17 44 NULL 0 NULL}
+678c678
+< 	{17 8 NULL 1 NULL}
+---
+> 	{17 44 NULL 0 NULL}
+748c748
+< 	{17 8 NULL 1 NULL}
+---
+> 	{17 44 NULL 0 NULL}
+798c798
+< 	{17 8 NULL 1 NULL}
+---
+> 	{17 44 NULL 0 NULL}
+1019c1019
+<         {67 55 NULL 0 NULL}
+---
+>         {67 55 NULL 0 NULL} 
+1609c1609
+< set srcfile(gprstest_transform) {69 | {cdr_gprs_yyyymmdd_1207}}
+---
+> set srcfile(gprstest_transform) {68 | {cdr_gprs_yyyymmdd_1207}}
+1616c1616
+< set destfile(cdr_gprs_yyyymmdd_1207) {65 \t 0 0 NULL}
+---
+> set destfile(cdr_gprs_yyyymmdd_1207) {63 \t 0 0 NULL}
+1688,1689d1687
+< 	{64 69 NULL 0 NULL}
+< 	{65 15 NULL 0 NULL}
+1877c1875
+<          {48 32 NULL 0 NULL}
+---
+>          {48 32 NULL 0 NULL} 
+1966c1964
+<          {48 32 NULL 0 NULL}
+---
+>          {48 32 NULL 0 NULL}  
+2603c2601
+< set srcfile(smswap_transform_04) {36 | {cdr_sms_yyyymmdd_2060}}
+---
+> set srcfile(smswap_transform_04) {35 | {cdr_sms_yyyymmdd_2060}}
+2755c2753
+< 	{48 40 NULL 0 NULL}
+---
+> 	{48 40 NULL 0 NULL} 
+2865c2863
+< set srcfile(sms_transform_15) {38 | {cdr_sms_yyyymmdd_2150}}
+---
+> set srcfile(sms_transform_15) {35 | {cdr_sms_yyyymmdd_2150}}
+3101c3099
+<          {47 NULL 0 0 NULL}                                                      
+---
+>          {47 NULL 0 0 NULL}                                                       
+3474c3472
+< 	{17 8 NULL 1 NULL}
+---
+> 	{17 40 NULL 0 NULL}
+3532c3530
+< 	{17 8 NULL 1 NULL}
+---
+> 	{17 40 NULL 0 NULL}
+4527c4525
+<         {58 46 NULL 0 NULL} 
+---
+>         {58 46 NULL 0 NULL}  

@@ -23,6 +23,7 @@ public class Method1 implements DealMethod {
 	public String invoke(String str, String defaultValue, String param,
 			String mapName) throws MethodDealException {
 		int strInt = 0;
+		/*System.out.println("in method1" + str);*/
 		try{
 			strInt = Integer.parseInt(str);
 		} catch (NumberFormatException e){
@@ -34,6 +35,7 @@ public class Method1 implements DealMethod {
 		} else {
 			strInt = (strInt - 59)/60;
 		}
+	/*	System.out.println(strInt);*/
 		return String.valueOf(strInt);
 	}
 

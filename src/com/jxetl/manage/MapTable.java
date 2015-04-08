@@ -46,7 +46,7 @@ public class MapTable {
 	 * @throws IOException
 	 */
 	public static void localMap() throws IOException{
-		String path ="/home/hadoop/jxetl/dispatch/e_transform/maptable/USYS_PARA_CLEAN_MAP";
+		String path ="/home/hdfs/jxetl/dispatch/e_transform/maptable/USYS_PARA_CLEAN_MAP";
 		InputStream is = new FileInputStream(path);
 		setMap(is);
 		is.close();

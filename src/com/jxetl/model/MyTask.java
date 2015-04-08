@@ -12,6 +12,7 @@ import java.io.Serializable;
 
 
 
+
 import org.apache.hadoop.fs.FSDataInputStream;
 import org.apache.hadoop.fs.Path;
 
@@ -113,7 +114,7 @@ public class MyTask implements Serializable{
 	 * @return
 	 */
 	public static MyTask localGetTask(String taskName){
-		String name = "/home/hadoop/jxetl/dispatch/e_transform/config/" + taskName + ".file";
+		String name =   "/home/hdfs/jxetl/dispatch/e_transform/config/" + taskName + ".file";
 		InputStream is = null;
 		try {
 			is = new FileInputStream(name);
