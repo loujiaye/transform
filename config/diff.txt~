@@ -1,42 +1,7 @@
-515c515
-< 	{17 8 NULL 1 NULL}
----
-> 	{17 44 NULL 0 NULL}
-567c567
-< 	{17 8 NULL 1 NULL}
----
-> 	{17 44 NULL 0 NULL}
-617c617
-< 	{17 8 NULL 1 NULL}
----
-> 	{17 44 NULL 0 NULL}
-678c678
-< 	{17 8 NULL 1 NULL}
----
-> 	{17 44 NULL 0 NULL}
-748c748
-< 	{17 8 NULL 1 NULL}
----
-> 	{17 44 NULL 0 NULL}
-798c798
-< 	{17 8 NULL 1 NULL}
----
-> 	{17 44 NULL 0 NULL}
 1019c1019
 <         {67 55 NULL 0 NULL}
 ---
 >         {67 55 NULL 0 NULL} 
-1609c1609
-< set srcfile(gprstest_transform) {69 | {cdr_gprs_yyyymmdd_1207}}
----
-> set srcfile(gprstest_transform) {68 | {cdr_gprs_yyyymmdd_1207}}
-1616c1616
-< set destfile(cdr_gprs_yyyymmdd_1207) {65 \t 0 0 NULL}
----
-> set destfile(cdr_gprs_yyyymmdd_1207) {63 \t 0 0 NULL}
-1688,1689d1687
-< 	{64 69 NULL 0 NULL}
-< 	{65 15 NULL 0 NULL}
 1877c1875
 <          {48 32 NULL 0 NULL}
 ---

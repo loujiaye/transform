@@ -91,18 +91,18 @@ public class LocalEntry {
 			resultName = file.getName();
 			srcName = resultName.split("\\.")[1] + ".AVL";
 			destName = "dest_" +resultName  ;
-			errorName = "errot_" + resultName  ;
+			errorName = "error_" + resultName  ;
 			
 			
 			
-			br = new BufferedReader(new FileReader(path.replace("result", "src")  + srcName ));
+			br = new BufferedReader(new FileReader(path.replace("result", "srcfile")  + srcName ));
 			bw = new BufferedWriter(new FileWriter(path.replace("result", "dest")  + destName));
 			br2 = new BufferedReader(new FileReader( path+ resultName));
 			
 			if(!debug()){;
 				br.close();
 				br = null;
-				br = new BufferedReader(new FileReader(path.replace("result", "src")  + srcName ));
+				br = new BufferedReader(new FileReader(path.replace("result", "srcfile")  + srcName ));
 				bw2 = new BufferedWriter(new FileWriter(path.replace("result", "dest")  + errorName));			
 				deal();
 				bw2.close();
@@ -215,6 +215,7 @@ public class LocalEntry {
 		
 		if(!error){		
 			bw.write("the result:SUCCESSED");
+			bw.newLine();
 		}
 		
 		return true;
