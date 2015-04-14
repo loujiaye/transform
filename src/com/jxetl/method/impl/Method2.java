@@ -56,7 +56,15 @@ public class Method2 implements DealMethod {
 		//如果是，则把去掉该前缀的号码作为参数，再次调用该函数 
 		//if(号码前缀为ip电话，或者其他运营商固定前缀)
 				//return new Metho2().invoke(去掉前缀，defaultValue, param);
-		if(a.startsWith("12592") || a.startsWith("12593") || a.startsWith("17951") || a.startsWith("17950")  || a.startsWith("17901")){
+		//去掉179开头的ip拨号 这里默认179开头都是
+		//中国电信IP接入号 …… 17900 17901
+		//广西电信IP接入号 …… 17908 17909
+		//中国联通IP接入号 …… 17910 17911
+		//中国移动IP接入号 …… 17950 17951
+		//中国网通IP接入号 …… 17960 17961
+		//广西网通IP接入号 …… 17968 17969
+		//中国铁通IP接入号 …… 17990 17991
+		if(a.startsWith("12592") || a.startsWith("12593") || a.startsWith("179")){
 			a = a.substring(5);
 		}
 				
@@ -103,7 +111,7 @@ public class Method2 implements DealMethod {
 				} else if(a.length() == 12){
 					return a.substring(1);
 				} else {
-					return "";
+					return a.substring(1);
 				}
 			} else {
 				//判断号码前缀是否为区号，如果是，还要判断号码长度是否为7位或8位
@@ -121,7 +129,7 @@ public class Method2 implements DealMethod {
 		}
 		
 		
-		
+		//3||14761 a:8614761  b:792
 		if(a.startsWith("13") || a.startsWith("145") || a.startsWith("147")|| 
 				a.startsWith("15") || a.startsWith("18")){
 			
@@ -130,7 +138,7 @@ public class Method2 implements DealMethod {
 			} else if(a.length() == 11){
 				return a;
 			} else {
-				return "";
+				return a;
 			}
 		}
 		
@@ -165,9 +173,28 @@ public class Method2 implements DealMethod {
 			}
 		}
 		
+		if(a.startsWith("00")){
+			a=a.substring(2);
+		}
+		
+		//3|06846232|46232 a:06846232 b:799
+		if(a.startsWith("068")){
+			a=a.substring(3);
+		}
+		//3|19788|88 a:8619788 b:792
+		if(a.startsWith("195") || a.startsWith("197")){
+			a=a.substring(3);
+		}
+		
 		if(a.startsWith("163")){
 			return "163";
 		}
+		
+		if(a.startsWith("169")){
+			return "169";
+		}
+		
+		
 		
 		if(a.startsWith("200")){
 			return a.substring(3);
@@ -191,6 +218,11 @@ public class Method2 implements DealMethod {
 			} else {
 				return "1259";
 			}		
+		}
+		
+		//172 业务 17208|172 a：8617208 b：792
+		if(a.startsWith("172")){
+			return "172";	
 		}
 		
 		
