@@ -64,7 +64,9 @@ public class Method2 implements DealMethod {
 		//中国网通IP接入号 …… 17960 17961
 		//广西网通IP接入号 …… 17968 17969
 		//中国铁通IP接入号 …… 17990 17991
-		if(a.startsWith("12592") || a.startsWith("12593") || a.startsWith("179")){
+		if(a.startsWith("12592") || a.startsWith("12593") || a.startsWith("17951")  
+				|| a.startsWith("17900")  || a.startsWith("17901")  || a.startsWith("17908")  ||   a.startsWith("17931")  ||
+				a.startsWith("17991")  || a.startsWith("17990")){
 			a = a.substring(5);
 		}
 				
@@ -85,6 +87,11 @@ public class Method2 implements DealMethod {
 			a = a.substring(2);
 		}
 		
+		if(a.startsWith("12592") || a.startsWith("12593") || a.startsWith("17951")  
+				|| a.startsWith("17900")  || a.startsWith("17901")  || a.startsWith("17908")  ||   a.startsWith("17931")  ||
+				a.startsWith("17991")  || a.startsWith("17990")){
+			a = a.substring(5);
+		}
 		
 		
 		/**
@@ -111,7 +118,7 @@ public class Method2 implements DealMethod {
 				} else if(a.length() == 12){
 					return a.substring(1);
 				} else {
-					return a.substring(1);
+					return "";
 				}
 			} else {
 				//判断号码前缀是否为区号，如果是，还要判断号码长度是否为7位或8位
@@ -130,6 +137,7 @@ public class Method2 implements DealMethod {
 		
 		
 		//3||14761 a:8614761  b:792
+		//3|15507912|
 		if(a.startsWith("13") || a.startsWith("145") || a.startsWith("147")|| 
 				a.startsWith("15") || a.startsWith("18")){
 			
@@ -138,7 +146,22 @@ public class Method2 implements DealMethod {
 			} else if(a.length() == 11){
 				return a;
 			} else {
-				return a;
+				//3||14775 a:8614775
+				if(a.startsWith("147")){
+					return a;
+				} 
+				
+				//3||14575  8614575
+				if(a.startsWith("145")){
+					return a;
+				} 
+				//3||186   8686186
+				//3|18622| :8618622
+				if(a.equals("186")){
+					return a;
+				}
+					return "";
+				
 			}
 		}
 		
@@ -173,16 +196,12 @@ public class Method2 implements DealMethod {
 			}
 		}
 		
-		if(a.startsWith("00")){
-			a=a.substring(2);
-		}
-		
 		//3|06846232|46232 a:06846232 b:799
 		if(a.startsWith("068")){
 			a=a.substring(3);
 		}
 		//3|19788|88 a:8619788 b:792
-		if(a.startsWith("195") || a.startsWith("197")){
+		if(a.startsWith("193") || a.startsWith("195") || a.startsWith("197")){
 			a=a.substring(3);
 		}
 		
@@ -196,8 +215,23 @@ public class Method2 implements DealMethod {
 		
 		
 		
+		
+		
+		//3|005|5   a:86200005
+		//3|007|7   a:86300007
+		if(a.startsWith("20000")  || a.startsWith("30000")){
+			return a.substring(5);
+		}
+		
 		if(a.startsWith("200")){
 			return a.substring(3);
+		}
+		//86300860 791   变成860不对 疑似没变
+		//3|300860|0
+		//3|300200|200
+		//3||00  8630000
+		if(a.startsWith("300860")){
+			return "0";
 		}
 		
 		if(a.startsWith("300")){
@@ -244,7 +278,13 @@ public class Method2 implements DealMethod {
 
 		
 		
+		if(a.startsWith("00")){
+			a=a.substring(2);
+		}
 		
+		if(a.equals("02002")){
+			return "02";
+		}
 
 		return a;
 	}

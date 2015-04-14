@@ -12,6 +12,8 @@ public class Method201Test {
 	@Test
 	public void test() throws MethodDealException {
 		String str = MethodFactory.getById("201").invoke("7046667,798", "null", "null", "null");
+		//System.out.println(str);
+		str = MethodFactory.getById("201").invoke("86300860,791", "null", "null", "null");
 		System.out.println(str);
 	
 		
