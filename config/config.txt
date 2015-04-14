@@ -518,8 +518,8 @@ set col(cdr_comp_call_ds_1311) {
 	{20 29 NULL 17(1000) NULL} 
 	{21 32,33,34,35 NULL 4(1)|17(1000) NULL}
 	{22 51 NULL 0 NULL}
-  {23 60 NULL 0 NULL}
-  {24 61 NULL 0 NULL}	
+  	{23 60 NULL 0 NULL}
+  	{24 61 NULL 0 NULL}	
 }
 ##########################################################################
 #set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#
@@ -570,8 +570,8 @@ set col(cdr_comp_call_ds_1411) {
 	{20 29 NULL 17(1000) NULL} 
 	{21 32,33,34,35 NULL 4(1)|17(1000) NULL}
 	{22 51 NULL 0 NULL}
-  {23 60 NULL 0 NULL}
-  {24 61 NULL 0 NULL}	
+        {23 60 NULL 0 NULL}
+        {24 61 NULL 0 NULL}	
 }
 ##########################################################################
 #set filter(filterid) {{logic methodid columned match_flag match_logic match_val logic_flag}}#

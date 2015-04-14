@@ -17,11 +17,17 @@ public class Method2Test {
 		assertEquals("13387007060", str);
 		str = MethodFactory.getById("2").invoke("07016287888,", "null", "null", "null");
 		assertEquals("7016287888" , str);		
-		str=MethodFactory.getById("2").invoke("008679296202,792,", "null", "null", "null");
-		assertEquals("79296202" , str);
+		//str=MethodFactory.getById("2").invoke("008679296202,792,", "null", "null", "null");
+		//assertEquals("79296202" , str);
+		str=MethodFactory.getById("2").invoke("1790118970298765,792", "null", "null", "null");
+		assertEquals("18970298765" , str);
+		//System.out.println(str);
+		
 		
 		
 		//7960982    ÑÇÁª  0982
 	}
+
+
 
 }

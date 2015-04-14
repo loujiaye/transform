@@ -148,12 +148,13 @@ public class Filter implements Serializable {
 			percolateString = FilterMethod2.invoke(str, match_val, match_logic);
 		} else if (match_flag.equals("1")) {			
 			//过滤掉国外号码
-			if(this.match_val.equals( "map_call_xlt" )|this.match_val.equals( "map_tt_hd_v15" )
+			//6:70703367070336 21:799 不适合
+			/*if(this.match_val.equals( "map_call_xlt" )|this.match_val.equals( "map_tt_hd_v15" )
 					||this.match_val.equals( "map_wt_hd_v15" )){
 				if(str.length() >14){
 					return true;
 				}
-			}
+			}*/
 			percolateString = FilterMethod1.invoke(str, match_val);
 		}
 /*System.out.println(str + " " + percolateString + " " + logic_flag)	;*/

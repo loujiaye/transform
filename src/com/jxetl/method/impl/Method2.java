@@ -56,7 +56,7 @@ public class Method2 implements DealMethod {
 		//如果是，则把去掉该前缀的号码作为参数，再次调用该函数 
 		//if(号码前缀为ip电话，或者其他运营商固定前缀)
 				//return new Metho2().invoke(去掉前缀，defaultValue, param);
-		if(a.startsWith("12592") || a.startsWith("12593") || a.startsWith("17951") || a.startsWith("17950")){
+		if(a.startsWith("12592") || a.startsWith("12593") || a.startsWith("17951") || a.startsWith("17950")  || a.startsWith("17901")){
 			a = a.substring(5);
 		}
 				
