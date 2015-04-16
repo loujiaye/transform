@@ -114,8 +114,8 @@ public class MyTask implements Serializable{
 	 * @return
 	 */
 	public static MyTask localGetTask(String taskName){
-		String name =   "/home/hdfs/jxetl/dispatch/e_transform/config/" + taskName + ".file";
-		//String name =   "/home/ljy/workspace/transform1/config/" + taskName + ".file";
+		//String name =   "/home/hdfs/jxetl/dispatch/e_transform/config/" + taskName + ".file";
+		String name =   "/home/ljy/workspace/transform1/config/" + taskName + ".file";
 		InputStream is = null;
 		try {
 			is = new FileInputStream(name);

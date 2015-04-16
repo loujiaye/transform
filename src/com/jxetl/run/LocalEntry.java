@@ -3,6 +3,7 @@ package com.jxetl.run;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.FilenameFilter;
@@ -55,6 +56,18 @@ public class LocalEntry {
 		//准备映射表
 		//le.prepare(args[0]);
 		le.begin(args[2] , args[0]);
+		//le.singleFile();
+		
+	}
+	
+	/**************
+	 *  单个文件转换
+	 *  需要手动修改br bw2
+	 * @throws IOException 
+	 */
+	public void singleFile() throws IOException{
+		br = new BufferedReader(new FileReader("/home/ljy/workspace/transform1/srcfile/A050012015041492442.AVL"));
+		bw2 = new BufferedWriter(new FileWriter("/home/ljy/workspace/transform1/dest/dest.AVL"));
 	}
 	
 	/**
@@ -95,7 +108,7 @@ public class LocalEntry {
 			
 			
 			
-			br = new BufferedReader(new FileReader(path.replace("result", "src")  + srcName ));
+			br = new BufferedReader(new FileReader(path.replace("result", "srcfile")  + srcName ));
 			bw = new BufferedWriter(new FileWriter(path.replace("result", "dest")  + destName));
 			br2 = new BufferedReader(new FileReader( path+ resultName));
 			
@@ -103,7 +116,7 @@ public class LocalEntry {
 			//if(true){
 				br.close();
 				br = null;
-				br = new BufferedReader(new FileReader(path.replace("result", "src")  + srcName ));
+				br = new BufferedReader(new FileReader(path.replace("result", "srcfile")  + srcName ));
 				bw2 = new BufferedWriter(new FileWriter(path.replace("result", "dest")  + errorName));			
 				deal();
 				bw2.close();

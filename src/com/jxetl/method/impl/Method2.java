@@ -64,10 +64,17 @@ public class Method2 implements DealMethod {
 		//中国网通IP接入号 …… 17960 17961
 		//广西网通IP接入号 …… 17968 17969
 		//中国铁通IP接入号 …… 17990 17991
-		if(a.startsWith("12592") || a.startsWith("12593") || a.startsWith("17951")  
-				|| a.startsWith("17900")  || a.startsWith("17901")  || a.startsWith("17908")  ||   a.startsWith("17931")  ||
-				a.startsWith("17991")  || a.startsWith("17990")){
-			a = a.substring(5);
+		//26|115949562468|15949562468 a:1259115949562468
+		//26|1795013870435947|13870435947  a:1795013870435947 
+		//26|1799600886928825894|886928825894 a:1799600886928825894
+		if(a.startsWith("12591") || a.startsWith("12592") || a.startsWith("12593") || a.startsWith("17951")  
+				|| a.startsWith("17950")  ||a.startsWith("17900")  || a.startsWith("17901")  || a.startsWith("17908")  ||   a.startsWith("17931")  ||
+				a.startsWith("17991")  || a.startsWith("17996")  || a.startsWith("17990")){
+			if(a.length() == 5){
+				return a;
+			} else {
+				a = a.substring(5);
+			}
 		}
 				
 				
@@ -82,15 +89,24 @@ public class Method2 implements DealMethod {
 			}			
 		} 
 		
+		//26|00000|0000  a:86000000
+		//26|0000|000       a:8600000
+		if(a.startsWith("8600")){
+			return a.substring(4);
+		}
 		//*********如果以86开头则  去掉86  重新规整   这个在文档中未提到  大于13位 手机号
 		while( a.startsWith("86")){
 			a = a.substring(2);
 		}
 		
-		if(a.startsWith("12592") || a.startsWith("12593") || a.startsWith("17951")  
-				|| a.startsWith("17900")  || a.startsWith("17901")  || a.startsWith("17908")  ||   a.startsWith("17931")  ||
-				a.startsWith("17991")  || a.startsWith("17990")){
-			a = a.substring(5);
+		if(a.startsWith("12591") || a.startsWith("12592") || a.startsWith("12593") || a.startsWith("17951")  
+				|| a.startsWith("17950") || a.startsWith("17900")  || a.startsWith("17901")  || a.startsWith("17908")  ||   a.startsWith("17931")  ||
+				a.startsWith("17991")  || a.startsWith("17996")  || a.startsWith("17990")){
+			if(a.length() == 5){
+				return a;
+			} else {
+				a = a.substring(5);
+			}
 		}
 		
 		
@@ -165,11 +181,18 @@ public class Method2 implements DealMethod {
 			}
 		}
 		
+		
+		
 		//**********直接是区号的情形 a:00867017072815 b:701  返回：7072815
-		if(a.startsWith(b)){ 
+		if( a.startsWith(b)){ 
 			if(a.length() == 7  || a.length() == 8){
-				
-				//以什么结束
+				return  a.substring(b.length() );
+			} else {
+				return a.substring(b.length() );			
+			}
+		}
+		
+		//以什么结束
 				if(a.endsWith("96202")){
 					return "96202";
 				}
@@ -178,6 +201,7 @@ public class Method2 implements DealMethod {
 						return "95559";
 				}
 				
+				//26|95533|6095533  a:6095533 b:
 				if(a.endsWith("95533")){
 					return "95533";
 				}
@@ -189,12 +213,8 @@ public class Method2 implements DealMethod {
 				if(a.endsWith("95588")){
 					return "95588";
 				}
-				
-				return  a.substring(b.length() );
-			} else {
-				return a.substring(b.length() );			
-			}
-		}
+		
+		
 		
 		//3|06846232|46232 a:06846232 b:799
 		if(a.startsWith("068")){
@@ -219,8 +239,13 @@ public class Method2 implements DealMethod {
 		
 		//3|005|5   a:86200005
 		//3|007|7   a:86300007
+		//3||00       a:8630000
 		if(a.startsWith("20000")  || a.startsWith("30000")){
-			return a.substring(5);
+			if(a.length() == 5){
+				return "00";
+			} else{
+				return a.substring(5);
+			}
 		}
 		
 		if(a.startsWith("200")){
@@ -246,12 +271,13 @@ public class Method2 implements DealMethod {
 		
 		
 		//12599 1259
+		//26|9313979754860|1259  a:12599313979754860
 		if(a.startsWith("1259")){
-			if(a.length() > 13){
+			/*if(a.length() > 13){
 				return a.substring(4);
-			} else {
+			} else {*/
 				return "1259";
-			}		
+			//}		
 		}
 		
 		//172 业务 17208|172 a：8617208 b：792
