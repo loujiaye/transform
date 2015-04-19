@@ -108,7 +108,7 @@ public class LocalEntry {
 			
 			
 			
-			br = new BufferedReader(new FileReader(path.replace("result", "srcfile")  + srcName ));
+			br = new BufferedReader(new FileReader(path.replace("result", "src")  + srcName ));
 			bw = new BufferedWriter(new FileWriter(path.replace("result", "dest")  + destName));
 			br2 = new BufferedReader(new FileReader( path+ resultName));
 			
@@ -116,7 +116,7 @@ public class LocalEntry {
 			//if(true){
 				br.close();
 				br = null;
-				br = new BufferedReader(new FileReader(path.replace("result", "srcfile")  + srcName ));
+				br = new BufferedReader(new FileReader(path.replace("result", "src")  + srcName ));
 				bw2 = new BufferedWriter(new FileWriter(path.replace("result", "dest")  + errorName));			
 				deal();
 				bw2.close();
