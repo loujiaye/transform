@@ -32,13 +32,13 @@ public class Method19 implements DealMethod {
 	@Override
 	public String invoke(String str, String defaultValue, String param,
 			String mapName) throws MethodDealException {
-		
+	
 		String[] strArr = str.split(",");
-		if (param.equalsIgnoreCase("") && strArr[0].trim().equals(param.trim())) {
+		if (param.equalsIgnoreCase("null") && strArr[0].trim().equals(param.trim())) {
 				return "0";
 		}
 
-		if(param.equalsIgnoreCase("")  && ( strArr[0].trim().equals("0") || strArr[0].trim().equals("1"))){
+		if(param.equalsIgnoreCase("null")  && ( strArr[0].trim().equals("0") || strArr[0].trim().equals("1"))){
 			return "0";
 		}
 		

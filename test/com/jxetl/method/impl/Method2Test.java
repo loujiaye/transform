@@ -41,9 +41,17 @@ public class Method2Test {
 		str = MethodFactory.getById("2").invoke("86861802,213", "null", "null", "null");
 		assertEquals("",str);
 		str = MethodFactory.getById("2").invoke("86791830,791", "null", "null", "null");
-		assertEquals("791830",str);
+		assertEquals("830",str);
 		str = MethodFactory.getById("2").invoke("00867971212121212290,797", "null", "null", "null");
-		assertEquals("7971212121212290",str);
+		assertEquals("1212121212290",str);
+		str = MethodFactory.getById("2").invoke("797,797", "null", "null", "null");
+		assertEquals("",str);
+		str = MethodFactory.getById("2").invoke("17950188,797", "null", "null", "null");
+		assertEquals("188",str);
+		str = MethodFactory.getById("2").invoke("86068286,797", "null", "null", "null");
+		assertEquals("286",str);
+		str = MethodFactory.getById("2").invoke("16309223740,797", "null", "null", "null");
+		assertEquals("163",str);
 		
 		
 		

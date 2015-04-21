@@ -71,17 +71,19 @@ public class Method2 implements DealMethod {
 			//26|17858828502|017858828502
 			//26|17715035104|017715035104
 			//26|17091779110|017091779110
-			if(a.startsWith("013") || a.startsWith("015")   
-					|| a.startsWith("0147") || a.startsWith("018")  || a.startsWith("0179")){
+			if( a.startsWith("0188") || a.startsWith("0130") || a.startsWith("0152") ) {
+				return a;
+			} else if(a.startsWith("013") || a.startsWith("015")   || a.startsWith("018") ){
 				if(len >= 12){
 					return a.substring(1,12);
 				}else{
 					return "";
 				}
-			} else if(len != 9 || len != 8){
+			} else  if(len != 9 || len != 8){
 				if(a.startsWith("0" + b)){
 					return a.substring(1+codeLen);
 				}
+				//26|06855071|55071
 			} 
 			
 			//return a;
@@ -91,25 +93,37 @@ public class Method2 implements DealMethod {
 			return invoke(a.substring(2) + "," + b , defaultValue,param,mapName);
 		}
 		//System.out.println(a);
-		
+	  if(a.startsWith("068")){
+			return a.substring(3);
+		}
 		//26|18018|     a:8618018
+		//26|5|179955
 		if(len > 5){
 			if(a.startsWith("12591") || a.startsWith("12592") || a.startsWith("12593") || a.startsWith("17951")  ||  a.startsWith("17960")  ||  a.startsWith("17920") ||  a.startsWith("17921")
 					|| a.startsWith("17950")  ||a.startsWith("17900")  || a.startsWith("17901")  || a.startsWith("17908")  || a.startsWith("17909")  ||  a.startsWith("17910")  || a.startsWith("17930")  ||
 					a.startsWith("17931")  || a.startsWith("17991")  || a.startsWith("17996")  || a.startsWith("17990")|| a.startsWith("17961")|| a.startsWith("17968") || a.startsWith("17969")
-					 || a.startsWith("17970") || a.startsWith("17971") || a.startsWith("17995") || a.startsWith("17998") || a.startsWith("17999") )
+					 || a.startsWith("17970") || a.startsWith("17971")  || a.startsWith("17998") || a.startsWith("17999") || a.startsWith("17911") || a.startsWith("17902")   )
 			{
 				return invoke(a.substring(5) + "," + b , defaultValue,param,mapName);
 			}
 			
-			/*if(a.startsWith("200") || a.startsWith("300")){
-				return  a.substring(3); 
-			}*/
+			
 		}
-		//26|1802|   a:86861802
+		
+		//26||013 a:86300013
 		//26|3003|3
 		if(len > 3){
-			if(a.startsWith("190") || a.startsWith("193") || a.startsWith("195") || a.startsWith("196") ||  a.startsWith("197")  ||a.startsWith("200") || a.startsWith("300")){
+			if(a.startsWith("200") || a.startsWith("300")){
+				return  invoke(a.substring(3) + "," + b , defaultValue,param,mapName); 
+			}
+		}
+		
+
+		
+		//26|1802|   a:86861802
+		
+		if(len >= 3){
+			if(a.startsWith("190") || a.startsWith("193") || a.startsWith("195") || a.startsWith("196") ||  a.startsWith("197")  ){
 				return  invoke(a.substring(3) + "," + b , defaultValue,param,mapName);
 			}
 			
@@ -119,16 +133,16 @@ public class Method2 implements DealMethod {
 			//26||177082 Òì³£Î´½â¾ö
 			//26||179297
 			//26|17770067379|177700673792
-			
-			if(a.startsWith("13") || a.startsWith("15")  || a.startsWith("18")) {
+			//3||189
+			if(a.startsWith("188") || a.startsWith("130") || a.startsWith("152") ) {
+				return a;
+			}else if(a.startsWith("13")  || a.startsWith("18") || a.startsWith("15") ) {
 				if(len >= 11){
 					return a.substring(0,11);
 				}else{
 					return "";
 				}
-			}else if(a.startsWith("170") || a.startsWith("177") || a.startsWith("179") || a.startsWith("147")) {
-				return a;
-			}else if(a.startsWith(b) ){
+			}else  if(codeLen != 0 && a.startsWith(b) ){
 				//26|796|   a:796 b:796
 				//26|791830|830 
 				//26|7971212121212290|1212121212290

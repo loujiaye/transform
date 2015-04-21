@@ -64,8 +64,27 @@ public class Method6 implements DealMethod {
 				return m.group(1) + "-" + m.group(2) + "-" + m.group(3)
 						+ " " + m.group(4) + ":" + m.group(5) + ":" + m.group(6);
 			} else {
-				//暂时处理
-				return str+"-- ::";
+				str = str.trim();
+				int len=str.length();
+				String tmp="";
+				if(len >= 14){
+					return str.substring(0,4) + "-" + str.substring(4,6)   + "-" + str.substring(6,8)  +  " " + str.substring(8,10)  + ":" + str.substring(10,12) +  ":" + str.substring(12 ,14); 
+				}else if(len >= 12){
+					return str.substring(0,4) + "-" + str.substring(4,6)   + "-" + str.substring(6,8)  +  " " + str.substring(8,10)  + ":" + str.substring(10,12) +  ":" + str.substring(12 ,len); 
+				}else if(len >= 10){
+					return str.substring(0,4) + "-" + str.substring(4,6)   + "-" + str.substring(6,8)  +  " " + str.substring(8,10)  + ":" + str.substring(10,len) +  ":" ;
+				}else if(len >= 8){
+					return str.substring(0,4) + "-" + str.substring(4,6)   + "-" + str.substring(6,8)  +  " " + str.substring(8,len)  + ":"  +  ":" ;
+				}else if(len >= 6){
+					return str.substring(0,4) + "-" + str.substring(4,6)   + "-" + str.substring(6,len)  +  " " + ":" +  ":" ;
+				}else if(len >= 4){
+					return str.substring(0,4) + "-" + str.substring(4,len)   + "-" +  " " + ":" +  ":" ;
+				} else if( len > 0) {
+					return str.substring(0,len) + "--" +  " " + ":" +  ":" ;
+				} else {
+					return "";
+				}
+
 			}
 		} else{
 			throw new MethodDealException("method6 参数不对");

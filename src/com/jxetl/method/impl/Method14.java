@@ -48,6 +48,12 @@ public class Method14 implements DealMethod {
 		} else if(param.equals("2")){
 			
 		} else if(param.equals("3")){
+			//因791869匹配为7 但是显示都是0 所以剔除
+			//54|7|0    a:079186975860  b:791
+			if(mapName.equals("map_call_opposite")){
+				map.remove("791869");
+			}
+			
 			for(String key : map.keySet()){
 				if(str.startsWith(key)){
 					return map.get(key);

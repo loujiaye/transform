@@ -1,0 +1,7 @@
+dest/*
+result/*
+srcfile/*
+log/*
+.classpath
+.do_not_generate
+.fatjar

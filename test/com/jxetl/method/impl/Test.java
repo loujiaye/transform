@@ -11,8 +11,8 @@ public class Test {
 		
 		System.out.println(baseName + "/extract/part-00000");*/
 		
-		String str = "abc";
-		str = str.substring(1,3);
+		String str = "797";
+		str =str.substring(3, 3);
 		System.out.println(str);
 	}
 
