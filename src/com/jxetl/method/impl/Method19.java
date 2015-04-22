@@ -34,7 +34,7 @@ public class Method19 implements DealMethod {
 			String mapName) throws MethodDealException {
 	
 		String[] strArr = str.split(",");
-		if (param.equalsIgnoreCase("null") && strArr[0].trim().equals(param.trim())) {
+		if (!param.equalsIgnoreCase("null") && strArr[0].trim().equals(param.trim())) {
 				return "0";
 		}
 

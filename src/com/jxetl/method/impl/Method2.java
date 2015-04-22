@@ -71,9 +71,17 @@ public class Method2 implements DealMethod {
 			//26|17858828502|017858828502
 			//26|17715035104|017715035104
 			//26|17091779110|017091779110
+			
+			
 			if( a.startsWith("0188") || a.startsWith("0130") || a.startsWith("0152") ) {
-				return a;
-			} else if(a.startsWith("013") || a.startsWith("015")   || a.startsWith("018") ){
+				if(len != 12){
+					return "";
+				} else{
+					return a.substring(1);
+				}
+				
+			} else 
+			if(a.startsWith("013") || a.startsWith("015")   || a.startsWith("018") ){
 				if(len >= 12){
 					return a.substring(1,12);
 				}else{
@@ -122,7 +130,7 @@ public class Method2 implements DealMethod {
 		
 		//26|1802|   a:86861802
 		
-		if(len >= 3){
+		if(len > 3){
 			if(a.startsWith("190") || a.startsWith("193") || a.startsWith("195") || a.startsWith("196") ||  a.startsWith("197")  ){
 				return  invoke(a.substring(3) + "," + b , defaultValue,param,mapName);
 			}
@@ -134,9 +142,9 @@ public class Method2 implements DealMethod {
 			//26||179297
 			//26|17770067379|177700673792
 			//3||189
-			if(a.startsWith("188") || a.startsWith("130") || a.startsWith("152") ) {
+			/*if(a.startsWith("188") || a.startsWith("130") || a.startsWith("152") ) {
 				return a;
-			}else if(a.startsWith("13")  || a.startsWith("18") || a.startsWith("15") ) {
+			}else*/ if(a.startsWith("13")  || a.startsWith("18") || a.startsWith("15") ) {
 				if(len >= 11){
 					return a.substring(0,11);
 				}else{
