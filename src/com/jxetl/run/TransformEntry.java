@@ -175,7 +175,7 @@ public class TransformEntry {
 		}		
 	}
 	
-	public static class Reduce extends Reducer<Text, Text, NullWritable, Text> 
+	public static class Reduce extends Reducer<Text, Text, Text, NullWritable> 
 	{
 	
 
@@ -186,7 +186,7 @@ public class TransformEntry {
 		{
 			
 			for(Text value : values){
-				context.write(null, key);
+				context.write(key,null );
 			}			
 		}		
 	}

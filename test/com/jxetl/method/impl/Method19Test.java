@@ -11,7 +11,7 @@ public class Method19Test {
 
 	@Test
 	public void test() throws MethodDealException {
-		String str = MethodFactory.getById("19").invoke("0,68", "null", "0", "null");
+		String str = MethodFactory.getById("19").invoke("0 ,68", "null", "0", "null");
 		assertEquals("0" , str);
 	}
 

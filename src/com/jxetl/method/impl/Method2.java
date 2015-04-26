@@ -72,8 +72,10 @@ public class Method2 implements DealMethod {
 			//26|17715035104|017715035104
 			//26|17091779110|017091779110
 			
-			
-			if( a.startsWith("0188") || a.startsWith("0130") || a.startsWith("0152") ) {
+			//26|15231701118|  a:00860152317011185
+			//26|13067965775| a:0130679657759
+			//22|15163616678| a:0151636166789
+			if( a.startsWith("0188") || a.startsWith("0130") || a.startsWith("0152")  || a.startsWith("0151") ) {
 				if(len != 12){
 					return "";
 				} else{
@@ -101,15 +103,19 @@ public class Method2 implements DealMethod {
 			return invoke(a.substring(2) + "," + b , defaultValue,param,mapName);
 		}
 		//System.out.println(a);
-	  if(a.startsWith("068")){
-			return a.substring(3);
+		//26|17|06817
+	  if(len > 5 && a.startsWith("068")){
+			return invoke(a.substring(3) + "," + b , defaultValue,param,mapName);
 		}
 		//26|18018|     a:8618018
 		//26|5|179955
+	  //26|3208|179683208
+     //26|688|17960688
+	  //26|688|17960688
 		if(len > 5){
-			if(a.startsWith("12591") || a.startsWith("12592") || a.startsWith("12593") || a.startsWith("17951")  ||  a.startsWith("17960")  ||  a.startsWith("17920") ||  a.startsWith("17921")
+			if(a.startsWith("12591") || a.startsWith("12592") || a.startsWith("12593") || a.startsWith("17951")   ||  a.startsWith("17920") ||  a.startsWith("17921")
 					|| a.startsWith("17950")  ||a.startsWith("17900")  || a.startsWith("17901")  || a.startsWith("17908")  || a.startsWith("17909")  ||  a.startsWith("17910")  || a.startsWith("17930")  ||
-					a.startsWith("17931")  || a.startsWith("17991")  || a.startsWith("17996")  || a.startsWith("17990")|| a.startsWith("17961")|| a.startsWith("17968") || a.startsWith("17969")
+					a.startsWith("17931")  || a.startsWith("17991")  || a.startsWith("17996")  || a.startsWith("17990")|| a.startsWith("17961") || a.startsWith("17969")
 					 || a.startsWith("17970") || a.startsWith("17971")  || a.startsWith("17998") || a.startsWith("17999") || a.startsWith("17911") || a.startsWith("17902")   )
 			{
 				return invoke(a.substring(5) + "," + b , defaultValue,param,mapName);
@@ -142,27 +148,36 @@ public class Method2 implements DealMethod {
 			//26||179297
 			//26|17770067379|177700673792
 			//3||189
-			/*if(a.startsWith("188") || a.startsWith("130") || a.startsWith("152") ) {
-				return a;
-			}else*/ if(a.startsWith("13")  || a.startsWith("18") || a.startsWith("15") ) {
+		/*	if(a.startsWith("188") || a.startsWith("130") || a.startsWith("152") ) {
+				if(len != 11){
+					return "";
+				} else{
+					return a;
+				}
+			}*/else if(a.startsWith("13")  || a.startsWith("18") || a.startsWith("15") ) {
 				if(len >= 11){
 					return a.substring(0,11);
 				}else{
 					return "";
 				}
-			}else  if(codeLen != 0 && a.startsWith(b) ){
-				//26|796|   a:796 b:796
-				//26|791830|830 
-				//26|7971212121212290|1212121212290
-				//26|7961780|1780
-				//26|7914009333333|4009333333
-				return a.substring(codeLen);
 			}
+			
+		}
+		if(len >= 3) {
+			if(codeLen != 0 && a.startsWith(b) ){
+					//26|796|   a:796 b:796
+					//26|791830|830 
+					//26|7971212121212290|1212121212290
+					//26|7961780|1780
+					//26|7914009333333|4009333333
+					return a.substring(codeLen);
+				}
+		}
 			//26|172946|172
 		/*	else if(len >= 6 && len <= 8){
 				return a;
 			} */
-			
+		if(len > 3){
 			if(a.startsWith("172")){
 				if(a.startsWith("17266") || a.startsWith("17200") ||a.startsWith("17201") || a.startsWith("17202")  ){
 					return a.substring(0,5);
